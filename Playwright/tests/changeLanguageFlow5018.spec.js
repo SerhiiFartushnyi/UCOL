@@ -28,7 +28,7 @@ const password = config.password;
 
 // Change Language
 
-test('Change Language', async ({ page }) => {
+test.only ('Change Language', async ({ page }) => {
 
     await page.goto('/');
     // Enter the login credentials
@@ -54,7 +54,6 @@ test('Change Language', async ({ page }) => {
     await page.locator('#language-dropdown').getByText('Español').click();
 
     //Accertion of the language change to Espaniol
-
     expect(page.url()).toContain('/?language=es');
     await expect(page.getByRole('navigation')).toContainText('aprender');
 
@@ -94,25 +93,23 @@ test.skip('Check Language Applied after relogin', async ({ page }) => {
 });
 
 test('Change Language Not logged in User', async ({ page }) => {
-    
     await page.goto('/');
-    
+
     //Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
 
     // Attempt to click on the #language-toggler element directly
-
     await page.waitForLoadState('networkidle'); //!!!WAIT FOR ALL RENDERED !!! WAIT FOR ALL NETWORK REQUESTS TO FINISHED 
     await expect(page.locator('#language-toggler')).toBeVisible();
     await page.locator('#language-toggler').click();
 
     await page.waitForLoadState('networkidle')
-    await page.locator('#language-dropdown').getByText('Español').click();
+    await page.locator('#language-dropdown').getByText('Português Brasileiro').click();
 
     //Accertion of the language change to Espaniol
     //await expect(page.locator('#dropdown-toggler')).toContainText('diseño');
     await expect(page.getByRole('navigation')).toContainText('aprender');
-    await expect(page.locator('#profile')).toContainText('acceso');
-    expect(page.url()).toContain('/?language=es');
+    await expect(page.locator('#profile')).toContainText('Conecte-se');
+    expect(page.url()).toContain('/?language=pt-br');
     
 });

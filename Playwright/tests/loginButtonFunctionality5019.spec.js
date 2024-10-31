@@ -16,7 +16,6 @@ test('Login button', async ({ page }) => {
 
     await page.goto('/');
 
-
     // Visual Test Main Page
     await expect(page.getByText('Design professional')).toBeVisible();
     const loginButton = page.locator('#profile').getByRole('paragraph').getByText('log in');
