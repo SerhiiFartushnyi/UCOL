@@ -1,0 +1,19 @@
+[user]
+	name = SerhiiFartushnyi
+	email = far2shok@gmail.com
+[alias]
+	ci = commit
+	co = checkout
+	br = branch
+	st = status
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches
+	pager = 
+[core]
+	pager = 
+	editor = nano
+	autocrlf = input
+	safecrlf = warn
+[format]
+	pretty = %h %ad | %s%d [%an]
+[log]
+	date = short
