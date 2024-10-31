@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-test('Enable Dark mode and Check', async ({ page }) => {
+test('Use Prompt To Design Not logged in User', async ({ page }) => {
 
     await page.goto('/generative-ai/');
 
