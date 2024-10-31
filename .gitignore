@@ -1,2 +1,7 @@
 Cypress/
+Playwright/node_modules
+Playwright/playwright-report
+Playwright/test-results/
 .gitconfig
+.gitignore
+
