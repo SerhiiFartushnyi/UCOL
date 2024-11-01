@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
 import config from './config';
-import { faker } from '@faker-js/faker';
-import { time } from 'console';
 
 //BEGOERE RUNING THE TESTS
 // RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
@@ -43,7 +41,7 @@ test.only('Formats Options Applying', async ({ page }) => {
     await page.waitForLoadState('networkidle');
     const formatButton = page.getByRole('button', { name: 'Formats' })
     await expect(formatButton).toBeVisible();
-    await formatButton.click({ timeout: 1000 });
+    await formatButton.click({ timeout:10000 });
 
     // Assertion of Formats Page 
     await expect(page.locator('section').filter({ hasText: 'Formats' })).toBeVisible();
@@ -88,7 +86,7 @@ test.only('Formats Options Applying', async ({ page }) => {
     await page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/assetLibrary"]').click();
     await expect(page.locator('section').filter({ hasText: 'Formats' })).not.toBeVisible();
 
-    //Click on the Formats button
+    //Click on the random Formats button
     await page.getByRole('button', { name: 'Formats' }).click();
 
     const formatButtons = page.locator('#formats-container button');
@@ -108,7 +106,11 @@ test.only('Formats Options Applying', async ({ page }) => {
         console.log('No buttons found within #asset-library-content');
     }
 
-const buttonTexts = new Set();
+    // Get the text of each button 
+    // This code should be refactored  Part with the button text extraction
+    // should be added to top of the test
+
+    const buttonTexts = new Set();
 
 // Iterate over each button to extract the text
 for (let i = 0; i < buttonsCounted2; i++) {
