@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test';
 test.use({ storageState: 'auth.json' });
 
 // sign Up Button Functionality
-test.only('Login button', async ({ page }) => {
+test ('Login button', async ({ page }) => {
 
     await page.goto('/');
 
