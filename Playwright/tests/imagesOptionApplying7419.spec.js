@@ -13,7 +13,7 @@ const password = config.password;
 
 // Images Options Applying
 test('Images Options Applying', async ({ page }) => {
-
+    test.slow();
     await page.goto('/');
 
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();

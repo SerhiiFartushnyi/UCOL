@@ -12,8 +12,8 @@ const mail = config.mail;
 const password = config.password;
 
 // Format Options Applying
-test.only('Formats Options Applying', async ({ page }) => {
-
+test ('Formats Options Applying', async ({ page }) => {
+    test.slow();
     await page.goto('/');
 
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
