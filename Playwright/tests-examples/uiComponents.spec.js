@@ -98,24 +98,6 @@ for(const color in colors){
 }
         await optionList.get(1).click(); // 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //     await radioButtons.get(0).click();
     //     await expect(radioButtons.get(0)).toBeChecked();
 
@@ -125,5 +107,3 @@ for(const color in colors){
     //     await radioButtons.get(2).click();
     //     await expect(radioButtons.get(2)).toBeChecked();
     // })
-
-})

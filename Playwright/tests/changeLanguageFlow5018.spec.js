@@ -28,7 +28,7 @@ const password = config.password;
 
 // Change Language
 
-test.only ('Change Language', async ({ page }) => {
+test ('Change Language', async ({ page }) => {
 
     await page.goto('/');
     // Enter the login credentials

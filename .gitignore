@@ -2,6 +2,7 @@ Cypress/
 Playwright/node_modules
 Playwright/playwright-report
 Playwright/test-results/
+Playwright/test-examples/
 .gitconfig
 .gitignore
 
