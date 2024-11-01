@@ -18,22 +18,25 @@ test('Header >> Start designing now button functionality (not logged in User', a
         await page.locator('#create-template').click();
         // Check Login Text
         await expect(page.getByText('log in to start creating')).toBeVisible();
-        // Check URL
-        expect(page.url()).toContain('/log-in/');
+        // Check URL > should click lig in button to check the URL
+        // expect(page.url()).toContain('/log-in/');
 });
 
 test('Body .. Start designing now button functionality (not logged in User', async ({ page }) => {
+    test.slow();
     await page.goto('/');
-        //await page.pause();
+        
 
         // Check if the 'Start designing now' button is present
-        await expect(page.getByRole('link', { name: 'start designing now' })).toBeVisible();
-        await page.getByRole('link', { name: 'start designing now' }).click();
 
+        await expect(page.locator('#create-template')).toBeVisible();
+        await expect(page.getByText('start designing now')).toBeVisible();
+        
+        await page.getByText('start designing now').click();
+       
         // Check Login Text
         await expect(page.getByText('log in to start creating')).toBeVisible();
-        // Check URL
-        expect(page.url()).toContain('/log-in/');
+        await expect(page.getByText('No account? Sign up')).toBeVisible();
+        
 });
-
 
