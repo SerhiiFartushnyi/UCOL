@@ -12,7 +12,7 @@ const mail = config.mail;
 const password = config.password;
 
 // Images Options Applying
-test('Formats Options Applying', async ({ page }) => {
+test('Images Options Applying', async ({ page }) => {
 
     await page.goto('/');
 
