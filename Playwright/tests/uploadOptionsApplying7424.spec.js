@@ -12,7 +12,7 @@ const mail = config.mail;
 const password = config.password;
 
 // Shapes Options Applying
-test.only('Upload Options Applying', async ({ page }) => {
+test('Upload Options Applying', async ({ page }) => {
     test.slow();
     await page.goto('/');
 

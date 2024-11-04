@@ -10,9 +10,11 @@ test.use({ storageState: 'auth.json' });
 
 const mail = config.mail;
 const password = config.password;
+const text = config.rephraseText;
 
 // Rephrase Options Applying
-test('Rephrase Options Applying', async ({ page }) => {
+
+test ('Rephrase Options Applying', async ({ page }) => {
     test.slow();
     await page.goto('/');
 
@@ -43,10 +45,12 @@ test('Rephrase Options Applying', async ({ page }) => {
     await textButton.click({ timeout: 1000 });
 
     await expect(page.locator('section').filter({ hasText: 'Write your text with A.I.' })).toBeVisible();
+    await expect(page.locator('#tab-container').getByRole('button', { name: 'GENERATE' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'HISTORY' })).toBeVisible();
 
     // Assertion of AI Page
     await page.getByPlaceholder('What do you want to write').click();
-    await page.getByPlaceholder('What do you want to write').fill('birthday wishes');
+    await page.getByPlaceholder('What do you want to write').fill(text);
     await page.locator('#generate-btn').click();
 
     page.waitForLoadState('networkidle');
