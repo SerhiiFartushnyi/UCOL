@@ -52,4 +52,10 @@ test('Text Options Applying', async ({ page }) => {
     await noOfTexts.nth(randomTextIndex).click();
     
     console.log(`Clicked on text at index: ${randomTextIndex}`);
+
+    //Click on X button to close the Formats panel
+    await page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/assetLibrary"]').click();
+    await expect(page.locator('section').filter({ hasText: 'Photos' })).not.toBeVisible();
+
+    await page.getByLabel('Undo').click();
 });
