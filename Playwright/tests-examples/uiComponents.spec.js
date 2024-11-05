@@ -26,6 +26,8 @@ test.describe('Form layouts page', () => {
 
     })
 
+})
+
     test('radio buttons', async ({page}) => {
         const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"})
 
@@ -94,9 +96,49 @@ for(const color in colors){
     if(color != 'Corporate'){           // if (color === 'Corporate') { 
         await dropDownMenu.click();    //    break;
     }                                  //  }
-
 }
-        await optionList.get(1).click(); // 
+await optionList.get(1).click(); // 
+});
+
+ // Do to Sources >> Use commbination (command+backslash) to freeze the browser
+test ('tooltips', async ({page}) => {
+    await page.getByText('Modal & Overlays').click();
+    await page.getByText('Tooltip').click();
+
+    const toolTipCard = page.locator('nb-card', {hasText: 'Tooltip Placement'});
+    await toolTipCard.getByRole('button',{name: "Top"}).hover();
+
+    page.getByRole('tooltip'); // if you have a role tooltip created
+
+    const toolTip = page.locator('nb-tooltip').textContent();
+    expect(toolTip).toEqual('This is a tooltip');
+});
+
+
+test ('dialog box', async ({page}) => {
+    await page.getByText('Tables & Data').click();
+    await page.getByText('Smart Table').click();
+
+    page.on('dialog', async dialog => {
+        expect(dialog.message()).toEqual('Are you sure you want to delete?');
+        dialog.accept();
+    });
+
+    await pagegetByRole('table').locator('tr', {hasText: 'mdo@gmail.com'}).locator('.nb-trash').click();
+    await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com');
+});
+
+//     const addNewButton = page.getByRole('button', {name: 'Add New'});
+//     await addNewButton.click();
+
+//     const dialogBox = page.locator('nb-dialog-container');
+//     await expect(dialogBox).toBeVisible();
+//     await expect(dialogBox).toHaveText('Add New User');
+
+//     await dialogBox.getByRole('button', {name: 'Close'}).click();
+//     await expect(dialogBox).not.toBeVisible();
+
+// });
 
     //     await radioButtons.get(0).click();
     //     await expect(radioButtons.get(0)).toBeChecked();
@@ -106,4 +148,4 @@ for(const color in colors){
 
     //     await radioButtons.get(2).click();
     //     await expect(radioButtons.get(2)).toBeChecked();
-    // })
+
