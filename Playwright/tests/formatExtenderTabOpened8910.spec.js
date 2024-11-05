@@ -13,9 +13,9 @@ const mail = config.mail;
 const password = config.password;
 
 
-//Re-gen Tab Opening 
+//Format Extender Tab Opening 
 
-test ('Re-gen Tab Opening', async ({ page }) => {
+test ('Format Extender Tab Opening', async ({ page }) => {
     test.slow();
     await page.goto('/');
 
@@ -34,7 +34,7 @@ test ('Re-gen Tab Opening', async ({ page }) => {
 
     await page.waitForLoadState('networkidle');
 
-    // Go To Scene Tab
+    // Go To Scene Tab >> Format Extender
     await page.getByText('features', { exact: true }).click();
     await page.getByRole('link', { name: 'format extender' }).click();
 
@@ -42,7 +42,11 @@ test ('Re-gen Tab Opening', async ({ page }) => {
     
     //await page.goto('/tool/studio/');
 
+    await expect(page.getByRole('heading', { name: 'format extender' })).toBeVisible();
+    await expect(page.getByText('Select one of your projects')).toBeVisible();
+
+    // Click another tab and than check if Format extender button is working 
     await page.locator('#re-gen').click();
-    await expect(page.getByRole('heading', { name: 're-gen *beta' })).toBeVisible();
-    await expect(page.getByText('welcome to re-gen')).toBeVisible();
+    await page.locator('#format-extender').click();
+    await expect(page.getByRole('heading', { name: 'format extender' })).toBeVisible();
 });
