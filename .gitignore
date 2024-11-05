@@ -5,4 +5,6 @@ Playwright/test-results/
 Playwright/test-examples/
 .gitconfig
 .gitignore
+auth.json
+playwright.config.js
 
