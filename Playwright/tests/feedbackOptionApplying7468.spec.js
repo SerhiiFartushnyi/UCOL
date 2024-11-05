@@ -78,4 +78,5 @@ test ('Feedback Options Applying', async ({ page }) => {
     await page.goto('/admin/upc/feedback/');
     await page.waitForLoadState('networkidle');
     await expect(page.locator('#result_list')).toContainText(randomWords);
+    
 });

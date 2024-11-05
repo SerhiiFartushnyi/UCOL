@@ -12,7 +12,8 @@ test.use({ storageState: 'auth.json' });
 const mail = config.mail;
 const password = config.password;
 
-// p2d Tab Opened Functionallity !!!! WERY SLOW TEST 
+// p2d Tab Opened Functionallity !!!!
+// WERY SLOW TEST :)
 
 test('p2d Tab Opened', async ({ page }) => {
     test.slow();
@@ -107,12 +108,7 @@ test('p2d Tab Opened', async ({ page }) => {
     await expect(page.locator('.p2d-container--header--title')).toHaveText('choosing design styles...')
     await expect(page.locator('.p2d-container--header--title')).toHaveText('select your favorite style')
 
-    // Click on the Randon button
-    // Locate the parent element containing buttons
-
-    // const parentElement = page.locator('.p2d-container--content--generation-container button');
-
-    // Count the child button elements
+    // Count the button elements and click on a random one
     const buttonCount = await parentElement.count();
     console.log(`Number of buttons: ${buttonCount}`);
 
@@ -129,7 +125,7 @@ test('p2d Tab Opened', async ({ page }) => {
         console.log('No buttons found in .p2d-container--content--generation-container');
     }
     // Check if User is redirected to Scene Page 
-    expect(page.url()).toContain('/tool/studio/'); 
+    expect(page.url()).toContain('/tool/studio/');
 
     await expect(page.locator('.p2d-container--header--title')).toHaveText('generating your design...')
 
