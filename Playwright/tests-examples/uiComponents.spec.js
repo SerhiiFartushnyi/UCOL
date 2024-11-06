@@ -72,6 +72,7 @@ test.describe('Form layouts page', () => {
         page.getByRole('listitem') //when list has a LI tag
 
         //const optionList = page.getByRole('list').locator('nb-option');
+        
         const optionList = page.locator('nb-option-list nb-option');
         await expect(optionList).toHaveText(['Light', 'Dark', 'Cosmic', 'Corporate']);
 
@@ -128,7 +129,48 @@ test ('dialog box', async ({page}) => {
     await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com');
 });
 
-//     const addNewButton = page.getByRole('button', {name: 'Add New'});
+
+test ('web tables', async ({page}) => {
+    await page.getByText('Tables & Data').click();
+    await page.getByText('Smart Table').click();
+    
+    // 1 get the raw by any text in this raw
+    const targetRaw = page.getByRole('raw', {name: "twitter@outlook.com"});
+    await targetRaw.locator('nb-edit').click();
+
+    await page.locator('input-edit').getByPlaceholder('Age').clear();
+    await page.locator('input-edit').getByPlaceholder('Age').fill('39');
+    await page.locator('.nb-checkmark').click();
+
+    // 2 get the based on the value in the spacifc column
+    await page.locator('.ng2-smart-pagination-nav').getByText('2').click();
+    const targetRawById = page.getByRole('raw', {name: '11'}).filter({has: page.locator('td').nth(1).getByText('11')});
+    await targetRawById.click();
+    await page.locator('input-edit').getByPlaceholder('E-mail').clear();
+    await page.locator('input-edit').getByPlaceholder('E-mail').fill('test@test.com');
+    await page.locator('.nb-checkmark').click();
+    await expect(targetRawById.locator('td').nth(5)).toHaveText('test@test.com');
+});
+
+
+
+//     const table = page.locator('table');
+//     const tableRows = table.locator('tr');
+//     const tableColumns = table.locator('th');
+
+//     const tableData = table.locator('td');
+
+//     await expect(tableRows).toHaveCount(6);
+//     await expect(tableColumns).toHaveCount(6);
+//     await expect(tableData).toHaveCount(30);
+
+//     const tableRow = table.locator('tr', {hasText: 'Larry'});
+//     await expect(tableRow).toBeVisible();
+
+//     const tableRowData = tableRow.locator('td');
+//     await expect(tableRowData).toHaveText(['Larry', 'the Bird', '
+
+// //     const addNewButton = page.getByRole('button', {name: 'Add New'});
 //     await addNewButton.click();
 
 //     const dialogBox = page.locator('nb-dialog-container');
@@ -148,4 +190,3 @@ test ('dialog box', async ({page}) => {
 
     //     await radioButtons.get(2).click();
     //     await expect(radioButtons.get(2)).toBeChecked();
-
