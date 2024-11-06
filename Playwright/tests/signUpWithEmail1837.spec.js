@@ -2,9 +2,9 @@ import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 const config = require('./config');
 
+const randomEmail = faker.internet.email();
+
 test.use({ storageState: 'auth.json' });
-
-
 
 test('Sign Up Wrong Email', async ({ page }) => {
     await page.goto('/');
@@ -29,7 +29,7 @@ test('Sign Up Wrong Email', async ({ page }) => {
     await page.getByText('sign up').click();
 
     await page.getByPlaceholder('enter your e-mail address').click();
-    await page.getByPlaceholder('enter your e-mail address').fill('far2shok@yahoo.com');
+    await page.getByPlaceholder('enter your e-mail address').fill('far2shok@test.com');
     await page.getByPlaceholder('8 char. +1 symbol, number,').click();
     await page.getByPlaceholder('8 char. +1 symbol, number,').fill('Qwert1234!');
     await page.getByPlaceholder('confirm your password').click();
@@ -40,7 +40,7 @@ test('Sign Up Wrong Email', async ({ page }) => {
     await expect(page.locator('#auth-form')).toContainText('The two password fields didn’t match.');
 });
 
-test.skip('Sign Up >> No Verification code', async ({ page }) => {
+test('Sign Up >> No Verification code', async ({ page }) => {
 
     const randomName = faker.person.firstName();
     const randomSurname = faker.person.lastName();
@@ -73,4 +73,17 @@ test.skip('Sign Up >> No Verification code', async ({ page }) => {
     await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
     await expect(page.locator('#auth-form')).toContainText('This field is required.');
 
+
+    const randomCode = generateRandomCode();
+    console.log(`Generated random code: ${randomCode}`);
+
+    await page.getByPlaceholder('Verification code').click();
+    await page.getByPlaceholder('Verification code').fill('123456');
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
 });
+
+// Function to generate a 6-digit random code
+function generateRandomCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}

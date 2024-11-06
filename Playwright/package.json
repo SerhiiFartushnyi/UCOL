@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
+    "axios": "^1.7.7",
     "pixelmatch": "^6.0.0",
     "pngjs": "^7.0.0"
   }

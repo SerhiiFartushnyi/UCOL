@@ -8,11 +8,10 @@ const config = require('./config');
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-const mail = config.mail;
+const mail2 = config.mail2;
 const password = config.password;
 const mail1 = config.mail1;
 const password1 = config.password1;
-
 
 test(' header >> Start Designing User Without projects', async ({ page }) => {
 
@@ -21,8 +20,7 @@ test(' header >> Start Designing User Without projects', async ({ page }) => {
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
     await page.getByPlaceholder('enter your e-mail address').click();
 
-    await page.getByPlaceholder('enter your e-mail address').fill(mail);
-
+    await page.getByPlaceholder('enter your e-mail address').fill(mail2);
 
     await page.getByRole('button', { name: 'Log in' }).click();
     await page.getByPlaceholder('8 char. +1 symbol, number,').click();
@@ -43,7 +41,6 @@ test(' header >> Start Designing User Without projects', async ({ page }) => {
     await goToScene.click();
 
     expect(page.url()).toContain('/scene/');
-
 });
 
 test(' header >> Start Designing User WITH projects', async ({ page }) => {
@@ -74,9 +71,4 @@ test(' header >> Start Designing User WITH projects', async ({ page }) => {
     await page.waitForLoadState('networkidle');
     expect(page.url()).toContain('/scene/');
     await expect(page.getByRole('button', { name: 'Projects' })).toBeVisible();
-
 });
-
-
-
-

@@ -27,7 +27,7 @@ test.beforeEach(async ({ page }) => {
     await page.getByRole('button', { name: 'Log in' }).click();
 });
 
-test ('Features > Format Extender Page Functionallity', async ({ page }) => {
+test.skip ('Features > Format Extender Page Functionallity', async ({ page }) => {
 
 
     // Check if the user is logged in

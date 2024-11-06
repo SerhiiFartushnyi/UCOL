@@ -34,7 +34,7 @@ test('User Profile is opened ',async ({ page }) => {
 
     // Check if the user is logged in
 
-    const profile = page.getByRole('img', { name: 'Avatar profile' })
+    const profile = page.locator('#profile-toggler');
     await expect(profile).toBeVisible();
     await profile.click();
 

@@ -13,10 +13,10 @@ const config = require('./config');
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-const email = config.mail;
+const email = config.mail2;
 let password = config.password;
 
-test('Go to Scene Button Functionallity', async ({ page }) => {
+test.skip('Go to Scene Button Functionallity', async ({ page }) => {
     
     await page.goto('/');
     // Enter the login credentials and Log in

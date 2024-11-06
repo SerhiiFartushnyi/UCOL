@@ -12,7 +12,7 @@ const mail = config.mail;
 const password = config.password;
 
 // Forgot Password Flow
-test.skip('Forgot Password Flow', async ({ page }) => {
+test.skip ('Forgot Password Flow', async ({ page }) => {
     await page.goto('/');
 
         //await page.pause();
@@ -41,32 +41,40 @@ test.skip('Forgot Password Flow', async ({ page }) => {
     await page.getByPlaceholder('name@workemail.com').fill('serhii.fartushnyi+ucl@coaxsoft.com');
     await page.getByRole('button', { name: 'Send e-mail' }).click();
 
-    // //Check Forgot passwor Message 
-    // await expect(page.locator('#auth-modal-content')).toContainText('We\'ve sent you email with instructions.');
-
     // Check if one of the two possible messages is present
-    const messageLocator = page.locator('#auth-form-content');
-    // const messageLocator = page.getByText('You have exceeded the rate')
 
+    await expect(page.getByText(/We've sent you email with instructions.|You have exceeded the rate limit for sending verification codes. Please try again later or contact the support for help./)).toBeVisible();
+    
+    if (await page.getByText('You have exceeded the rate limit for sending verification codes. Please try again later or contact the support for help.').isVisible()) {
+        page.close();
+        return; // Exit the test early
+  } else {
+/*
+If your flow includes email verification, Playwright’s API can interact with an email service API 
+to retrieve the reset link for further actions. This kind of setup typically involves using 
+third-party libraries or tools to read and extract content from email messages.
 
-    //getByText('You have exceeded the rate')
+For example, you can use the Gmail API to retrieve the email with the reset link.
 
-    await expect(messageLocator).toBeVisible();
-
-  
-    const messageText = await messageLocator.textContent();
-    console.log('Message text:', messageText);
-
-    const isMessageCorrect = messageText.includes("We've sent you email with instructions.") ||
-                            messageText.includes("You have exceeded the rate limit for sending verification codes. Please try again later or contact the support for help.");
-
-    await expect(isMessageCorrect).toBe(true);
-
-    // Check the email with the instructions
-
+>> Here implemented intedaction with Gmail UI 
+*/
+    await page.waitForTimeout(30000);
     await page.goto('https://mail.google.com/mail/u/0/#inbox');
 
+    await page.getByRole('link', { name: 'Restore your password  -' }).click();
 
-    await page.goto('/');
+    const page1Promise = page.waitForEvent('popup');
+    await page.getByRole('link', { name: 'RESET YOUR PASSWORD' }).click();
+    const page1 = await page1Promise;
 
+    await page1.getByPlaceholder('new password').click();
+
+    await page1.getByRole('button', { name: 'Reset password' }).click();
+    await page1.getByPlaceholder('new password').fill('Qwert12345!');
+    await page1.getByPlaceholder('confirm password').click();
+    await page1.getByPlaceholder('confirm password').fill('Qwert12345!');
+    // Check if User is logged in 
+    await expect(page1.getByText('Design professional')).toBeVisible();}
+
+    // Also we can check if user is able to lok in with new password
 });
