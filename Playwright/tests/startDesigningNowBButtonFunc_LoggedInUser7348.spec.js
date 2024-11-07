@@ -13,7 +13,7 @@ const password = config.password;
 const mail1 = config.mail1;
 const password1 = config.password1;
 
-test(' header >> Start Designing User Without projects', async ({ page }) => {
+test (' header >> Start Designing User Without projects', async ({ page }) => {
 
     await page.goto('/');
 

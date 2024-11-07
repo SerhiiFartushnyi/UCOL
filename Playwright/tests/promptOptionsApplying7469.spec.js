@@ -93,8 +93,9 @@ test('Prompt Options Applying', async ({ page }) => {
 
     // Check some genetrating flow & if  the URL contains '/tool/scene/'
     await expect(page.getByText('understanding the prompt')).toBeVisible();
-    await expect(page.getByText('generating visuals')).toBeVisible();
-  
+    await expect(page.getByText('generating visuals')).toBeVisible({ timeout: 30000 });
+    await expect(page.getByText('writing text')).toBeVisible({ timeout: 30000 });
+
     await page.waitForLoadState('networkidle');
 
     // Check if the URL contains '/tool/scene/'

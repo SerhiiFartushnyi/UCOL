@@ -61,8 +61,9 @@ test.describe('Form layouts page', () => {
         for (const box of await allBoxes.all()) {
             await box.check({force: true})
             expect(await box.isChecked()).toBeTruthy()
+            }
         }
-    });
+    );
 
     test('list and dropdowns', async ({page}) => {
         const dropDownMenu = page.locator('ngx-header nb select')
@@ -150,7 +151,32 @@ test ('web tables', async ({page}) => {
     await page.locator('input-edit').getByPlaceholder('E-mail').fill('test@test.com');
     await page.locator('.nb-checkmark').click();
     await expect(targetRawById.locator('td').nth(5)).toHaveText('test@test.com');
+
+    // 3 test filter of the table
+    const ages = ['20', '30', '40', '200']; 
+
+    for( let age of ages){
+        await page.locator('input-filter').getByPlaceholder('Age').clear
+        await page.locator('input-filter').getByPlaceholder('Age').fill(age);
+        await page.waitForTimeout(500);
+        const ageRows = page.locator('table tr')
+
+        for(let row of ageRows.all()){
+            const cellValue = await row.locator('td').last().textContent();
+
+            if (age === '200'){
+                expect(await page.getByRole('table').textContent()).toContain('No data found');
+            }
+            else{
+            expect(cellValue).toEqual(age);
+            }
+        }
+    }
 });
+
+
+
+
 
 
 
