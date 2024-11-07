@@ -29,7 +29,7 @@ test.skip('Reset Password >> Direct click wo entering email', async ({ page }) =
 
 
     await page.getByPlaceholder('name@workemail.com').click();
-    await page.getByPlaceholder('name@workemail.com').fill('serhii.fartushnyi+ucl@coaxsoft.com');
+    await page.getByPlaceholder('name@workemail.com').fill(mail);
     await page.getByRole('button', { name: 'Send e-mail' }).click();
 
     //Check Popup message
