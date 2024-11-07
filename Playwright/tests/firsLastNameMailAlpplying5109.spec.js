@@ -28,7 +28,6 @@ test.beforeEach(async ({ page }) => {
     await page.getByPlaceholder('8 char. +1 symbol, number,').click();
     await page.getByPlaceholder('8 char. +1 symbol, number,').fill(password);
     await page.getByRole('button', { name: 'Log in' }).click();
-
 });
 
 test('Profile popup', async ({ page }) => {
