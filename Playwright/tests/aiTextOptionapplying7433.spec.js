@@ -1,9 +1,11 @@
 import { test, expect } from '@playwright/test';
 import config from './config';
 
-//BEGOERE RUNING THE TESTS
-// RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
-// RUN npx playwright test tests/loginUcol.spec.js
+/*
+BEFOERE RUNING THE TESTS
+RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
+RUN npx playwright test tests/loginUcol.spec.js
+*/
 
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
@@ -63,16 +65,6 @@ test ('AI Text Options Applying', async ({ page }) => {
     expectedOptions.forEach(option => {
     expect(options).toContain(option, `Option "${option}" should be available.`);
     });
-
-    // // Check if specific options are available
-    // const expectedOptions = ['Body', 'Free-form', 'Headline']; // Add all expected options here
-    // expectedOptions.forEach(option => {
-    // if (options.includes(option)) {
-    //     console.log(`Option "${option}" is available.`);
-    // } else {
-    //     console.log(`Option "${option}" is NOT available.`);
-    // }
-    // });
 
     // Assertion of Footer buttons
     await expect(page.locator('#tab-container').getByRole('button', { name: 'GENERATE' })).toBeVisible();

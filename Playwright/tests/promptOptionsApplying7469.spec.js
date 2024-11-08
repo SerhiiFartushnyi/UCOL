@@ -2,11 +2,13 @@ import { test, expect } from '@playwright/test';
 import config from './config';
 import { faker } from '@faker-js/faker';
 
-//BEGOERE RUNING THE TESTS
-// RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
-// RUN npx playwright test tests/loginUcol.spec.js
+/*
+BEFOERE RUNING THE TESTS
+RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
+RUN npx playwright test tests/loginUcol.spec.js
+*/
 
-// Use the saved authentication state
+//Use the saved authentication state
 
 test.use({ storageState: 'auth.json' });
 
@@ -132,6 +134,4 @@ test('Prompt Options Applying', async ({ page }) => {
         console.log('Soft assertion errors:', softAssertions.length);
         softAssertions.forEach(assertion => console.log(assertion));
     }
-
 });
-

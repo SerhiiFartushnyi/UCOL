@@ -2,10 +2,11 @@ import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 const config = require('./config');
 
-
-//BEGOERE RUNING THE TESTS
-// RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
-// RUN npx playwright test tests/loginUcol.spec.js
+/*
+BEFOERE RUNING THE TESTS
+RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
+RUN npx playwright test tests/loginUcol.spec.js
+*/
 
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
@@ -14,14 +15,12 @@ const mail = config.mail;
 const password = config.password;
 
 // Enable Dark Mode and Check
-
 test('Enable Dark mode and Check', async ({ page }) => {
 
     await page.goto('/');
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
     await page.getByPlaceholder('enter your e-mail address').click();
     await page.getByPlaceholder('enter your e-mail address').fill(mail);
-
 
     await page.getByRole('button', { name: 'Log in' }).click();
     await page.getByPlaceholder('8 char. +1 symbol, number,').click();
@@ -33,10 +32,12 @@ test('Enable Dark mode and Check', async ({ page }) => {
     await expect(page.locator('#language-toggler path')).toBeVisible();
 
     await page.waitForLoadState('networkidle')
-    await page.waitForSelector('img', { name: 'Avatar profile' });
-    // await page.getByRole('img', { name: 'Avatar profile' })).toBeVisible(); 
-    await page.getByRole('img', { name: 'Avatar profile' }).click();
 
+    const profileIcon = page.locator('#profile-toggler');
+    await page.waitForSelector('#profile-toggler');
+    await expect(profileIcon).toBeVisible();
+    await profileIcon.click();
+    
     // await page.(locator('#profile-container span')).filter({ hasText: 'Dark Mode' })
     await page.locator('#profile-container label span').click();
 

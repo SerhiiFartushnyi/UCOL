@@ -55,8 +55,6 @@ to retrieve the reset link for further actions. This kind of setup typically inv
 third-party libraries or tools to read and extract content from email messages.
 
 For example, you can use the Gmail API to retrieve the email with the reset link.
-
->> Here implemented intedaction with Gmail UI 
 */
     await page.waitForTimeout(30000);
     await page.goto('https://mail.google.com/mail/u/0/#inbox');
@@ -76,5 +74,5 @@ For example, you can use the Gmail API to retrieve the email with the reset link
     // Check if User is logged in 
     await expect(page1.getByText('Design professional')).toBeVisible();}
 
-    // Also we can check if user is able to lok in with new password
+    // Also we can check if user is able to log in with new password
 });

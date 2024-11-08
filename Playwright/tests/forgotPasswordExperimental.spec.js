@@ -2,9 +2,11 @@ import { test, expect } from '@playwright/test';
 const config = require('./config');
 const axios = require('axios');
 
-//BEGOERE RUNING THE TESTS
-// RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
-// RUN npx playwright test tests/loginUcol.spec.js
+/*
+BEFOERE RUNING THE TESTS
+RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
+RUN npx playwright test tests/loginUcol.spec.js
+*/
 
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
@@ -79,6 +81,7 @@ const password = config.password;
 
 //     // Also we can check if user is able to lok in with new password
 // });
+
 // Replace with your Mailinator API key
 const MAILINATOR_API_KEY = 'your_mailinator_api_key';
 

@@ -55,7 +55,6 @@ test.skip ('Features > Format Extender Page Functionallity', async ({ page }) =>
     await page.locator('#format-extender').click();
 
     // Choose random project 
-
     const containers = await page.locator('.project--image-container--image');
      const containerCount = await containers.count();
      const randomIndex3 = Math.floor(Math.random() * containerCount);
@@ -71,6 +70,7 @@ test.skip ('Features > Format Extender Page Functionallity', async ({ page }) =>
     // Get the count of checkboxes
     const checkboxCount = await checkboxes.count();
     console.log(checkboxCount, 'checkbox count');
+    
     // Generate a random index
     const randomIndex = Math.floor(Math.random() * checkboxCount);
     // Check the checkbox at the random index

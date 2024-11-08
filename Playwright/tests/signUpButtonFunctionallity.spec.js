@@ -1,9 +1,11 @@
 import { test, expect } from '@playwright/test';
 const config = require('./config');
 
-//BEGOERE RUNING THE TESTS
-// RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
-// RUN npx playwright test tests/loginUcol.spec.js
+/*
+BEFOERE RUNING THE TESTS
+RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
+RUN npx playwright test tests/loginUcol.spec.js
+*/
 
 // Use the saved authentication state
 
@@ -19,6 +21,7 @@ test ('Sign Up Button Functionallity ', async ({ page }) => {
     // Check Popup Modal Text 
     await expect(page.locator('#auth-modal-content')).toContainText('Sign up');
     await expect(page.locator('#auth-modal-content')).toContainText('Have an account? Log in');
+    
     //Check Sign In Popup Modal Screenshot
     //await expect(page.locator('#auth-modal-content')).toHaveScreenshot('signUpButtonPopup.png');
 

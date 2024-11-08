@@ -1,8 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 const config = require('./config');
-
 const randomEmail = faker.internet.email();
+
+/*
+BEFOERE RUNING THE TESTS
+RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
+RUN npx playwright test tests/loginUcol.spec.js
+*/
 
 test.use({ storageState: 'auth.json' });
 
@@ -22,10 +27,9 @@ test('Sign Up Wrong Email', async ({ page }) => {
     await expect(page.locator('#auth-form')).toContainText('Enter a valid email address.');
 });
 
-    test('Sign Up Wrong Password', async ({ page }) => {
+test('Sign Up Wrong Password', async ({ page }) => {
 
     await page.goto('/');
-
     await page.getByText('sign up').click();
 
     await page.getByPlaceholder('enter your e-mail address').click();
@@ -45,10 +49,10 @@ test('Sign Up >> No Verification code', async ({ page }) => {
     const randomName = faker.person.firstName();
     const randomSurname = faker.person.lastName();
 
-  await page.goto('/');
-  await page.getByText('sign up').click();
-  await page.getByPlaceholder('enter your e-mail address').click();
-  await page.getByPlaceholder('enter your e-mail address').fill('far2shok@yahoo.com');
+    await page.goto('/');
+    await page.getByText('sign up').click();
+    await page.getByPlaceholder('enter your e-mail address').click();
+    await page.getByPlaceholder('enter your e-mail address').fill('far2shok@yahoo.com');
 
     await page.getByPlaceholder('8 char. +1 symbol, number,').click();
     await page.getByPlaceholder('8 char. +1 symbol, number,').fill('Qwert1234!');
@@ -85,5 +89,5 @@ test('Sign Up >> No Verification code', async ({ page }) => {
 
 // Function to generate a 6-digit random code
 function generateRandomCode() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+    return Math.floor(100000 + Math.random() * 900000).toString();
 }

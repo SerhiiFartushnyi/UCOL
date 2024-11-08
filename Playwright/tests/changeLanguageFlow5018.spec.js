@@ -107,7 +107,6 @@ test('Change Language Not logged in User', async ({ page }) => {
     await page.locator('#language-dropdown').getByText('Português Brasileiro').click();
 
     //Accertion of the language change to Espaniol
-    //await expect(page.locator('#dropdown-toggler')).toContainText('diseño');
     await expect(page.getByRole('navigation')).toContainText('aprender');
     await expect(page.locator('#profile')).toContainText('Conecte-se');
     expect(page.url()).toContain('/?language=pt-br');

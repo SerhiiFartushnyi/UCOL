@@ -1,13 +1,10 @@
 import { test, expect } from '@playwright/test';
 const config = require('./config');
 
-/* 
- // Define the flag to skip beforeEach for specific tests
- let skipBeforeEach = false;
-
-//BEGOERE RUNING THE TESTS
- RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
- RUN npx playwright test tests/loginUcol.spec.js
+/*
+BEFOERE RUNING THE TESTS
+RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
+RUN npx playwright test tests/loginUcol.spec.js
 */
 
 // Use the saved authentication state
@@ -31,10 +28,10 @@ test('Edit Button Functionallity', async ({ page }) => {
     await page.getByRole('button', { name: 'Log in' }).click();
 
     // Check if the user is logged in
-    await expect(page.getByRole('img', { name: 'Avatar profile' })).toBeVisible();
-
-    await page.waitForLoadState('networkidle');
-    await page.getByRole('img', { name: 'Avatar profile' }).click();
+    const profileIcon = page.locator('#profile-toggler');
+    await page.waitForSelector('#profile-toggler');
+    await expect(profileIcon).toBeVisible();
+    await profileIcon.click();
 
     // Click on Project Button
     await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();
@@ -42,11 +39,7 @@ test('Edit Button Functionallity', async ({ page }) => {
 
    // Go to Projects and click on first project
     await expect(page.locator('#projects-container')).toContainText('Edit');
-    //await page.locator('#projects-container').click();
-
-    //await page.locator('.edit-btn-container-darkened').first().click();
     
-
     // Check if the dark theme button exists
 const darkThemeButton = page.locator('.edit-btn-container-darkened').first();
 const normalThemeButton = page.locator('.edit-btn-container').first();
