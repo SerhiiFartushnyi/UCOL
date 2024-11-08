@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { time } from 'console';
+import { timeout } from '../playwright.config';
 const config = require('./config');
 
 /* 
@@ -114,17 +116,21 @@ test.skip ('Project > Format Extender Page Functionality', async ({ page }) => {
     // await page.waitForSelector('.formats-container--dropdown--formats--option--checkbox');
     // // const containers = page.locator('[class="infinite-item selection-area-el flex flex-col w-[186px] h-fit sm:w-full border-[#e5e5e5] border-solid border-2"]');
     // // const containers = page.locator('#project-item-container .w-\\[85\\%\\]');
-    // const containers = page.locator('#projects-container  .project-item-container.sm\\:!w-full');
+    //await page.waitForSelector('#projects-container #project-item');
 
-    // console.log(containers, ' Format Extender item');
+    //await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(5000); // Wait for 5000 milliseconds (5 seconds)
+    const containers = page.locator('#projects-container #project-item');
 
-    // const containerCount = await containers.count();
-    // console.log(containerCount, ' Counted items');
-    // page.pause();
-    // const randomIndex3 = Math.floor(Math.random() * containerCount);
-    // await containers.nth(randomIndex3).click();
+     console.log(containers, ' Format Extender item');
 
-    await page.locator('#format-extender-tab-content > #projects-container > .selection-area-container > #project-item > .project-item-container > div:nth-child(2) > .w-\\[85\\%\\] > p:nth-child(2)').first().click();
+    const containerCount = await containers.count();
+    console.log(containerCount, ' Counted items');
+ 
+    const randomIndex3 = Math.floor(Math.random() * containerCount);
+    await containers.nth(randomIndex3).click();
+
+    //await page.locator('#format-extender-tab-content > #projects-container > .selection-area-container > #project-item > .project-item-container > div:nth-child(2) > .w-\\[85\\%\\] > p:nth-child(2)').first().click();
 
     await page.getByRole('button', { name: 'next' }).click();
     
