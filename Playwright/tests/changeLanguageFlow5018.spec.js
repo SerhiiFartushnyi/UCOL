@@ -57,7 +57,10 @@ test ('Change Language', async ({ page }) => {
     expect(page.url()).toContain('/?language=es');
     await expect(page.getByRole('navigation')).toContainText('aprender');
 
-    await page.getByRole('img', { name: 'Avatar profile' }).click();
+    const profileIcon = page.locator('#profile-toggler');
+    await page.waitForSelector('#profile-toggler');
+    await expect(profileIcon).toBeVisible();
+    await profileIcon.click();
     await expect(page.locator('#profile-container')).toContainText('Desconectar');
     
     // Click on the element with the text 'Desconectar'
@@ -87,7 +90,9 @@ test.skip('Check Language Applied after relogin', async ({ page }) => {
     //await expect(page.locator('#dropdown-toggler')).toContainText('diseño');
     await page.waitForLoadState('networkidle')
     await expect(page.getByRole('navigation')).toContainText('aprender');
-    await page.getByRole('img', { name: 'Avatar profile' }).click();
+    const profileIcon = page.locator('#profile-toggler');
+    await page.waitForSelector('#profile-toggler');
+    await profileIcon.click();
     await expect(page.locator('#profile-container')).toContainText('Desconectar');
 
 });
@@ -110,5 +115,4 @@ test('Change Language Not logged in User', async ({ page }) => {
     await expect(page.getByRole('navigation')).toContainText('aprender');
     await expect(page.locator('#profile')).toContainText('Conecte-se');
     expect(page.url()).toContain('/?language=pt-br');
-    
 });

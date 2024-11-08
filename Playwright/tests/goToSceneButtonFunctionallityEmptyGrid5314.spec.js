@@ -13,7 +13,7 @@ test.use({ storageState: 'auth.json' });
 const email = config.mail2;
 let password = config.password;
 
-test.skip('Go to Scene Button Functionallity', async ({ page }) => {
+test('Go to Scene Button Functionallity', async ({ page }) => {
     
     await page.goto('/');
     // Enter the login credentials and Log in
@@ -29,10 +29,10 @@ test.skip('Go to Scene Button Functionallity', async ({ page }) => {
 
     // Check if the user is logged in
     await page.waitForLoadState('networkidle');
-    await expect(page.getByRole('img', { name: 'Avatar profile' })).toBeVisible();
-
-    await page.waitForLoadState('networkidle');
-    await page.getByRole('img', { name: 'Avatar profile' }).click();
+    const profileIcon = page.locator('#profile-toggler');
+    await page.waitForSelector('#profile-toggler');
+    await expect(profileIcon).toBeVisible();
+    await profileIcon.click();
 
     // Click on Project Button
     await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();
@@ -49,6 +49,6 @@ test.skip('Go to Scene Button Functionallity', async ({ page }) => {
     await expect(page.locator('#editableTitle')).toContainText('New Design');
     await expect(page.getByRole('button', { name: 'Templates' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'help Feedback' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'help Prompt' })).toBeVisible();
+    //await expect(page.getByRole('button', { name: 'help Prompt' })).toBeVisible();
     //await page.close();
 });

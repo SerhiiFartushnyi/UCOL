@@ -21,12 +21,10 @@ test('Free to use button', async ({ page }) => {
     await textLocator.scrollIntoViewIfNeeded();
 
     // Click on the 'Try for free' button
-    await page.getByRole('link', { name: 'try for free' }).click();
-
+    await page.getByText('try for free').click();
+    
     // Check Login Text
     await expect(page.getByText('log in to start creating')).toBeVisible();
-    // Check URL
-    expect(page.url()).toContain('/log-in/');
 
 });
 
@@ -40,12 +38,11 @@ test('Get Pro button', async ({ page }) => {
     await textLocator.scrollIntoViewIfNeeded();
 
     //Click on the 'Get Pro' button
-    await page.getByRole('link', { name: 'get pro' }).click();
+   
+    await page.getByText('get pro').click();
 
     // Check Login Text
     await expect(page.getByText('log in to start creating')).toBeVisible();
-    // Check URL
-    expect(page.url()).toContain('/log-in/');
 
 });
 

@@ -27,17 +27,12 @@ test.beforeEach(async ({ page }) => {
     await page.getByRole('button', { name: 'Log in' }).click();
 });
 
-test.skip ('Features > Format Extender Page Functionallity', async ({ page }) => {
-
-
-    // Check if the user is logged in
-    await expect(page.getByRole('img', { name: 'Avatar profile' })).toBeVisible();
+test ('Features > Format Extender Page Functionallity', async ({ page }) => {
 
     // Go to Features and click Format Extender
     await page.getByText('features', { exact: true }).hover();
  
     await page.getByRole('link', { name: 'format extender' }).click();
-    await page.pause();
 
     //Check format extender page and button 
     await expect(page.locator('body')).toContainText('create a whole set of designs in a few simple clicks');
@@ -65,16 +60,18 @@ test.skip ('Features > Format Extender Page Functionallity', async ({ page }) =>
 
     // Choose format in Formats page (Randon from all existing formats)
     // Get all the checkboxes
-
+    await page.waitForSelector('.formats-container--dropdown--formats--option--checkbox');
     const checkboxes = await page.locator('.formats-container--dropdown--formats--option--checkbox');
     // Get the count of checkboxes
+    
     const checkboxCount = await checkboxes.count();
     console.log(checkboxCount, 'checkbox count');
-    
+
     // Generate a random index
     const randomIndex = Math.floor(Math.random() * checkboxCount);
     // Check the checkbox at the random index
     await checkboxes.nth(randomIndex).check();
+    console.log(randomIndex, 'checkbox checked');
     
     await page.getByRole('button', { name: 'next' }).click();
     await expect(page.locator('#root')).toContainText('creating formats...');
@@ -95,7 +92,6 @@ test.skip ('Features > Format Extender Page Functionallity', async ({ page }) =>
     //const downloadPromise = page.waitForEvent('download');
     await page.getByText('download all').click();
 
-    await page.close();
     // const download = await downloadPromise;
     // await page.getByText('homeCampaign-1729771939-').click();
 });
@@ -103,8 +99,10 @@ test.skip ('Features > Format Extender Page Functionallity', async ({ page }) =>
 test.skip ('Project > Format Extender Page Functionality', async ({ page }) => {
 
     // Check if the user is logged in
-    await expect(page.getByRole('img', { name: 'Avatar profile' })).toBeVisible();
-    await page.waitForSelector('img');
+   const profileIcon = page.locator('#profile-toggler');
+    await page.waitForSelector('#profile-toggler');
+    await expect(profileIcon).toBeVisible();
+    await profileIcon.click();
     
     // Go to Projects and click Format Extender
     await page.goto('/projects/');
@@ -113,7 +111,7 @@ test.skip ('Project > Format Extender Page Functionality', async ({ page }) => {
     await page.getByRole('button', { name: 'extend format' }).click();
 
     // await page.waitForLoadState('networkidle');
-
+    // await page.waitForSelector('.formats-container--dropdown--formats--option--checkbox');
     // // const containers = page.locator('[class="infinite-item selection-area-el flex flex-col w-[186px] h-fit sm:w-full border-[#e5e5e5] border-solid border-2"]');
     // // const containers = page.locator('#project-item-container .w-\\[85\\%\\]');
     // const containers = page.locator('#projects-container  .project-item-container.sm\\:!w-full');
