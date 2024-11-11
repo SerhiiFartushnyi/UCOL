@@ -15,7 +15,7 @@ const mail = config.mail;
 const password = config.password;
 
 // Forgot Password Flow
-// test.skip ('Forgot Password Flow', async ({ page }) => {
+//test.skip ('Forgot Password Flow', async ({ page }) => {
 //     await page.goto('/');
 
 //         //await page.pause();

@@ -77,6 +77,47 @@ test('Sign Up >> No Verification code', async ({ page }) => {
     await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
     await expect(page.locator('#auth-form')).toContainText('This field is required.');
 
+    const randomCode = generateRandomCode();
+    console.log(`Generated random code: ${randomCode}`);
+
+    await page.getByPlaceholder('Verification code').click();
+    await page.getByPlaceholder('Verification code').fill('123456');
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
+});
+
+test.skip('Sign Up With mailJet', async ({ page }) => {
+
+    const randomName = faker.person.firstName();
+    const randomSurname = faker.person.lastName();
+
+    await page.goto('/');
+    await page.getByText('sign up').click();
+    await page.getByPlaceholder('enter your e-mail address').click();
+    await page.getByPlaceholder('enter your e-mail address').fill('serhii.farushnyi+ @coaxsoft.com');
+
+    await page.getByPlaceholder('8 char. +1 symbol, number,').click();
+    await page.getByPlaceholder('8 char. +1 symbol, number,').fill('Qwert1234!');
+    await page.getByPlaceholder('confirm your password').click();
+    await page.getByPlaceholder('confirm your password').fill('Qwert1234!');
+    await page.getByRole('button', { name: 'Next' }).click();
+
+    // Check Popup to be visible
+    await expect(page.getByText('Enter your name')).toBeVisible();
+
+    // Fill the User Full Name
+    await page.getByPlaceholder('enter your first name').click();
+    await page.getByPlaceholder('enter your first name').fill(randomName);
+    await page.getByPlaceholder('enter your last name').click();
+    await page.getByPlaceholder('enter your last name').fill(randomSurname);
+    await page.getByRole('button', { name: 'Next' }).click();
+
+    // Check Popup to be visible
+    await expect(page.getByText('Get verified')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
+    await expect(page.locator('#auth-form')).toContainText('This field is required.');
 
     const randomCode = generateRandomCode();
     console.log(`Generated random code: ${randomCode}`);
@@ -91,3 +132,5 @@ test('Sign Up >> No Verification code', async ({ page }) => {
 function generateRandomCode() {
     return Math.floor(100000 + Math.random() * 900000).toString();
 }
+
+

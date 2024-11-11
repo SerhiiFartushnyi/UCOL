@@ -38,18 +38,15 @@ test ('Formats Options Applying', async ({ page }) => {
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
-    await page.waitForLoadState('networkidle');
+    
     const formatButton = page.getByRole('button', { name: 'Formats' })
-    await expect(formatButton).toBeVisible();
     await page.waitForLoadState('networkidle');
+    await expect(formatButton).toBeVisible();
     await formatButton.click({ timeout:10000 });
 
     // Assertion of Formats Page 
     await expect(page.locator('section').filter({ hasText: 'Formats' })).toBeVisible();
     await expect(page.locator('#formats-container')).toBeVisible();
-
-    // // Check first default format check
-    // await expect(page.getByRole('button', { name: 'Profile Picture 320 x 320' })).toBeVisible();
 
     //Search for a template Not existing Search request
     await page.getByPlaceholder('Search ...').click();
@@ -58,12 +55,50 @@ test ('Formats Options Applying', async ({ page }) => {
     await expect(page.getByText('No Elements')).toBeVisible();
     await page.getByPlaceholder('Search ...').clear();
 
-    // // Search for a existing format 
-//----------
+
+
+    // // Search for a existing format
 
 //----------
-     const formats = ['instagram', 'facebook', 'twitter', 'linkedin', 'pinterest', 'tiktok', 'youtube', 'snapchat', 'twitch', 'print', 'clothing'];
-     const randomFormat = formats[Math.floor(Math.random() * formats.length)]
+ //Click on the random Formats button
+ await page.getByRole('button', { name: 'Formats' }).click();
+
+ const formatButtons = page.locator('#formats-container button');
+ const buttonsCounted2 = await formatButtons.count();
+
+ // Log the count of buttons
+ console.log(`Number of child buttons: ${buttonsCounted2}`);
+
+ if (buttonsCounted2 > 0) {
+     const randomIndex2 = Math.floor(Math.random() * buttonsCounted2);
+
+ // Click on a random Template button
+     await formatButtons.nth(randomIndex2).click();
+
+     console.log(`Clicked on the Style at index: ${randomIndex2}`);
+ } else {
+     console.log('No buttons found within #asset-library-content');
+ }
+
+ // Get the text of each button 
+ // This code should be refactored  Part with the button text extraction
+ // should be added to top of the test
+
+ const buttonTexts = new Set();
+
+// Iterate over each button to extract the text
+for (let i = 0; i < buttonsCounted2; i++) {
+const buttonText = await formatButtons.nth(i).locator('div > p').last().innerText();
+buttonTexts.add(buttonText);
+}
+const uniqueButtonTextsArray = Array.from(buttonTexts);
+
+console.log('Button texts:', uniqueButtonTextsArray);
+
+
+
+     const formats = uniqueButtonTextsArray
+    const randomFormat = formats[Math.floor(Math.random() * formats.length)]
     
     // Chose a random format 
     await page.getByPlaceholder('Search ...').click();
@@ -90,38 +125,4 @@ test ('Formats Options Applying', async ({ page }) => {
     //await page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/assetLibrary"]').click();
     await expect(page.locator('section').filter({ hasText: 'Formats' })).not.toBeVisible();
 
-    //Click on the random Formats button
-    await page.getByRole('button', { name: 'Formats' }).click();
-
-    const formatButtons = page.locator('#formats-container button');
-    const buttonsCounted2 = await formatButtons.count();
-
-    // Log the count of buttons
-    console.log(`Number of child buttons: ${buttonsCounted2}`);
-
-    if (buttonsCounted2 > 0) {
-        const randomIndex2 = Math.floor(Math.random() * buttonsCounted2);
-
-    // Click on a random Template button
-        await formatButtons.nth(randomIndex2).click();
-
-        console.log(`Clicked on the Style at index: ${randomIndex2}`);
-    } else {
-        console.log('No buttons found within #asset-library-content');
-    }
-
-    // Get the text of each button 
-    // This code should be refactored  Part with the button text extraction
-    // should be added to top of the test
-
-    const buttonTexts = new Set();
-
-// Iterate over each button to extract the text
-for (let i = 0; i < buttonsCounted2; i++) {
-  const buttonText = await formatButtons.nth(i).locator('div > p').last().innerText();
-  buttonTexts.add(buttonText);
-}
-const uniqueButtonTextsArray = Array.from(buttonTexts);
-
-console.log('Button texts:', uniqueButtonTextsArray);
 });

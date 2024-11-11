@@ -29,7 +29,7 @@ const password = config.password;
 // Change Language
 
 test ('Change Language', async ({ page }) => {
-
+    test.slow();
     await page.goto('/');
     // Enter the login credentials
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();

@@ -56,7 +56,7 @@ third-party libraries or tools to read and extract content from email messages.
 
 For example, you can use the Gmail API to retrieve the email with the reset link.
 */
-    await page.waitForTimeout(30000);
+    await page.waitForTimeout(5000);
     await page.goto('https://mail.google.com/mail/u/0/#inbox');
 
     await page.getByRole('link', { name: 'Restore your password  -' }).click();

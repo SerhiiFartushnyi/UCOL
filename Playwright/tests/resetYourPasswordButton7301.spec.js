@@ -27,7 +27,6 @@ test.skip('Reset Password >> Direct click wo entering email', async ({ page }) =
     // Click on Forgot password Button
     await page.getByText('I forgot my password').click();
 
-
     await page.getByPlaceholder('name@workemail.com').click();
     await page.getByPlaceholder('name@workemail.com').fill(mail);
     await page.getByRole('button', { name: 'Send e-mail' }).click();
@@ -45,7 +44,6 @@ test.skip('Reset Password >> Direct click wo entering email', async ({ page }) =
     const page1Promise = page.waitForEvent('popup');
     await page.getByRole('link', { name: 'RESET YOUR PASSWORD' }).click();
     const page1 = await page1Promise;
-
 
     await page1.getByPlaceholder('new password').click();
     await page1.getByPlaceholder('new password').fill('Qwert12345!');

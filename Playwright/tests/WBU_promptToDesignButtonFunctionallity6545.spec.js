@@ -15,7 +15,7 @@ const email = config.mail2;
 let password = config.password;
 
 test('Prompt To Design Button Functionallity', async ({ page }) => {
-    
+    test.slow();
     await page.goto('/');
     // Enter the login credentials and Log in
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();

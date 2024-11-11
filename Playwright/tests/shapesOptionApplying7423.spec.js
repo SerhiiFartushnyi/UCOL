@@ -47,11 +47,12 @@ test('Shapes Options Applying', async ({ page }) => {
 
     // Assertion of Shape Page
     await expect(page.locator('section').filter({ hasText: 'Shapes' })).toBeVisible();
-
     await expect(page.locator('#asset-library-content')).toBeVisible();
 
-    await page.waitForLoadState('networkidle');
-    await page.pause(1000);
+    // await page.waitForLoadState('networkidle');
+    // await page.pause(1000);
+
+    await page.waitForSelector('#asset-library-content button');
     const noOfShapes= page.locator('#asset-library-content button')
     const numberOfShapes = await noOfShapes.count();
 

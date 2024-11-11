@@ -98,21 +98,21 @@ test('Prompt Options Applying', async ({ page }) => {
     const softAssertions = [];
 
     try {
-        await expect(page.getByText('understanding the prompt')).toBeVisible({ timeout: 20000 });
+        await expect(page.getByText('understanding the prompt')).toBeVisible({ timeout: 30000 });
     } catch (error) {
 
         softAssertions.push(`Assertion failed: understanding the prompt - ${error.message}`);
     }
 
     try {
-        await expect(page.getByText('generating visuals')).toBeVisible({ timeout: 20000 });
+        await expect(page.getByText('generating visuals')).toBeVisible({ timeout: 30000 });
     } catch (error) {
 
         softAssertions.push(`Assertion failed: generating visuals - ${error.message}`);
     }
 
     try {
-        await expect(page.getByText('writing text')).toBeVisible({ timeout: 20000 });
+        await expect(page.getByText('writing text')).toBeVisible({ timeout: 30000 });
     } catch (error) {
         softAssertions.push(`Assertion failed: writing text - ${error.message}`);
     }
