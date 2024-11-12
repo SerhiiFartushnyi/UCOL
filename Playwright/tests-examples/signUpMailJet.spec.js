@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-const config = require('./config');
+const config = require('../tests/config');
 
 // const randomName = faker.person.firstName();
 // const randomSurname = faker.person.lastName();

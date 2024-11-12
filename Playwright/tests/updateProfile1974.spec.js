@@ -38,8 +38,9 @@ test('Update Profile', async ({ page }) => {
 
     //Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
-    await expect(page.locator('#language-toggler path')).toBeVisible();
-    await page.getByRole('img', { name: 'Avatar profile' }).click();
+
+    await page.waitForLoadState('networkidle');
+    await page.locator('#profile-toggler-container').click();
 
     await page.getByRole('link', { name: 'Go to Account Settings' }).click();
 

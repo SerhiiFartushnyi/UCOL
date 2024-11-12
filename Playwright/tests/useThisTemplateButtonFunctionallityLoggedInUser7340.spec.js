@@ -57,6 +57,7 @@ test('Use this template NOT Logged in User', async ({ page }) => {
 
     await page.waitForLoadState('networkidle');
     await page.locator('.infinite-item > .relative > .w-full').first().click();
+    
     await page.getByRole('link', { name: 'use this template' }).click();
 
     await page.waitForLoadState('networkidle');

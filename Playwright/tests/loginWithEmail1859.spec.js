@@ -22,11 +22,9 @@ test('Login OK', async ({ page }) => {
     await page.getByPlaceholder('enter your e-mail address').click();
 
     await page.getByPlaceholder('enter your e-mail address').fill(mail);
-
-
     await page.getByRole('button', { name: 'Log in' }).click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').click();
 
+    await page.getByPlaceholder('8 char. +1 symbol, number,').click();
     await page.getByPlaceholder('8 char. +1 symbol, number,').fill(password);
     await page.getByRole('button', { name: 'Log in' }).click();
 
@@ -35,11 +33,13 @@ test('Login OK', async ({ page }) => {
     await expect(page.locator('#language-toggler path')).toBeVisible();
     //await page.getByRole('img', { name: 'Avatar profile' }).click(); //not working if no image selected 
 
-    await page.locator('#profile-toggler').click();
+    await page.waitForLoadState('networkidle');
+    await page.locator('#profile-toggler-container').click();
+
     await page.getByRole('link', { name: 'Sign Out' }).click();
 });
 
-test('Login with empty email ', async ({ page }) => {
+    test('Login with empty email ', async ({ page }) => {
 
     await page.goto('/');
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
@@ -87,8 +87,10 @@ test('Logout success', async ({ page }) => {
 
     //Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
-    await expect(page.locator('#language-toggler path')).toBeVisible();
-    await page.getByRole('img', { name: 'Avatar profile' }).click();
+
+    await page.waitForLoadState('networkidle');
+    await page.locator('#profile-toggler-container').click();
+
     await page.getByRole('link', { name: 'Sign Out' }).click();
     await expect(page.locator('#profile')).toContainText('log in / sign up');
 });

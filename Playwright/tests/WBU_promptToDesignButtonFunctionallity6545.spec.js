@@ -29,11 +29,10 @@ test('Prompt To Design Button Functionallity', async ({ page }) => {
     await page.getByRole('button', { name: 'Log in' }).click();
 
     // Check if the user is logged in
-    
-    const profileIcon = page.locator('#profile-toggler');
-    await page.waitForSelector('#profile-toggler');
-    await expect(profileIcon).toBeVisible();
-    await profileIcon.click();
+    await page.waitForLoadState('networkidle');
+    const profile = page.locator('#profile-toggler-container');
+    await expect(profile).toBeVisible();
+    await profile.click();
 
     // Click on Project Button
     await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();

@@ -77,60 +77,76 @@ test('Sign Up >> No Verification code', async ({ page }) => {
     await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
     await expect(page.locator('#auth-form')).toContainText('This field is required.');
 
-    const randomCode = generateRandomCode();
-    console.log(`Generated random code: ${randomCode}`);
-
     await page.getByPlaceholder('Verification code').click();
     await page.getByPlaceholder('Verification code').fill('123456');
     await page.getByRole('button', { name: 'Next' }).click();
     await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
 });
 
-test.skip('Sign Up With mailJet', async ({ page }) => {
+test.skip ('Sign Up With Gmail', async ({ page }) => {
 
     const randomName = faker.person.firstName();
     const randomSurname = faker.person.lastName();
+    const randomEmail = `serhii.fartushnyi+${Math.floor(Math.random() * 10000)}@coaxsoft.com`;
 
     await page.goto('/');
-    await page.getByText('sign up').click();
-    await page.getByPlaceholder('enter your e-mail address').click();
-    await page.getByPlaceholder('enter your e-mail address').fill('serhii.farushnyi+ @coaxsoft.com');
+   
+    // await page.getByText('sign up').click();
+    // await page.getByPlaceholder('enter your e-mail address').click();
+    // await page.getByPlaceholder('enter your e-mail address').fill(randomEmail);
+    
+    // await page.getByPlaceholder('8 char. +1 symbol, number,').click();
+    // await page.getByPlaceholder('8 char. +1 symbol, number,').fill('Qwert1234!');
+    // await page.getByPlaceholder('confirm your password').click();
+    // await page.getByPlaceholder('confirm your password').fill('Qwert1234!');
+    // await page.getByRole('button', { name: 'Next' }).click();
 
-    await page.getByPlaceholder('8 char. +1 symbol, number,').click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').fill('Qwert1234!');
-    await page.getByPlaceholder('confirm your password').click();
-    await page.getByPlaceholder('confirm your password').fill('Qwert1234!');
-    await page.getByRole('button', { name: 'Next' }).click();
+    // // Check Popup to be visible
+    // await expect(page.getByText('Enter your name')).toBeVisible();
 
-    // Check Popup to be visible
-    await expect(page.getByText('Enter your name')).toBeVisible();
+    // // Fill the User Full Name
+    // await page.getByPlaceholder('enter your first name').click();
+    // await page.getByPlaceholder('enter your first name').fill(randomName);
+    // await page.getByPlaceholder('enter your last name').click();
+    // await page.getByPlaceholder('enter your last name').fill(randomSurname);
+    // await page.getByRole('button', { name: 'Next' }).click();
 
-    // Fill the User Full Name
-    await page.getByPlaceholder('enter your first name').click();
-    await page.getByPlaceholder('enter your first name').fill(randomName);
-    await page.getByPlaceholder('enter your last name').click();
-    await page.getByPlaceholder('enter your last name').fill(randomSurname);
-    await page.getByRole('button', { name: 'Next' }).click();
+    // // Check Popup to be visible
+    // await expect(page.getByText('Get verified')).toBeVisible();
 
-    // Check Popup to be visible
-    await expect(page.getByText('Get verified')).toBeVisible();
+const [gmailPage] = await Promise.all([
+    page.context().newPage(),
+    page.waitForTimeout(2000) // Ensure some delay if needed for network speed
+  ]);
+  await gmailPage.goto('https://mail.google.com');
 
-    await page.getByRole('button', { name: 'Next' }).click();
-    await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
-    await expect(page.locator('#auth-form')).toContainText('This field is required.');
+   // Log in to Gmail
+//   await gmailPage.getByPlaceholder('Email or phone').fill(randomEmail);
+//   await gmailPage.getByRole('button', { name: 'Next' }).click();
+//   await gmailPage.getByPlaceholder('Enter your password').fill('your-email-password');
+//   await gmailPage.getByRole('button', { name: 'Next' }).click();
 
-    const randomCode = generateRandomCode();
-    console.log(`Generated random code: ${randomCode}`);
+    // Extract the verification code from the email content
+    await gmailPage.getByRole('link', { name: 'Email Verification' }).first().click();
+    const emailContent = await gmailPage.getByText(/Your verification code: \d+/).last().innerText();
+    const verificationCode = emailContent.match(/\d+/)[0];
+    console.log('Verification code:', verificationCode);
 
-    await page.getByPlaceholder('Verification code').click();
-    await page.getByPlaceholder('Verification code').fill('123456');
-    await page.getByRole('button', { name: 'Next' }).click();
-    await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
+    await gmailPage.close();
+
+    await page.bringToFront();
+
+    // await page.getByPlaceholder('Verification code').click();
+    // await page.getByPlaceholder('Verification code').fill(verificationCode);
+    // await page.getByRole('button', { name: 'Next' }).click();
+
+    await page.waitForTimeout(5000);
+
+    // // Go Admin and check the user
+    // await page.goto('/admin/upc/user');
+    // await page.locator('#searchbar').click();
+    // await page.locator('#searchbar').fill(randomEmail);
+    // await expect(page.locator('#result_list')).toContainText(randomEmail);
 });
-
-// Function to generate a 6-digit random code
-function generateRandomCode() {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-}
 
 

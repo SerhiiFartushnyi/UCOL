@@ -33,7 +33,14 @@ test.beforeEach(async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     // Go to Change Password Page
-    await page.locator('#profile-toggler').click();
+
+    await page.waitForLoadState('networkidle');
+
+    const profileIcon = page.locator('#profile-toggler-container');
+    await page.waitForSelector('#profile-toggler-container');
+    await expect(profileIcon).toBeVisible();
+    await profileIcon.click();
+
     await page.getByRole('link', { name: 'Go to Account Settings' }).click();
     await page.waitForLoadState('networkidle')
     await page.getByRole('link', { name: 'password' }).click();

@@ -174,6 +174,47 @@ test ('web tables', async ({page}) => {
     }
 });
 
+test('date picker', async ({page}) => {
+    await page.getByText('Forms').click();
+    await page.getByText('Datepicker').click();
+
+    const calendarInputField = page.getByPlaceholder('Form Picker');
+    await calendarInputField.click();
+
+    let date = new Date();
+    date.setDate(date.getDate() + 1);
+    const expectedDate = date.getDate().toString();
+    const expectedMonthShort = date.toLocaleString('En-US', {month: 'short'});
+    const expectedMonthLong = date.toLocaleString('En-US', {month: 'long'});
+    const expectedYear = date.getFullYear().toString();
+    const dateToAssert = `${expectedMonthShort} ${expectedDate}, ${expectedYear}`;
+
+    // await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDate, {exact: true}).click();
+    // await expect(calendarInputField).toHaveValue(dateToAssert);
+
+    let calendarMonthAndYear = page.locator('nb-calendar-view-mode').textContent();
+    const expactedMonthAndYear = ` ${expectedMonthLong} ${expectedYear} `;
+    while(!calendarMonthAndYear.includes(expactedMonthAndYear)){
+        await page.locator('nb-calendar-pageable-navigation [data=name="chevron-right"]').click();
+        calendarMonthAndYear = page.locator('nb-calendar-view-mode').textContent();
+    }
+
+    await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDate, {exact: true}).click();
+    await expect(calendarInputField).toHaveValue(dateToAssert);
+
+//     const datepicker = page.locator('nb-card', {hasText: 'Datepicker'});
+//     await datepicker.getByRole('textbox').click();
+
+//     const datepickerCalendar = page.locator('nb-calendar-day-picker');
+//     await datepickerCalendar.getByRole('button', {name: '31'}).click();
+//     await datepickerCalendar.getByRole('button', {name: '15'}).click();
+//     await datepickerCalendar.getByRole('button', {name: '2022'}).click();
+
+//     const dateValue = await datepicker.getByRole('textbox').inputValue();
+//     expect(dateValue).toEqual('2022-01-15');
+});
+
+
 
 
 

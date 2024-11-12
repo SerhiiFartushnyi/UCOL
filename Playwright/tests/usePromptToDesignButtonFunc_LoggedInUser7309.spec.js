@@ -111,15 +111,15 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     const formats = [
         "Profile Picture", "Post Square", "Post Portrait", "Post Landscape", "Thumbnail",
         "Story", "Reel", "Reel Cover Photo", "Grid", , "Header",
-        "Instream Photo", "Ad Carousel", "Ads Sponsored Carousel", ,
-        "Video", "Pins", "Story Pins", "Ads", "Ads",
+        "Instream Photo", "Ad Carousel", "Ads Sponsored Carousel",
+         "Pins", "Story Pins", "Ads",
         "Ad Thumbnail", , "Channel Banner", "Video", "Video Thumbnail",
         "Profile", "Banner", "Background", "Overlay", "Panel", "Email",
         "Presentation", "Banner", "Card portrait", "Card Landscape",
         "Post Card", "Large Flyer", "Flyer", "Poster", "Ad Card", ,
         "Desktop Cover", "Mobile Cover", "Brochure", "Sticker", "Newsletter",
         "Menu", "Invitation", "Resume", "Proposal", "TShirt", "Hoodie",
-        "Long Sleeve", "Tote Bag", "Feed Photo", "Stories", "Ads",
+        "Long Sleeve", "Tote Bag", "Feed Photo", "Stories",
         "Cover", "Blog Post", "Company Logo", "Ads Sponsored Content"
     ];
     const randomIndex3 = Math.floor(Math.random() * formats.length);

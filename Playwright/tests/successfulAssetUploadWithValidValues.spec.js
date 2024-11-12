@@ -36,50 +36,52 @@ test.beforeEach(async ({ page }) => {
 });
 
 // Go to Projects and click on Assets Upload
-test ('succsessful Asset Upload With Valid Values', async ({ page }) => {
-await page.getByRole('img', { name: 'Avatar profile' }).click();
-await page.getByRole('link', { name: 'Go to Projects' }).click();
-// Check if we are on the Assets Upload Page
-await expect(page.locator('#ui-id-4')).toContainText('assets upload');
-await page.getByRole('link', { name: 'assets upload' }).click();
+test('succsessful Asset Upload With Valid Values', async ({ page }) => {
+    await page.waitForLoadState('networkidle');
+    await page.locator('#profile-toggler-container').click();
 
-await page.getByPlaceholder('name', { exact: true }).click();
+    await page.getByRole('link', { name: 'Go to Projects' }).click();
+    // Check if we are on the Assets Upload Page
+    await expect(page.locator('#ui-id-4')).toContainText('assets upload');
+    await page.getByRole('link', { name: 'assets upload' }).click();
 
-// Fill the form with valid values
-await page.getByPlaceholder('name', { exact: true }).fill(randomWord);
-await page.getByPlaceholder('description').click();
-await page.getByPlaceholder('description').fill(randomDescription);
+    await page.getByPlaceholder('name', { exact: true }).click();
 
-await page.locator('[placeholder="select asset type"]').click();
+    // Fill the form with valid values
+    await page.getByPlaceholder('name', { exact: true }).fill(randomWord);
+    await page.getByPlaceholder('description').click();
+    await page.getByPlaceholder('description').fill(randomDescription);
 
-// Choose a random item from the dropdown
-const items = ['Image', 'System Image', 'Shape'];
-const randomIndex = Math.floor(Math.random() * items.length);
-const randomItem = items[randomIndex];
-await page.getByText(randomItem, { exact: true }).click();
+    await page.locator('[placeholder="select asset type"]').click();
 
-// Select a random category
-await page.locator('[placeholder="select category"]').click();
-await page.waitForSelector('[placeholder="select category"]');
+    // Choose a random item from the dropdown
+    const items = ['Image', 'System Image', 'Shape'];
+    const randomIndex = Math.floor(Math.random() * items.length);
+    const randomItem = items[randomIndex];
+    await page.getByText(randomItem, { exact: true }).click();
 
-// Choose a random item from the dropdown
-const category = ['test assets', 'basic', 'shapes', 'abstract'];
-const randomIndex2 = Math.floor(Math.random() * category.length);
-const randomCategory = category[randomIndex2];
+    // Select a random category
+    await page.locator('[placeholder="select category"]').click();
+    await page.waitForSelector('[placeholder="select category"]');
 
-await page.getByText(randomCategory, { exact: true }).click();
+    // Choose a random item from the dropdown
+    const category = ['test assets', 'basic', 'shapes', 'abstract'];
+    const randomIndex2 = Math.floor(Math.random() * category.length);
+    const randomCategory = category[randomIndex2];
 
-//await page.locator('[placeholder="select tags"]').click();
+    await page.getByText(randomCategory, { exact: true }).click();
 
-// await page.locator('#assetUploadForm div').filter({ hasText: 'Tags ×' }).locator('div').nth(1).click();
-await page.getByPlaceholder('Select tags', { exact: true }).fill('image');
-page.getByPlaceholder('Select tags', { exact: true }).press('Enter');
+    //await page.locator('[placeholder="select tags"]').click();
 
-await page.locator('#file_input').setInputFiles('/Users/serhiifartushnyi/Downloads/473c3f48-646d-40fd-828d-501e2a86daa5.jpeg');
-await page.getByRole('button', { name: 'Save' }).click();
+    // await page.locator('#assetUploadForm div').filter({ hasText: 'Tags ×' }).locator('div').nth(1).click();
+    await page.getByPlaceholder('Select tags', { exact: true }).fill('image');
+    page.getByPlaceholder('Select tags', { exact: true }).press('Enter');
 
-// Assert that the success message is displayed
-await expect(page.locator('#successMessage')).toContainText('Shape has been successfully uploaded');
+    await page.locator('#file_input').setInputFiles('/Users/serhiifartushnyi/Downloads/473c3f48-646d-40fd-828d-501e2a86daa5.jpeg');
+    await page.getByRole('button', { name: 'Save' }).click();
+
+    // Assert that the success message is displayed
+    await expect(page.locator('#successMessage')).toContainText('Shape has been successfully uploaded');
 
 });
 

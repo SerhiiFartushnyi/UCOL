@@ -32,12 +32,12 @@ test.beforeEach(async ({ page }) => {
 test('Profile popup', async ({ page }) => {
 
     // Check if the user is logged in
-    await page.waitForSelector('img', { name: 'Avatar profile' });
-    await expect(page.getByRole('img', { name: 'Avatar profile' })).toBeVisible();
-
+    await expect(page.locator('#profile-toggler')).toBeVisible();
     await page.waitForLoadState('networkidle');
-    await page.getByRole('img', { name: 'Avatar profile' }).click();
-
+    await page.locator('#profile-toggler').click();
+    
+    await page.waitForLoadState('networkidle');
+   
     // Check Profile information
     await expect(page.locator('#profile-container')).toContainText('Daria Bochulya');
     await expect(page.locator('#profile-container')).toContainText(email);

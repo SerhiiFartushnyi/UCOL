@@ -29,8 +29,8 @@ test('User Profile is opened ',async ({ page }) => {
     await page.getByRole('button', { name: 'Log in' }).click();
 
     // Check if the user is logged in
-
-    const profile = page.locator('#profile-toggler');
+    await page.waitForLoadState('networkidle');
+    const profile = page.locator('#profile-toggler-container');
     await expect(profile).toBeVisible();
     await profile.click();
 

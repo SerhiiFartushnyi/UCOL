@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-const config = require('./config');
+const config = require('../tests/config');
 const axios = require('axios');
 
 /*

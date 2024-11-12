@@ -80,7 +80,7 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
 
     await page.waitForLoadState('networkidle');
     // Wait Untill Format was generated 
-   await page.waitForTimeout(8000);
+    await page.waitForTimeout(5000);
 
     // Check titles of the generated formats page 
    

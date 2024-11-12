@@ -28,8 +28,10 @@ test('Edit Button Functionallity', async ({ page }) => {
     await page.getByRole('button', { name: 'Log in' }).click();
 
     // Check if the user is logged in
-    const profileIcon = page.locator('#profile-toggler');
-    await page.waitForSelector('#profile-toggler');
+    await page.waitForLoadState('networkidle');
+
+    const profileIcon = page.locator('#profile-toggler-container');
+    await page.waitForSelector('#profile-toggler-container');
     await expect(profileIcon).toBeVisible();
     await profileIcon.click();
 
@@ -38,6 +40,7 @@ test('Edit Button Functionallity', async ({ page }) => {
     await page.getByRole('link', { name: 'Go to Projects' }).click();
 
    // Go to Projects and click on first project
+    await page.waitForLoadState('networkidle');
     await expect(page.locator('#projects-container')).toContainText('Edit');
     
     // Check if the dark theme button exists
@@ -55,6 +58,7 @@ if (await darkThemeButton.count() > 0) {
     // Check if the user Pedirected to The Scene Page and Project is opened
     expect(page.url()).toContain('/tool/scene');
 
+    await page.waitForLoadState('networkidle');
     await expect(page.locator('[id="projectBtn\\""]')).toContainText('Projects');
     await expect(page.locator('button[name="librarydock-my-templates-entry"]')).toContainText('Templates');
     await expect(page.locator('#root')).toContainText('Feedback');

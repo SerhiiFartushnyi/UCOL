@@ -4,6 +4,9 @@ const config = require('./config');
 
 // const inbox = config.mail2;
 
+// Use the saved authentication state
+test.use({ storageState: 'auth.json' });
+
 // Replace with your MailJet API credentials
 const MAILJET_API_KEY = 'cf3e397609206a91e8038fadd3166286';
 const MAILJET_API_SECRET = 'f19dc971809e9f2e999d6b0857d54914';

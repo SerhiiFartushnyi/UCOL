@@ -39,12 +39,12 @@ test('Templates Options Applying', async ({ page }) => {
      await expect(startDesigning).toBeVisible();
      await startDesigning.click();
 
+     await page.waitForLoadState('networkidle');
      const templateButton = page.getByRole('button', { name: 'Templates' })
      await expect(templateButton).toBeVisible();
      await templateButton.click();
 
      // Assertion of Templete Page 
-
      await expect(page.locator('section').filter({ hasText: 'Library' })).toBeVisible();
      await expect(page.getByPlaceholder('Search …')).toBeVisible();
      await expect(page.locator('#asset-library-content')).toBeVisible();

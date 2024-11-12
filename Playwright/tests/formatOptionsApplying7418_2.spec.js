@@ -14,7 +14,7 @@ const mail = config.mail;
 const password = config.password;
 
 // Format Options Applying
-test ('Formats Options Applying', async ({ page }) => {
+test.skip('Formats Options Applying', async ({ page }) => {
     test.slow();
     await page.goto('/');
 

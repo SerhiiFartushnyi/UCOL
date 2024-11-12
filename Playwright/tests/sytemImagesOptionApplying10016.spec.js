@@ -13,8 +13,8 @@ test.use({ storageState: 'auth.json' });
 const mail = config.mail;
 const password = config.password;
 
-// Images Options Applying
-test('Images Options Applying', async ({ page }) => {
+// System Images Options Applying
+test('System Images Options Applying', async ({ page }) => {
     test.slow();
     await page.goto('/');
 
@@ -39,14 +39,14 @@ test('Images Options Applying', async ({ page }) => {
     await startDesigning.click();
 
     await page.waitForLoadState('networkidle');
-    const imagesButton = page.getByRole('button', { name: 'Images', exact: true })
+    const imagesButton = page.getByRole('button', { name: 'System Images', exact: true })
 //    await imagesButton.click();
 
     await expect(imagesButton).toBeVisible();
     await imagesButton.click({ timeout: 1000 });
 
     // Assertion of Formats Page 
-    await expect(page.locator('section').filter({ hasText: 'Images' })).toBeVisible();
+    await expect(page.locator('section').filter({ hasText: 'Library' })).toBeVisible();
     await expect(page.locator('#asset-library-content')).toBeVisible();
 
     await page.waitForLoadState('networkidle');
@@ -64,9 +64,11 @@ test('Images Options Applying', async ({ page }) => {
     await page.getByPlaceholder('Search …').click();
     await page.getByPlaceholder('Search …').fill('064dridjwl');
     await page.getByPlaceholder('Search …').press('Enter');
+
+    await expect(page.getByText('No Elements')).toBeVisible();
     await page.getByPlaceholder('Search …').clear();
 
     // //Click on X button to close the Formats panel
     await page.locator('button[aria-label="Close"]').first().click();
-    await expect(page.locator('section').filter({ hasText: 'Images' })).not.toBeVisible();
+    await expect(page.locator('section').filter({ hasText: 'Library' })).not.toBeVisible();
 });

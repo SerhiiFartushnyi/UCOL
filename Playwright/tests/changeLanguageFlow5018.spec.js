@@ -57,6 +57,7 @@ test ('Change Language', async ({ page }) => {
     expect(page.url()).toContain('/?language=es');
     await expect(page.getByRole('navigation')).toContainText('aprender');
 
+    await page.waitForLoadState('networkidle');
     const profileIcon = page.locator('#profile-toggler');
     await page.waitForSelector('#profile-toggler');
     await expect(profileIcon).toBeVisible();
