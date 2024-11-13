@@ -16,17 +16,57 @@ const email = config.mail1;
 let password = config.password1;
 
 test.beforeEach(async ({ page }) => { 
-    await page.goto('/');
-    // Enter the login credentials and Log in
-    await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
-    await page.getByPlaceholder('enter your e-mail address').click();
+    test.slow();
+    await page.goto('/modal/log-in/');
 
-    // Used the saved email from the config file
-    await page.getByPlaceholder('enter your e-mail address').fill(email);
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').fill(password);
-    await page.getByRole('button', { name: 'Log in' }).click();
+    // Wait for CSRF token to be available
+    const csrfToken = await page.getAttribute('input[name="csrfmiddlewaretoken"]', 'value');
+    if (!csrfToken) {
+        throw new Error('CSRF token not found on the login page');
+    }
+
+    // Step 2: Send the pre-login request with extracted CSRF token
+    const preLoginResponse = await page.request.post('/modal/log-in/', {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Referer': `${config.baseUrl}/modal/log-in/`,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
+        },
+        form: {
+            csrfmiddlewaretoken: csrfToken,
+            'log_in_view-current_step': 'pre_log_in_form',
+            'pre_log_in_form-email': email
+        }
+    });
+
+    // Log pre-login response details for debugging
+    const preLoginBody = await preLoginResponse.text();
+
+    if (!preLoginResponse.ok()) {
+        throw new Error('Pre-login request failed');
+    }
+
+    // Step 3: Send the final login request
+    const loginResponse = await page.request.post('/modal/log-in/', {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Referer': `${config.baseUrl}/modal/log-in/`,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
+        },
+        form: {
+            csrfmiddlewaretoken: csrfToken,
+            'log_in_view-current_step': 'normal_log_in_form',
+            'normal_log_in_form-username': email,
+            'normal_log_in_form-password': password
+        }
+    });
+
+    if (!loginResponse.ok()) {
+        throw new Error('Login request failed');
+    }
+
+    // Navigate to site  
+    await page.goto('/');
 });
 
 test ('Features > Format Extender Page Functionallity', async ({ page }) => {
@@ -99,6 +139,7 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
     // await page.getByText('homeCampaign-1729771939-').click();
 });
 
+// Page will be Updated !!!!
 test.skip ('Project > Format Extender Page Functionality', async ({ page }) => {
 
     // Check if the user is logged in
@@ -130,8 +171,6 @@ test.skip ('Project > Format Extender Page Functionality', async ({ page }) => {
  
     const randomIndex3 = Math.floor(Math.random() * containerCount);
     await containers.nth(randomIndex3).click();
-
-    //await page.locator('#format-extender-tab-content > #projects-container > .selection-area-container > #project-item > .project-item-container > div:nth-child(2) > .w-\\[85\\%\\] > p:nth-child(2)').first().click();
 
     await page.getByRole('button', { name: 'next' }).click();
     

@@ -23,7 +23,6 @@ test('Login button', async ({ page }) => {
     const loginButton = page.locator('#profile').getByRole('paragraph').getByText('log in');
     await expect(loginButton).toBeVisible();
     await expect(page.getByText('sign up')).toBeVisible();
-
     await loginButton.click();
 
     // Visual Test Login Modal
