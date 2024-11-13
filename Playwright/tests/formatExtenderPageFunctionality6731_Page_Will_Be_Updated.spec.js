@@ -52,6 +52,7 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
     await page.locator('#format-extender').click();
 
     // Choose random project 
+    await page.waitForLoadState('networkidle');
     const containers = await page.locator('.project--image-container--image');
      const containerCount = await containers.count();
      const randomIndex3 = Math.floor(Math.random() * containerCount);
@@ -162,6 +163,4 @@ test.skip ('Project > Format Extender Page Functionality', async ({ page }) => {
 
     await page.getByRole('button', { name: 'save ' }).click();
     await expect(page.locator('#format-extender')).toContainText('Format Extender');
-
-    await page.close();
 });
