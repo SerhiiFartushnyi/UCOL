@@ -84,7 +84,7 @@ test ('Rephrase Options Applying', async ({ page }) => {
 
     await expect(textButton).toBeVisible();
     await textButton.click({ timeout: 1000 });
-
+    await page.waitForSelector('section');
     await expect(page.locator('section').filter({ hasText: 'Write your text with A.I.' })).toBeVisible();
     await expect(page.locator('#tab-container').getByRole('button', { name: 'GENERATE' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'HISTORY' })).toBeVisible();

@@ -1,5 +1,5 @@
 import { test, expect, request } from '@playwright/test';
-const config = require('./config');
+const config = require('../tests/config');
 
 test.use({ storageState: 'auth.json' });
 

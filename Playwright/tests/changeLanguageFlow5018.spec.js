@@ -95,34 +95,6 @@ if (!loginResponse.ok()) {
 
 });
 
-// Check Language Applied after relogin 
-// DOES NOT WORK As Test runs at isolated environment
-test.skip('Check Language Applied after relogin', async ({ page }) => {
-    //await page.pause();
-
-    //Assertions to check if the user is logged in
-    await expect(page.locator('body')).toContainText('Design professional');
-
-    // Attempt to click on the #language-toggler element directly
-
-    // await page.waitForLoadState('networkidle'); //!!!WAIT FOR ALL RENDERED !!! WAIT FOR ALL NETWORK REQUESTS TO FINISHED 
-    // await expect(page.locator('#language-toggler')).toBeVisible();
-    // await page.locator('#language-toggler').click();
-
-    // await page.waitForLoadState('networkidle')
-    // await expect (page.locator('#language-dropdown').getByText('Español')).click();
-
-    //Accertion of the language change to Espaniol
-    //await expect(page.locator('#dropdown-toggler')).toContainText('diseño');
-    await page.waitForLoadState('networkidle')
-    await expect(page.getByRole('navigation')).toContainText('aprender');
-    const profileIcon = page.locator('#profile-toggler');
-    await page.waitForSelector('#profile-toggler');
-    await profileIcon.click();
-    await expect(page.locator('#profile-container')).toContainText('Desconectar');
-
-});
-
 test('Change Language Not logged in User', async ({ page }) => {
     await page.goto('/');
 

@@ -17,6 +17,7 @@ module.exports = defineConfig({
 //     storageState: 'auth.json', // Use the saved authentication state for all tests
 //   },
   testDir: './tests',
+// testIgnore: '**/test-example/**'
 //   expect: {
 //     // Set the default timeout for each test to 30 seconds
 //     timeout: 30000,

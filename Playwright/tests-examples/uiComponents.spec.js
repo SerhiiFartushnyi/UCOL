@@ -202,58 +202,43 @@ test('date picker', async ({page}) => {
     await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDate, {exact: true}).click();
     await expect(calendarInputField).toHaveValue(dateToAssert);
 
-//     const datepicker = page.locator('nb-card', {hasText: 'Datepicker'});
-//     await datepicker.getByRole('textbox').click();
+test ('sliders', async ({page}) => {
+    // Update Attribut
+    const tempGuage = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger');
+    await tempGuage.evaluate( node => {
+        node.setAttribute('sx', '23.630');
+        node.setAttribute('sy', '23.630');
+    });
+    await tempGuage.click();
 
-//     const datepickerCalendar = page.locator('nb-calendar-day-picker');
-//     await datepickerCalendar.getByRole('button', {name: '31'}).click();
-//     await datepickerCalendar.getByRole('button', {name: '15'}).click();
-//     await datepickerCalendar.getByRole('button', {name: '2022'}).click();
+    // Mouse Movement
+    const tempBox = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger');
+    await tempBox.scrollIntoViewIfNeeded();
 
-//     const dateValue = await datepicker.getByRole('textbox').inputValue();
-//     expect(dateValue).toEqual('2022-01-15');
+    const box = await tempBox.boundingBox();
+    const x = box.x + box.width / 2;
+    const y = box.y + box.height / 2;
+
+    await page.mouse.move(x, y);
+    await page.mouse.down();
+    await page.mouse.move(x + 100, y);
+    await page.mouse.move(x + 100, y + 100);
+    await page.mouse.up();
+    await expect(tempBox).toContainText('30');
+
 });
 
+test('drag and drop with iframe', async ({page}) => {
+    await page.goto('https://globalsqa.com/demo-site/drag-and-drop/');
+    const frame = page.frameLocator('[rel-title="Photo Manager"] iframe');
 
+    await frame.locator('li', {hasText: "High Tatras 2"}).dragTo(frame.locator('trash'));
 
+    //more precise control 
+    await frame.locator('li', {hasText: "High Tatras 4"}).hover();
+    await page.mouse.down();
+    await frame.locator('trash').hover();
+    await page.mouse.up();
 
-
-
-
-
-//     const table = page.locator('table');
-//     const tableRows = table.locator('tr');
-//     const tableColumns = table.locator('th');
-
-//     const tableData = table.locator('td');
-
-//     await expect(tableRows).toHaveCount(6);
-//     await expect(tableColumns).toHaveCount(6);
-//     await expect(tableData).toHaveCount(30);
-
-//     const tableRow = table.locator('tr', {hasText: 'Larry'});
-//     await expect(tableRow).toBeVisible();
-
-//     const tableRowData = tableRow.locator('td');
-//     await expect(tableRowData).toHaveText(['Larry', 'the Bird', '
-
-// //     const addNewButton = page.getByRole('button', {name: 'Add New'});
-//     await addNewButton.click();
-
-//     const dialogBox = page.locator('nb-dialog-container');
-//     await expect(dialogBox).toBeVisible();
-//     await expect(dialogBox).toHaveText('Add New User');
-
-//     await dialogBox.getByRole('button', {name: 'Close'}).click();
-//     await expect(dialogBox).not.toBeVisible();
-
-// });
-
-    //     await radioButtons.get(0).click();
-    //     await expect(radioButtons.get(0)).toBeChecked();
-
-    //     await radioButtons.get(1).click();
-    //     await expect(radioButtons.get(1)).toBeChecked();
-
-    //     await radioButtons.get(2).click();
-    //     await expect(radioButtons.get(2)).toBeChecked();
+    await expect(frame.locator('#trash li h5').toHaveText(['High Tatras 2', 'High Tatras 4']));
+});
