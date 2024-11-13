@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const axios = require('axios');
-const config = require('./config');
+const config = require('../tests/config');
 
 // const inbox = config.mail2;
 

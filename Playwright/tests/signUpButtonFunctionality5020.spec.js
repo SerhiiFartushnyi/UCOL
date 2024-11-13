@@ -9,8 +9,8 @@ RUN npx playwright test tests/loginUcol.spec.js
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-// sign Up Button Functionality
-test ('Login button', async ({ page }) => {
+// Sign Up Button Functionality
+test ('Sign Up button', async ({ page }) => {
 
     await page.goto('/');
 
