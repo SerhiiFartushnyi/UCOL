@@ -201,6 +201,7 @@ test('date picker', async ({page}) => {
 
     await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDate, {exact: true}).click();
     await expect(calendarInputField).toHaveValue(dateToAssert);
+});
 
 test ('sliders', async ({page}) => {
     // Update Attribut

@@ -10,7 +10,7 @@ RUN npx playwright test tests/loginUcol.spec.js
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-const mail = config.mail;
+const email = config.mail;
 const password = config.password;
 
 //Reset Password >> Direct click wo entering email
@@ -29,9 +29,8 @@ test.skip('Reset Password >> Direct click wo entering email', async ({ page }) =
     await page.getByText('I forgot my password').click();
 
     await page.getByPlaceholder('name@workemail.com').click();
-    await page.getByPlaceholder('name@workemail.com').fill(mail);
+    await page.getByPlaceholder('name@workemail.com').fill(email);
     await page.getByRole('button', { name: 'Send e-mail' }).click();
-
 
     // Check if one of the two possible messages is present
     await expect(page.getByText(/We've sent you email with instructions.|You have exceeded the rate limit for sending verification codes. Please try again later or contact the support for help./)).toBeVisible();
@@ -68,38 +67,5 @@ test.skip('Reset Password >> Direct click wo entering email', async ({ page }) =
     await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
     await expect(page.locator('#profile-container')).toContainText(email);
-    // await page.waitForTimeout(7000);
-
-    // await page.goto('https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox');
-
-    // await page.getByText('support').nth(1).click
-    // await page.getByRole('gridcell', { name: 'support', exact: true }).click()
-
-    // const page1Promise = page.waitForEvent('popup');
-    // await page.getByRole('link', { name: 'RESET YOUR PASSWORD' }).click();
-    // const page1 = await page1Promise;
-
-    // await page1.getByPlaceholder('new password').click();
-    // await page1.getByPlaceholder('new password').fill('Qwert12345!');
-    // await page1.getByRole('img').nth(1).click();
-    // await page1.getByPlaceholder('confirm password').click();
-    // await page1.getByPlaceholder('confirm password').fill('Qwert12345!');
-    // await page1.getByRole('button', { name: 'Reset password' }).click();
-
-    // // Check Email for the confirmation ))
-    // await page.goto('https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox'); 
-
-    // await page.getByRole('link', { name: 'Your password has been' }).click();
-    // await expect(page.getByRole('listitem')).toContainText('Your password has been successfully changed');
-
-    // await page.goto('/')
-
-    // // Used the saved email from the config file
-    // // await page.getByPlaceholder('enter your e-mail address').fill(mail);
-
-    // // await page.getByRole('button', { name: 'Log in' }).click();
-    // // await page.getByPlaceholder('8 char. +1 symbol, number,').click();
-    // // await page.getByPlaceholder('8 char. +1 symbol, number,').fill(password);
-    // // await page.getByRole('button', { name: 'Log in' }).click();
 
 });

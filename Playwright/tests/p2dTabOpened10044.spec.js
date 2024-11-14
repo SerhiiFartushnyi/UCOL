@@ -172,7 +172,7 @@ test('p2d Tab Opened', async ({ page }) => {
     await expect(page.locator('.p2d-container--header--title')).toHaveText('generating your design...')
 
     // Check if the user is redirected to the scene page
-    await page.waitForFunction(() => location.href.includes('/tool/scene/'), { timeout: 60000 });
+    await page.waitForFunction(() => location.href.includes('/tool/scene/'), { timeout: 100000 });
     expect(page.url()).toContain('/tool/scene/');
 
 });

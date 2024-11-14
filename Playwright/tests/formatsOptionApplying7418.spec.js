@@ -71,7 +71,6 @@ test ('Formats Options Applying', async ({ page }) => {
     //Assertions to check if the user is logged in
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
-
     await page.waitForLoadState('networkidle');
 
     //Click on the create template button
@@ -89,8 +88,6 @@ test ('Formats Options Applying', async ({ page }) => {
     await expect(page.locator('section').filter({ hasText: 'Formats' })).toBeVisible();
     await expect(page.locator('#formats-container')).toBeVisible();
 
-    // // Check first default format check
-    // await expect(page.getByRole('button', { name: 'Profile Picture 320 x 320' })).toBeVisible();
 
     //Search for a template Not existing Search request
     await page.getByPlaceholder('Search ...').click();
@@ -99,10 +96,7 @@ test ('Formats Options Applying', async ({ page }) => {
     await expect(page.getByText('No Elements')).toBeVisible();
     await page.getByPlaceholder('Search ...').clear();
 
-    // // Search for a existing format 
-//----------
-
-//----------
+    // // Search for a existing format Hardcoded
      const formats = ['instagram', 'facebook', 'twitter', 'linkedin', 'pinterest', 'tiktok', 'youtube', 'snapchat', 'twitch', 'print', 'clothing'];
      const randomFormat = formats[Math.floor(Math.random() * formats.length)]
     
@@ -128,7 +122,6 @@ test ('Formats Options Applying', async ({ page }) => {
 
     // //Click on X button to close the Formats panel
     await page.locator('button[aria-label="Close"]').first().click();
-    //await page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/assetLibrary"]').click();
     await expect(page.locator('section').filter({ hasText: 'Formats' })).not.toBeVisible();
 
     //Click on the random Formats button
@@ -151,18 +144,18 @@ test ('Formats Options Applying', async ({ page }) => {
         console.log('No buttons found within #asset-library-content');
     }
 
-    // Get the text of each button 
+    // !!!  Get the text of each button >> Made at formatOptionsApplying7418_2.spec.js
     // This code should be refactored  Part with the button text extraction
     // should be added to top of the test
 
-    const buttonTexts = new Set();
+//     const buttonTexts = new Set();
 
-// Iterate over each button to extract the text
-for (let i = 0; i < buttonsCounted2; i++) {
-  const buttonText = await formatButtons.nth(i).locator('div > p').last().innerText();
-  buttonTexts.add(buttonText);
-}
-const uniqueButtonTextsArray = Array.from(buttonTexts);
+// // Iterate over each button to extract the text
+// for (let i = 0; i < buttonsCounted2; i++) {
+//   const buttonText = await formatButtons.nth(i).locator('div > p').last().innerText();
+//   buttonTexts.add(buttonText);
+// }
+// const uniqueButtonTextsArray = Array.from(buttonTexts);
 
-console.log('Button texts:', uniqueButtonTextsArray);
+// console.log('Button texts:', uniqueButtonTextsArray);
 });
