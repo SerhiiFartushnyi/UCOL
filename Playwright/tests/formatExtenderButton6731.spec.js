@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-const config = require('../tests/config');
+const config = require('./config');
 
 /*
 BEFOERE RUNING THE TESTS
