@@ -8,7 +8,7 @@ const email = config.mail;
 const password = config.password;
 // let password = config.password1;
 
-test.skip ('Forgot Password flow with Gmail email verification', async ({ page }) => {
+test ('Forgot Password flow with Gmail email verification', async ({ page }) => {
 
     //   Navigate to the forgot password page
     await page.goto('/');

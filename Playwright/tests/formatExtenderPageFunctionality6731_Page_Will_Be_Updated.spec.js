@@ -161,11 +161,12 @@ test.skip ('Project > Format Extender Page Functionality', async ({ page }) => {
     //await page.waitForSelector('#projects-container #project-item');
 
     //await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(5000); // Wait for 5000 milliseconds (5 seconds)
+    await page.waitForTimeout(7000); // Wait for 5000 milliseconds (5 seconds)
+    //await page.waitForSelector('#projects-container #project-item');
     const containers = page.locator('#projects-container #project-item');
 
      console.log(containers, ' Format Extender item');
-
+    //await page.waitForLoadState('networkidle');
     const containerCount = await containers.count();
     console.log(containerCount, ' Counted items');
  

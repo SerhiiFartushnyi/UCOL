@@ -83,7 +83,7 @@ test('Sign Up >> No Verification code', async ({ page }) => {
     await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
 });
 
-test.skip ('Sign Up With Gmail', async ({ page }) => {
+test('Sign Up With Gmail', async ({ page }) => {
 
     const randomName = faker.person.firstName();
     const randomSurname = faker.person.lastName();
