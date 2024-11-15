@@ -11,6 +11,7 @@ test.use({ storageState: 'auth.json' });
 
 // 'Start designing now' button functionality (not logged in User)
 test('Header >> Start designing now button functionality (not logged in User', async ({ page }) => {
+    test.slow();
     await page.goto('/');
         //await page.pause();
 

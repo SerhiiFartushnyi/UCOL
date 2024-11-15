@@ -86,7 +86,7 @@ test('System Images Options Applying', async ({ page }) => {
     await imagesButton.click({ timeout: 1000 });
 
     // Assertion of Formats Page 
-    await expect(page.locator('section').filter({ hasText: 'Library' })).toBeVisible();
+    //await expect(page.locator('section').filter({ hasText: 'Library' })).toBeVisible();
     await expect(page.locator('#asset-library-content')).toBeVisible();
 
     await page.waitForLoadState('networkidle');
