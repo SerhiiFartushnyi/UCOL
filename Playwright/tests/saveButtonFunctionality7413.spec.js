@@ -127,7 +127,7 @@ await page.getByRole('option', { name: 'Color Burn' }).click();
 await page.getByRole('button', { name: 'Position & Size' }).click();
 
 // Fetch the API response
-await page.route('https://ucl-coolab-dev.uk.r.appspot.com/api/projects/', async (route) => { // Replace with your actual API endpoint
+await page.route('/api/projects/', async (route) => { // Replace with your actual API endpoint
     const response = await route.fetch();
     await route.fulfill({
         status: response.status(),

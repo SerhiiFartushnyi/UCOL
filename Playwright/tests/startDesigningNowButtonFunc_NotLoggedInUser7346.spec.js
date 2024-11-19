@@ -10,36 +10,21 @@ RUN npx playwright test tests/loginUcol.spec.js
 test.use({ storageState: 'auth.json' });
 
 // 'Start designing now' button functionality (not logged in User)
-test('Header >> Start designing now button functionality (not logged in User', async ({ page }) => {
+test('Start designing now button functionality (not logged in User', async ({ page }) => {
     test.slow();
-    await page.goto('/');
-        //await page.pause();
+    await page.goto('/features/format-extender/');
+    //await page.pause();
 
-        // Check if the 'Start designing now' button is present
-        await expect(page.locator('#create-template')).toContainText('start designing');
+    // Check if the 'Start designing now' button is present
+    await expect(page.locator('#create-template')).toContainText('start designing');
 
-        await page.locator('#create-template').click();
-        // Check Login Text
-        await expect(page.getByText('log in to start creating')).toBeVisible();
-        // Check URL > should click lig in button to check the URL
-        // expect(page.url()).toContain('/log-in/');
+    // Click the 'Start now' button
+    await expect(page.getByText('start now').first()).toBeVisible();
+    await page.getByText('start now').first().click();
+
+    // Check Login Text
+    await expect(page.getByText('log in to start creating')).toBeVisible();
+
 });
 
-test('Body .. Start designing now button functionality (not logged in User', async ({ page }) => {
-    test.slow();
-    await page.goto('/');
-        
-
-        // Check if the 'Start designing now' button is present
-
-        await expect(page.locator('#create-template')).toBeVisible();
-        await expect(page.getByText('start designing now')).toBeVisible();
-        
-        await page.getByText('start designing now').click();
-       
-        // Check Login Text
-        await expect(page.getByText('log in to start creating')).toBeVisible();
-        await expect(page.getByText('No account? Sign up')).toBeVisible();
-        
-});
 

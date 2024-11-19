@@ -163,10 +163,10 @@ test('Shapes Options Applying', async ({ page }) => {
     await expect(page.locator('#ubq-headline_label')).toContainText('Element');
 
     // Remove randomly selected Shape
-    await page.getByLabel('Undo').click();
+    //await page.getByLabel('Undo').click();
 
     // //Click on X button to close the Formats panel
-    await page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/assetLibrary"]').click();
+    await page.locator('button[aria-label="Close"]').first().click();
     await expect(page.locator('section').filter({ hasText: 'Shapes' })).not.toBeVisible();
 
 });

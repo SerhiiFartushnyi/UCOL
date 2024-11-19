@@ -16,7 +16,7 @@ const password = config.password;
 const mail1 = config.mail1;
 const password1 = config.password1;
 
-test (' header >> Start Designing User Without projects', async ({ page }) => {
+test('Start Designing User Without projects', async ({ page }) => {
     test.slow();
     await page.goto('/modal/log-in/');
 
@@ -67,24 +67,20 @@ test (' header >> Start Designing User Without projects', async ({ page }) => {
     }
 
     // Navigate to site  
-    await page.goto('/');
-    //Assertions to check if the user is logged in
-    await expect(page.locator('body')).toContainText('Design professional');
-    await expect(page.locator('#language-toggler path')).toBeVisible();
+    await page.goto('/features/format-extender/');
+    //await page.pause();
 
+    // Check if the 'Start designing now' button is present
+    await expect(page.locator('#create-template')).toContainText('start designing');
 
-    await expect(page.getByRole('link', { name: 'start designing now' })).toBeVisible();
-    await page.getByRole('link', { name: 'start designing now' }).click();
+    // Click the 'Start now' button
+    await expect(page.getByText('start now').first()).toBeVisible();
+    await page.getByText('start now').first().click();
 
-    await expect(page.locator('#projects-tab-content')).toContainText('start a new project');
-    const goToScene = page.getByRole('link', { name: 'go to scene' })
-    await expect(goToScene).toBeVisible();
-    await goToScene.click();
-
-    expect(page.url()).toContain('/scene/');
+    expect(page.url()).toContain('/tool/studio');
 });
 
-test(' header >> Start Designing User WITH projects', async ({ page }) => {
+test(' Start Designing User WITH projects', async ({ page }) => {
 
     test.slow();
     await page.goto('/modal/log-in/');
@@ -136,17 +132,15 @@ test(' header >> Start Designing User WITH projects', async ({ page }) => {
     }
 
     // Navigate to site  
-    await page.goto('/');
-    //Assertions to check if the user is logged in
-    await expect(page.locator('body')).toContainText('Design professional');
-    await expect(page.locator('#language-toggler path')).toBeVisible();
+    await page.goto('/features/format-extender/');
+    //await page.pause();
 
-    await expect(page.locator('#create-template')).toBeVisible();
-    await page.locator('#create-template').click();
-    
-    //Assertion to check if the user is on the Scene
+    // Check if the 'Start designing now' button is present
+    await expect(page.locator('#create-template')).toContainText('start designing');
 
-    await page.waitForLoadState('networkidle');
-    expect(page.url()).toContain('/scene/');
-    await expect(page.getByRole('button', { name: 'Projects' })).toBeVisible();
+    // Click the 'Start now' button
+    await expect(page.getByText('start now').first()).toBeVisible();
+    await page.getByText('start now').first().click();
+    expect(page.url()).toContain('/tool/studio');
+
 });

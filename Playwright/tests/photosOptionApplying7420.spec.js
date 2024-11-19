@@ -134,8 +134,8 @@ test('Photos Options Applying', async ({ page }) => {
     console.log(`Clicked on image at index: ${randomPhotoIndex2}`);
 
     // //Click on X button to close the Formats panel
-    await page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/assetLibrary"]').click();
+    await page.locator('button[aria-label="Close"]').first().click();
     await expect(page.locator('section').filter({ hasText: 'Photos' })).not.toBeVisible();
 
-    await page.getByLabel('Undo').click();
+    //await page.getByLabel('Undo').click();
 });
