@@ -67,5 +67,4 @@ test.skip('Reset Password >> Direct click wo entering email', async ({ page }) =
     await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
     await expect(page.locator('#profile-container')).toContainText(email);
-
 });
