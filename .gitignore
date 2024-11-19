@@ -3,9 +3,10 @@ Playwright/node_modules
 Playwright/playwright-report
 Playwright/test-results/
 Playwright/test-examples/
+Playwright/downloads/
 .gitconfig
 .gitignore
 auth.json
 
 
-
+

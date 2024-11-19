@@ -15,7 +15,7 @@ const email = config.mail;
 const password = config.password;
 
 // Format Options Applying
-test ('Formats Options Applying', async ({ page }) => {
+test('Formats Options Applying', async ({ page }) => {
     test.slow();
     await page.goto('/modal/log-in/');
 
@@ -70,7 +70,6 @@ test ('Formats Options Applying', async ({ page }) => {
     //Assertions to check if the user is logged in
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
-
     await page.waitForLoadState('networkidle');
 
     //Click on the create template button
@@ -78,12 +77,14 @@ test ('Formats Options Applying', async ({ page }) => {
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
+    await page.waitForLoadState('networkidle');
     const formatButton = page.getByRole('button', { name: 'Formats' })
     await page.waitForLoadState('networkidle');
     await expect(formatButton).toBeVisible();
-    await formatButton.click({ timeout:10000 });
+    await formatButton.click({ timeout: 10000 });
 
     //Click on the random Formats button
+    await expect(page.locator('section').filter({ hasText: 'Formats' })).toBeVisible();
     await page.getByRole('button', { name: 'Formats' }).click();
 
     const formatButtons = page.locator('#formats-container button');
@@ -91,96 +92,93 @@ test ('Formats Options Applying', async ({ page }) => {
 
     // Log the count of buttons
     console.log(`Number of child buttons: ${buttonsCounted2}`);
-    
+
     await page.getByRole('button', { name: 'Formats' }).click();
 
     // Get the text of each button
     const buttonTexts = new Set();
 
-// Iterate over each "Format button" to extract the unique format texts
-for (let i = 0; i < buttonsCounted2; i++) {
-  const buttonText = await formatButtons.nth(i).locator('div > p').last().innerText();
-  buttonTexts.add(buttonText);
-}
+    // Iterate over each "Format button" to extract the unique format texts
+    for (let i = 0; i < buttonsCounted2; i++) {
+        const buttonText = await formatButtons.nth(i).locator('div > p').last().innerText();
+        buttonTexts.add(buttonText);
+    }
 
-const uniqueButtonTextsArray = Array.from(buttonTexts);
-console.log('Unique Formats:', uniqueButtonTextsArray);
+    const uniqueButtonTextsArray = Array.from(buttonTexts);
+    console.log('Unique Formats:', uniqueButtonTextsArray);
 
-const formats = uniqueButtonTextsArray
-const uniqueFormat  = formats[Math.floor(Math.random() * formats.length)]
-console.log('Unique Formats:', uniqueFormat); 
+    const formats = uniqueButtonTextsArray
+    const uniqueFormat = formats[Math.floor(Math.random() * formats.length)]
+    console.log('Unique Formats:', uniqueFormat);
 
-// Fill search with random format
-await page.getByPlaceholder('Search ...').click();
-await page.getByPlaceholder('Search ...').fill(uniqueFormat);
+    // Fill search with random format
+    await page.getByPlaceholder('Search ...').click();
+    await page.getByPlaceholder('Search ...').fill(uniqueFormat);
+    await page.getByPlaceholder('Search ...').press('Enter');
 
-// Count the number of formats after the search
-const formats2 = page.locator('#formats-container button', { hasText: uniqueFormat });
-const formatsCounted3 = await formats2.count();
+    // Count the number of formats after the search
+    const formats2 = page.locator('#formats-container button', { hasText: uniqueFormat });
+    const formatsCounted3 = await formats2.count();
 
-console.log(`Number of buttons: ${formatsCounted3}`);
+    console.log(`Number of buttons: ${formatsCounted3}`);
 
-// Generate a random index
-const randomIndex = Math.floor(Math.random() * formatsCounted3);
+    // Generate a random index
+    const randomIndex = Math.floor(Math.random() * formatsCounted3);
 
-// Get the text of the button at the random index
-const buttonText = await formats2.nth(randomIndex).textContent();
-console.log(`Text of the button at index ${randomIndex}: ${buttonText}`);
+    // Get the text of the button at the random index
+    const buttonText = await formats2.nth(randomIndex).textContent();
+    console.log(`Text of the button at index ${randomIndex}: ${buttonText}`);
 
-let width, height;
-const dimensions = buttonText.match(/\d+/g);
-if (dimensions && dimensions.length >= 2) {
-  width = parseInt(dimensions[0], 10); // First number is width
-  height = parseInt(dimensions[1], 10); // Second number is height
-  console.log(`Extracted dimensions: Width = ${width}, Height = ${height}`);
-} else {
-  console.error('Could not extract dimensions from the button text.');
-  throw new Error('Could not extract dimensions from the button text.');
-}
+    let width, height;
+    const dimensions = buttonText.match(/\d+/g);
+    if (dimensions && dimensions.length >= 2) {
+        width = parseInt(dimensions[0], 10); // First number is width
+        height = parseInt(dimensions[1], 10); // Second number is height
+        console.log(`Extracted dimensions: Width = ${width}, Height = ${height}`);
+    } else {
+        console.error('Could not extract dimensions from the button text.');
+        throw new Error('Could not extract dimensions from the button text.');
+    }
 
-// Click on the button at the random index
-await formats2.nth(randomIndex).click();
+    // Click on the button at the random index
+    await formats2.nth(randomIndex).click();
 
-console.log(`Clicked on button at index: ${randomIndex}`);
+    console.log(`Clicked on button at index: ${randomIndex}`);
 
-// Close the inspector panel
-//await page.locator("aria-label='Editor canvas'").click();
-// //await page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/inspector"]').click();
-// await page.pause(1000);
-// await page.locator('button[aria-label="Close"]').last().click();
+    // Intercept and check the POST request
+    const [response] = await Promise.all([
+        page.waitForResponse('/api/helpers/scale-scene/'),
+        page.locator('[aria-label="Editor canvas"]').click()
+    ]);
 
-// await page.pause(10000);
-// await page.waitForTimeout(1000); // Ensure the page updates
-// const widthElement = await page.locator('#page-width');
-// const heightElement = await page.locator('#page-height');
+    // Check if the response status is 200
+    expect(response.status()).toBe(200);
 
-// const widthVisible = await widthElement.isVisible();
-// const heightVisible = await heightElement.isVisible();
-// console.log(`Width element visible: ${widthVisible}`);
-// console.log(`Height element visible: ${heightVisible}`);
+    //Close the inspector panel
+    await page.locator('button[aria-label="Close"]').last().click();
 
-// const actualWidth = await widthElement.inputValue();
-// const actualHeight = await heightElement.inputValue();
-// console.log(`Actual width value: ${actualWidth}`);
-// console.log(`Actual height value: ${actualHeight}`);
+    const widthElement = page.locator('#pages-width');
+    const heightElement = page.locator('#pages-height');
 
-// await expect(widthElement).toHaveValue(width.toString());
-// await expect(heightElement).toHaveValue(height.toString());
+    // Extract the width and height values from the page
+    const actualWidth = await widthElement.inputValue();
+    const actualHeight = await heightElement.inputValue();
+    console.log(`Actual width value: ${actualWidth}`);
+    console.log(`Actual height value: ${actualHeight}`);
 
-// await page.pause(2000);
-// // Assert that the page width and height match the extracted dimensions
-// await expect(page.locator('#page-width')).toHaveValue(String(width));
-// await expect(page.locator('#page-height')).toHaveValue(String(height));
+    // Check that dimentions are equal
+    await expect(widthElement).toHaveValue(width.toString());
+    await expect(heightElement).toHaveValue(height.toString());
 
-//Search for a template Not existing Search request
-await page.getByPlaceholder('Search ...').click();
-await page.getByPlaceholder('Search ...').fill('tik-tok');
-await page.getByPlaceholder('Search ...').press('Enter');
-await expect(page.getByText('No Elements')).toBeVisible();
-await page.getByPlaceholder('Search ...').clear();
+    //Search for a template Not existing Search request
+    await page.getByPlaceholder('Search ...').click();
+    await page.getByPlaceholder('Search ...').fill('tik-tok');
+    await page.getByPlaceholder('Search ...').press('Enter');
+    await expect(page.getByText('No Elements')).toBeVisible();
+    await page.getByPlaceholder('Search ...').clear();
 
-// //Click on X button to close the Formats panel
-await page.locator('button[aria-label="Close"]').first().click();
-await expect(page.locator('section').filter({ hasText: 'Formats' })).not.toBeVisible();
+    // //Click on X button to close the Formats panel
+    await page.locator('button[aria-label="Close"]').first().click();
+    await expect(page.locator('section').filter({ hasText: 'Formats' })).not.toBeVisible();
 
 });

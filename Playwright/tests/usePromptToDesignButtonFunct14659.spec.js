@@ -110,6 +110,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     //await page.locator('#promptToDesignPurposeInputTop').fill(`Design a ${randomFormat} for a ${randomSubject}`);
 
     await page.locator('div').filter({ hasText: /^Default$/ }).first().click();
+    
     const imagesGenType = [
         'Use generated images', 'Use internal images', 'Use external images', 'By subject relevance'
     ]
@@ -186,7 +187,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     const softAssertions = [];
 
     try {
-        await expect(page.getByText('understanding the prompt')).toBeVisible({timeout: 10000});
+        await expect(page.getByText('understanding the prompt')).toBeVisible({timeout: 20000});
     } catch (error) {
 
         softAssertions.push(`Assertion failed: understanding the prompt - ${error.message}`);
@@ -210,7 +211,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     // Check if the URL contains '/tool/scene/' 
     try {
-        await page.waitForURL('**/projects/**', { timeout: 60000 });
+        await page.waitForURL('**/projects/**', { timeout: 30000 });
         const currentUrl = page.url();
         expect(currentUrl).toContain('/projects/');
 
@@ -228,5 +229,4 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     const projectsInFolder = page.locator('#projects-container #project-item');
     const projectsCounted = await projectsInFolder.count(); 
     expect (projectsCounted).toBe(noOfDesigns);
-
 });
