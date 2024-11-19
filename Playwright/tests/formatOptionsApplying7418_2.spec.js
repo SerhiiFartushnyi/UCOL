@@ -123,9 +123,54 @@ console.log(`Number of buttons: ${formatsCounted3}`);
 // Generate a random index
 const randomIndex = Math.floor(Math.random() * formatsCounted3);
 
+// Get the text of the button at the random index
+const buttonText = await formats2.nth(randomIndex).textContent();
+console.log(`Text of the button at index ${randomIndex}: ${buttonText}`);
+
+let width, height;
+const dimensions = buttonText.match(/\d+/g);
+if (dimensions && dimensions.length >= 2) {
+  width = parseInt(dimensions[0], 10); // First number is width
+  height = parseInt(dimensions[1], 10); // Second number is height
+  console.log(`Extracted dimensions: Width = ${width}, Height = ${height}`);
+} else {
+  console.error('Could not extract dimensions from the button text.');
+  throw new Error('Could not extract dimensions from the button text.');
+}
+
 // Click on the button at the random index
 await formats2.nth(randomIndex).click();
+
 console.log(`Clicked on button at index: ${randomIndex}`);
+
+// Close the inspector panel
+//await page.locator("aria-label='Editor canvas'").click();
+// //await page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/inspector"]').click();
+// await page.pause(1000);
+// await page.locator('button[aria-label="Close"]').last().click();
+
+// await page.pause(10000);
+// await page.waitForTimeout(1000); // Ensure the page updates
+// const widthElement = await page.locator('#page-width');
+// const heightElement = await page.locator('#page-height');
+
+// const widthVisible = await widthElement.isVisible();
+// const heightVisible = await heightElement.isVisible();
+// console.log(`Width element visible: ${widthVisible}`);
+// console.log(`Height element visible: ${heightVisible}`);
+
+// const actualWidth = await widthElement.inputValue();
+// const actualHeight = await heightElement.inputValue();
+// console.log(`Actual width value: ${actualWidth}`);
+// console.log(`Actual height value: ${actualHeight}`);
+
+// await expect(widthElement).toHaveValue(width.toString());
+// await expect(heightElement).toHaveValue(height.toString());
+
+// await page.pause(2000);
+// // Assert that the page width and height match the extracted dimensions
+// await expect(page.locator('#page-width')).toHaveValue(String(width));
+// await expect(page.locator('#page-height')).toHaveValue(String(height));
 
 //Search for a template Not existing Search request
 await page.getByPlaceholder('Search ...').click();
