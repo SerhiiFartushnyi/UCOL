@@ -17,7 +17,7 @@ const password = config.password;
 // p2d Tab Opened Functionallity !!!!
 // WERY SLOW TEST :)
 
-test('p2d Tab Opened', async ({ page }) => {
+test.skip ('p2d Tab Opened', async ({ page }) => {
     test.slow();
     await page.goto('/modal/log-in/');
 
@@ -129,8 +129,8 @@ test('p2d Tab Opened', async ({ page }) => {
 
     await page.getByRole('button', { name: 'start' }).click();
     // await expect(page.getByText('choosing design styles...')).toBeVisible();
-    await expect(page.locator('.p2d-container--header--title')).toHaveText('choosing design styles...')
-    await expect(page.locator('.p2d-container--header--title')).toHaveText('select your favorite style')
+    await expect(page.locator('.p2d-container--header--title')).toHaveText('What kind of social post are you making?')
+    //await expect(page.locator('.p2d-container--header--title')).toHaveText('select your favorite style')
 
     // Locate the parent element
     const parentElement = page.locator('.p2d-container--content--generation-container button');

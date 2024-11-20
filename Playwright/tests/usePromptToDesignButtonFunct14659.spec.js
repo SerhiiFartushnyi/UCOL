@@ -153,7 +153,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
         "Instream Photo", "Ad Carousel", "Ads Sponsored Carousel",
          "Pins", "Story Pins", "Ads",
         "Ad Thumbnail", , "Channel Banner", "Video", "Video Thumbnail",
-        "Profile", "Banner", "Background", "Overlay", "Panel", "Email",
+        "Profile", "Background", "Overlay", "Panel", "Email",
         "Presentation", "Banner", "Card portrait", "Card Landscape",
         "Post Card", "Large Flyer", "Flyer", "Poster", "Ad Card",
         "Desktop Cover", "Mobile Cover", "Brochure", "Sticker", "Newsletter",
@@ -172,8 +172,10 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     const randomDesignIndex = Math.floor(Math.random() * designs.length);
     const randomDesign = designs[randomDesignIndex];
     
-    await page.getByText('1 design').nth(1).click();
-    await page.getByText(randomDesign).click();
+    //await page.locator('#designsNumber').click();
+    await page.locator('div').filter({ hasText: /^1 design$/ }).first().click();
+
+    await page.getByText(randomDesign, {exact: true}).click();
     
     const noOfDesigns = randomDesignIndex + 1; 
     console.log('Number of designs:', noOfDesigns);
@@ -181,7 +183,8 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     // Fill the placeholder with the selected format and subject
     await page.locator('#promptToDesignPurposeInputTop').click();
     await page.locator('#promptToDesignPurposeInputTop').fill(`Design a ${randomFormat} for a ${randomSubject}`);
-    await page.locator('#promptToDesignFormTop').getByRole('button', { name: 'use prompt to design' }).click();
+    await page.locator('#promptToDesignPurposeInputTop').press('Enter');
+    //await page.locator('#promptToDesignFormTop').getByRole('button', { name: 'use prompt to design' }).click();
 
     // Soft Accertions >> Check some genetrating flow & if the URL contains '/tool/scene/'
     const softAssertions = [];
@@ -225,7 +228,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     }
 
-    // Log the count of buttons
+    // Assert the count Projects in the folder
     const projectsInFolder = page.locator('#projects-container #project-item');
     const projectsCounted = await projectsInFolder.count(); 
     expect (projectsCounted).toBe(noOfDesigns);

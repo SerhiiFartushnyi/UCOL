@@ -123,10 +123,12 @@ test('Template Grid Content', async ({ page }) => {
   }
 
     //Check More and Less button
+    await page.waitForLoadState('networkidle');
     const moreButton = page.getByRole('button', { name: 'More' });
     await expect(moreButton).toBeVisible();
     await moreButton.click();
     
+    await page.waitForLoadState('networkidle');
     const lessButton = page.getByRole('button', { name: 'Less' });
     await expect(lessButton).toBeVisible();
     await lessButton.click();

@@ -142,7 +142,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     const randomIndex2 = Math.floor(Math.random() * genres.length);
     const randomGenre = genres[randomIndex2];
-    await page.getByText(randomGenre).click();
+    await page.getByText(randomGenre, {exact: true}).click();
 
 
     await page.locator('div').filter({ hasText: /^Parse the prompt for format$/ }).first().click();
@@ -170,7 +170,9 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     await page.locator('#promptToDesignPurposeInputTop').click();
     await page.locator('#promptToDesignPurposeInputTop').fill(`Design a ${randomFormat} for a ${randomSubject}`);
-    await page.locator('#promptToDesignFormTop').getByRole('button', { name: 'use prompt to design' }).click();
+    await page.locator('#promptToDesignPurposeInputTop').press('Enter');
+
+    //await page.locator('#promptToDesignFormTop').getByRole('button', { name: 'use prompt to design' }).click();
 
     // Soft Accertions >> Check some genetrating flow & if the URL contains '/tool/scene/'
     

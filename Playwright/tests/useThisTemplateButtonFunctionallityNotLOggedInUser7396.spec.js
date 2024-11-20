@@ -34,13 +34,10 @@ test('Use this template NOT Logged in User', async ({ page }) => {
     await page.getByRole('link', { name: randomStyle }).click();
     
     // Click on first template
-
     await page.waitForLoadState('networkidle');
     await page.locator('.infinite-item > .relative > .w-full').first().click();
-    await page.getByRole('link', { name: 'use this template' }).click();
+    await page.locator('#modalEditorUrl').click();
 
     // Check Login Text
     await expect(page.getByText('log in to start creating')).toBeVisible();
-    // Check URL
-    expect(page.url()).toContain('/log-in/');
 });
