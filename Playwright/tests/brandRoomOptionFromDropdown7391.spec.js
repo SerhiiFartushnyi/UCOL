@@ -70,8 +70,9 @@ if (!loginResponse.ok()) {
     await page.locator('#brand-room-link').click();
 
     // Check if we are on the Brand Room Page
-    await expect(page.locator('#brand-room-tabs')).toContainText('Brand Room');
-    expect(page.url()).toContain('/projects/#brand-room');
 
+    await expect(page.locator('#brand-room-tabs')).toContainText('Brand Room1');
+    await expect(page.getByText('Brand Room', {exact: true})).toBeVisible();
+    expect(page.url()).toContain('/projects/#brand-room');
 });
 

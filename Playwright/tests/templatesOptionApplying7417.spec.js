@@ -15,7 +15,7 @@ const email = config.mail;
 const password = config.password;
 
 // Templates Options Applying
-test('Templates Options Applying', async ({ page }) => {
+test ('Templates Options Applying', async ({ page }) => {
     test.slow();
     await page.goto('/modal/log-in/');
 
@@ -67,6 +67,8 @@ test('Templates Options Applying', async ({ page }) => {
 
     // Navigate to site  
     await page.goto('/');
+
+    await page.pause();
     //Assertions to check if the user is logged in
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');

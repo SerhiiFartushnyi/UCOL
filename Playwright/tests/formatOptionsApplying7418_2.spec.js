@@ -74,6 +74,7 @@ test('Formats Options Applying', async ({ page }) => {
 
     //Click on the create template button
     const startDesigning = page.locator('#create-template')
+    await expect(startDesigning).toHaveText('start designing')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 

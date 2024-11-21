@@ -27,7 +27,7 @@ test('Sign Up Wrong Email', async ({ page }) => {
     await expect(page.locator('#auth-form')).toContainText('Enter a valid email address.');
 });
 
-test('Sign Up Wrong Password', async ({ page }) => {
+test('Sign Up Passwords Does not match ', async ({ page }) => {
 
     await page.goto('/');
     await page.getByText('sign up').click();

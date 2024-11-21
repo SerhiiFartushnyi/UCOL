@@ -65,7 +65,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 // 'Start designing now' button functionality (Logged in User)
-test('Start designing now button functionality (not logged in User', async ({ page }) => {
+test('Start designing now button functionality (logged in User)', async ({ page }) => {
     test.slow();
     await page.goto('/');
         
@@ -79,22 +79,4 @@ test('Start designing now button functionality (not logged in User', async ({ pa
         const currentUrl = page.url();
         expect(currentUrl).toContain('/tool/scene/');
        
-});
-
-// 'Start designing now' button functionality 2 (not logged in User)
-test.skip ('Start designing now button2 functionality 2 (not logged in User', async ({ page }) => {
-    test.slow();
-    await page.goto('/');
-        
-        // Check if the 'Start designing now' button is present
-        await expect(page.locator('#create-template')).toContainText('start designing');
-
-        // await page.getByText('start designing now').click();
-    
-        // // Check if User is on Scene Editor Page
-        // await page.waitForLoadState('networkidle');
-        // await expect(page.getByRole('heading', { name: 'New Design' })).toBeVisible();
-        // const currentUrl = page.url();
-        // expect(currentUrl).toContain('/tool/scene/');
-
 });

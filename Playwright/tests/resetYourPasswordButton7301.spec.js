@@ -14,7 +14,7 @@ const email = config.mail;
 const password = config.password;
 
 //Reset Password >> Direct click wo entering email
-test.skip('Reset Password >> Direct click wo entering email', async ({ page }) => {
+test('Reset Password >> Direct click wo entering email', async ({ page }) => {
 
     await page.goto('/');
 
@@ -57,7 +57,7 @@ test.skip('Reset Password >> Direct click wo entering email', async ({ page }) =
 
     // Navigate to the password reset link
     await page.goto(resetLink);
-
+    
     // Complete the password reset process
     await page.getByPlaceholder('New password').fill(password);
     await page.getByPlaceholder('Confirm password').fill(password);
@@ -67,4 +67,6 @@ test.skip('Reset Password >> Direct click wo entering email', async ({ page }) =
     await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
     await expect(page.locator('#profile-container')).toContainText(email);
+
+    // We can go to Gmail And check "Your password has been changed" email 
 });

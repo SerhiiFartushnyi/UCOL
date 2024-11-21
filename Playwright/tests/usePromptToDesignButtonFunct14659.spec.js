@@ -73,7 +73,9 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     await page.waitForLoadState('networkidle');
 
-    await page.goto('/generative-ai/');
+    await page.getByRole('link', { name: 'Prompt-to-Design', exact: true }).click();
+
+    //await page.goto('/generative-ai/');
 
     // Assertions of Prompt Popup
     await expect(page.locator('#promptToDesignContainer').getByText('What would you like to')).toBeVisible();
@@ -142,6 +144,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     const randomIndex2 = Math.floor(Math.random() * genres.length);
     const randomGenre = genres[randomIndex2];
+    await page.pause(1000);
     await page.getByText(randomGenre, { exact: true }).click();
 
 
@@ -163,18 +166,18 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     ];
     const randomIndex3 = Math.floor(Math.random() * formats.length);
     const randomTemplate = formats[randomIndex3];
-
+    await page.pause(1000);
     await page.getByText(randomTemplate, { exact: true }).click();
 
     const designs = [
-        '1 design', '2 designs', '3 designs', '4 designs', '5 designs'
+        '1 designs','2 designs', '3 designs', '4 designs', '5 designs'
     ]
     const randomDesignIndex = Math.floor(Math.random() * designs.length);
     const randomDesign = designs[randomDesignIndex];
     
     //await page.locator('#designsNumber').click();
     await page.locator('div').filter({ hasText: /^1 design$/ }).first().click();
-
+    await page.pause(1000);
     await page.getByText(randomDesign, {exact: true}).click();
     
     const noOfDesigns = randomDesignIndex + 1; 
@@ -229,7 +232,9 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     }
 
     // Assert the count Projects in the folder
+    await page.waitForSelector('#projects-container #project-item');
     const projectsInFolder = page.locator('#projects-container #project-item');
     const projectsCounted = await projectsInFolder.count(); 
     expect (projectsCounted).toBe(noOfDesigns);
+
 });

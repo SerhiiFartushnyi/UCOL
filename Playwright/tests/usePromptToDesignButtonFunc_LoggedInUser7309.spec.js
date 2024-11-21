@@ -74,6 +74,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     await page.waitForLoadState('networkidle');
 
+ 
     await page.goto('/generative-ai/');
 
     // Assertions of Prompt Popup

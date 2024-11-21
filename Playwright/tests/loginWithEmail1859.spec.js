@@ -14,10 +14,10 @@ const mail = config.mail;
 const password = config.password;
 
 // Login OK
-test('Login OK', async ({ page }) => {
+test ('Login OK', async ({ page }) => {
 
     await page.goto('/');
-
+    await page.pause();
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
     await page.getByPlaceholder('enter your e-mail address').click();
 
@@ -31,8 +31,8 @@ test('Login OK', async ({ page }) => {
     //Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
     await expect(page.locator('#language-toggler path')).toBeVisible();
+    
     //await page.getByRole('img', { name: 'Avatar profile' }).click(); //not working if no image selected 
-
     await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
 
@@ -55,7 +55,7 @@ test('Login with not exicting user', async ({ page }) => {
     await page.goto('/');
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
     await page.getByPlaceholder('enter your e-mail address').click();
-    await page.getByPlaceholder('enter your e-mail address').fill(mail);
+    await page.getByPlaceholder('enter your e-mail address').fill('serhii@coax.soft');
     await page.getByRole('button', { name: 'Log in' }).click();
 
     //Not existing user flow 
@@ -71,6 +71,8 @@ test('Login with not Correct email format', async ({ page }) => {
 
     //error message 
     await expect(page.locator('#auth-form')).toContainText('Enter a valid email address.');
+    // Popup Assertions
+    await expect(page.getByText('log in to start creating')).toBeVisible();
     await expect(page.locator('#auth-modal-content')).toContainText('No account? Sign up');
 
 });

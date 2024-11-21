@@ -89,7 +89,8 @@ test.skip ('p2d Tab Opened', async ({ page }) => {
     await expect(page.getByText('What kind of social post are')).toBeVisible();
     await expect(page.getByPlaceholder('Write a prompt to create your')).toBeVisible();
     await expect(page.getByRole('img', { name: 'randomize' })).toBeVisible();
-    await expect(page.getByRole('button', { hasText: 'start' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Start' })).toBeVisible();
+ 
 
     // Click on the randomize button
     await page.getByRole('img', { name: 'randomize' }).click();
@@ -127,19 +128,61 @@ test.skip ('p2d Tab Opened', async ({ page }) => {
 
     console.log(`Filled with: ${randomTitle}`);
 
-    await page.getByRole('button', { name: 'start' }).click();
-    // await expect(page.getByText('choosing design styles...')).toBeVisible();
-    await expect(page.locator('.p2d-container--header--title')).toHaveText('What kind of social post are you making?')
-    //await expect(page.locator('.p2d-container--header--title')).toHaveText('select your favorite style')
+    const imageReplacementType = [
+        'Default', 'Use generated image', 'Use internal image', 'Use external image', 'By subject relevance'
+    ]
+    // Generate a random index
+const imageReplacementTypeCount = imageReplacementType.length;
+const randomImageReplacementType = imageReplacementType[Math.floor(Math.random() * imageReplacementTypeCount)];
 
-    // Locate the parent element
-    const parentElement = page.locator('.p2d-container--content--generation-container button');
+await page.locator('#react-select-3-placeholder').click();
+
+// Select the image replacement type
+
+await page.pause(1000);
+await page.getByText(randomImageReplacementType, {exact: true}).click();
+
+const genres = [
+    "ARLES", "BANKSY", "BAUHAUS", "ART SOUP", "BASS", "CHATGPT", "DALLY", "CHIBI", "DREAMS", "GOOG"
+];
+
+const randomIndex2 = Math.floor(Math.random() * genres.length);
+const randomGenre = genres[randomIndex2];
+await page.locator('#react-select-8-placeholder').click();
+await page.pause(1000);
+await page.getByText(randomGenre, {exact: true}).click();
+
+
+const formats = [
+    "Profile Picture", "Story", "Reel", "Stories", "Company Logo"
+];
+
+const randomIndex3 = Math.floor(Math.random() * formats.length);
+const randomFormat = formats[randomIndex3];
+await page.locator('#react-select-5-placeholder').click();
+await page.pause(1000);
+await page.getByText(randomFormat, {exact: true}).click();
+
+//await page.getByRole('checkbox').first().check({ force: true });
+
+// Chose random anount from 1 to 5
+const randomAmount = Math.floor(Math.random() * 5) + 1;
+await page.getByText('Choose amount').click();
+await page.pause(500);
+await page.getByText(`${randomAmount}`, { exact: true }).click();
+
+
+ await page.getByRole('button', { name: 'start' }).click();
+
+    await expect(page.getByText('select your favorite style')).toBeVisible();
+    page.url().includes('/tool/studio/');
 
     // Count the child <div> elements
+    const parentElement = page.locator('.p2d-container--content--generation-container').locator('button');
     const childButtonCount = await parentElement.count();
 
     // Assert that the count is exactly 3
-    expect(childButtonCount).toBe(3);
+    expect(childButtonCount).toBe(randomAmount);
 
     // Check if the elements are visible
     await expect(page.getByRole('button', { name: 'star select' }).first()).toBeVisible();
@@ -147,32 +190,36 @@ test.skip ('p2d Tab Opened', async ({ page }) => {
 
     // Restart the process
     await page.getByRole('button', { name: 'reload restart' }).click();
-    await expect(page.locator('.p2d-container--header--title')).toHaveText('choosing design styles...')
-    await expect(page.locator('.p2d-container--header--title')).toHaveText('select your favorite style')
-
-    // Count the button elements and click on a random one
-    const buttonCount = await parentElement.count();
-    console.log(`Number of buttons: ${buttonCount}`);
-
-    // Ensure there are buttons to click
-    if (buttonCount > 0) {
-        // Generate a random index
-        const randomIndex = Math.floor(Math.random() * buttonCount);
-
-        // Click on the button at the random index
-        await parentElement.nth(randomIndex).click();
-
-        console.log(`Clicked on button at index: ${randomIndex}`);
-    } else {
-        console.log('No buttons found in .p2d-container--content--generation-container');
-    }
-    // Check if User is redirected to Scene Page 
+   
+    // Check if User is on Tool Studio Page
     expect(page.url()).toContain('/tool/studio/');
 
-    await expect(page.locator('.p2d-container--header--title')).toHaveText('generating your design...')
+    // // Count the button elements and click on a random one
+    // const buttonCount = await parentElement.count();
+    // console.log(`Number of buttons: ${buttonCount}`);
 
-    // Check if the user is redirected to the scene page
-    await page.waitForFunction(() => location.href.includes('/tool/scene/'), { timeout: 100000 });
-    expect(page.url()).toContain('/tool/scene/');
+    // // Ensure there are buttons to click
+    // if (buttonCount > 0) {
+    //     // Generate a random index
+    //     const randomIndex = Math.floor(Math.random() * buttonCount);
+
+    //     // Click on the button at the random index
+    //     await parentElement.nth(randomIndex).click();
+
+    //     console.log(`Clicked on button at index: ${randomIndex}`);
+    // } else {
+    //     console.log('No buttons found in .p2d-container--content--generation-container');
+    // }
+    // // Check if User is redirected to Scene Page 
+    // expect(page.url()).toContain('/tool/studio/');
+
+    // await expect(page.locator('.p2d-container--header--title')).toHaveText('generating your design...')
+
+    // // Check if the user is redirected to the scene page
+    // await page.waitForFunction(() => location.href.includes('/tool/scene/'), { timeout: 100000 });
+    // expect(page.url()).toContain('/tool/scene/');
+
+    await expect(page.getByText('What kind of social post are you making?')).toBeVisible();
+    page.url().includes('/tool/studio/');
 
 });

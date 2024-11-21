@@ -151,9 +151,30 @@ test('Template Grid Content', async ({ page }) => {
     await expect(page.getByText('You might also like')).toBeVisible();
 
     // Click on a random recommended template
-    const recommended = page.locator('#modalRecommended');
+    const recommended = page.locator('#modalRecommended > div');
     const recommendedCount = await recommended.count();
+    console.log(recommendedCount);
     const randomRecomendedIndex = Math.floor(Math.random() * recommendedCount);
     await recommended.nth(randomRecomendedIndex).click();
+    
 
+    // IF Button is disabled than choose another template
+    const disabledButton = page.getByRole('link', { name: 'use this template' })
+    const disabledClass = await disabledButton.getAttribute('class');
+        if (disabledClass.includes('disabled')) {
+        console.log('Button is disabled');
+            const recommended = page.locator('#modalRecommended > div');
+            const recommendedCount = await recommended.count();
+            const randomRecomendedIndex = Math.floor(Math.random() * recommendedCount);
+            await recommended.nth(randomRecomendedIndex).click();
+
+                // await page.goBack();
+                // await page.waitForLoadState('networkidle');
+                // await templates.nth(randomTemplateIndex).click();
+        }
+
+    await page.getByRole('link', { name: 'use this template' }).click();
+
+    const currentUrl = page.url();
+    expect(currentUrl).toContain('/tool/scene/');
 });
