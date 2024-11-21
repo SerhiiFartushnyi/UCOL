@@ -1,5 +1,5 @@
 1. Install Node JS: https://nodejs.org/en/download/package-manager
-2. Pull project 
+2. Clone project 
 3. Go to Playwright folder
 4. Install PlayWright in Playwright folder:
    npm init playwright@latest
@@ -9,6 +9,10 @@
 7. Install VSCode
 8. Install PlayWright plugin for VSCode
 9. Check config file , update if needed (should be used file form pull request)
-
-10. Run tests in Playwright folder: npx playwright test
-11. Check tests results: npx playwright show-report 
+10. To Mock Google Auth run in Terminal 
+    node tests/saveAuthState.js ,
+    
+    Perform Manual Google Authentigication
+    make sure Auth.json file in Playwright folder is created 
+11. Run tests in Playwright folder: npx playwright test
+12. Check tests results: npx playwright show-report 
