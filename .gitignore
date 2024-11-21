@@ -2,11 +2,9 @@ Cypress/
 Playwright/node_modules
 Playwright/playwright-report
 Playwright/test-results/
-Playwright/test-examples/
+Playwright/tests-examples/**/*
 Playwright/downloads/
+.DS_Store
 .gitconfig
 .gitignore
 auth.json
-
-
-
