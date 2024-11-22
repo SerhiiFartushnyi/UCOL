@@ -72,14 +72,14 @@ test('Shapes Options Applying', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     //Click on the create template button
     const startDesigning = page.locator('#create-template')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.pause(1000);
     const photosButton = page.getByRole('button', { name: 'Shapes', exact: true })
 

@@ -73,7 +73,7 @@ test('Project Button Functionality', async ({ page }) => {
      await page.locator('#create-template').click();
 
     //Assertions to check if the user is on the correct page
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await expect(page.locator('#editableTitle')).toContainText('New Design');
     await expect(page.getByLabel('Editor canvas')).toBeVisible();
 

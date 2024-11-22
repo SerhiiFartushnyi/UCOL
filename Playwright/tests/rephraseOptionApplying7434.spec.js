@@ -71,14 +71,14 @@ test ('Rephrase Options Applying', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     //Click on the create template button
     const startDesigning = page.locator('#create-template')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const textButton = page.getByRole('button', { name: 'A.I. Text', exact: true })
 
     await expect(textButton).toBeVisible();
@@ -96,7 +96,7 @@ test ('Rephrase Options Applying', async ({ page }) => {
     await page.locator('#generate-btn').click();
 
 
-    page.waitForLoadState('networkidle');
+    //page.waitForLoadState('networkidle');
     const rewriteButton = page.getByRole('button', { name: 'REWRITE' });
 
     // Extend button click

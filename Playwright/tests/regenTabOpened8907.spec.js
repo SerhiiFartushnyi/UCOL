@@ -71,7 +71,7 @@ test ('Re-gen Tab Opening', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     // Go To Scene Tab
     await page.getByText('features', { exact: true }).click();

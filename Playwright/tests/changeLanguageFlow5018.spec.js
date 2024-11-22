@@ -71,19 +71,19 @@ if (!loginResponse.ok()) {
 
     // Attempt to click on the #language-toggler element directly
 
-    await page.waitForLoadState('networkidle'); //!!!WAIT FOR ALL RENDERED !!! WAIT FOR ALL NETWORK REQUESTS TO FINISHED 
+    //await page.waitForLoadState('networkidle'); //!!!WAIT FOR ALL RENDERED !!! WAIT FOR ALL NETWORK REQUESTS TO FINISHED 
     const languageToggler = page.locator('#language-toggler');
     await expect(languageToggler).toBeVisible();
     await languageToggler.click();
 
-    await page.waitForLoadState('networkidle')
+    //await page.waitForLoadState('networkidle')
     await page.locator('#language-dropdown').getByText('Español').click();
 
     //Accertion of the language change to Espaniol
     expect(page.url()).toContain('/?language=es');
     await expect(page.getByRole('navigation')).toContainText('aprender');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const profileIcon = page.locator('#profile-toggler');
     await page.waitForSelector('#profile-toggler');
     await expect(profileIcon).toBeVisible();
@@ -107,7 +107,7 @@ test('Change Language Not logged in User', async ({ page }) => {
     await expect(languageToggler).toBeVisible();
     await languageToggler.click();
 
-    await page.waitForLoadState('networkidle')
+    //await page.waitForLoadState('networkidle')
     await page.locator('#language-dropdown').getByText('Português Brasileiro').click();
 
     //Accertion of the language change to Espaniol

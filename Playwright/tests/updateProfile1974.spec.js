@@ -77,7 +77,7 @@ test('Update Profile', async ({ page }) => {
     //Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
 
     await page.getByRole('link', { name: 'Go to Account Settings' }).click();

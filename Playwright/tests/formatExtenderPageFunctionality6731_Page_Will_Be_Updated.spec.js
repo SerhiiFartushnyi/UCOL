@@ -83,14 +83,14 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
     expect(page.url()).toContain('/tool/studio/');
 
     // wait for Loading Studio Page 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     // Choose Format Extender and click
     await expect(page.locator('#format-extender')).toContainText('format extender');
     await page.locator('#format-extender').click();
 
     // Choose random project 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const containers = await page.locator('.project--image-container--image');
      const containerCount = await containers.count();
      const randomIndex3 = Math.floor(Math.random() * containerCount);
@@ -117,7 +117,7 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
     await page.getByRole('button', { name: 'next' }).click();
     await expect(page.locator('#root')).toContainText('creating formats...');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     // Wait Untill Format was generated 
     await page.waitForTimeout(5000);
 

@@ -67,11 +67,12 @@ test('Format Extender Button', async ({ page }) => {
     // Navigate to site  
     await page.goto('/');
     // Check if the user is logged in
-    await page.waitForLoadState('networkidle');
+
+    //await page.waitForLoadState('networkidle');
     // Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
     await page.getByRole('link', { name: 'Go to Projects' }).click();
     

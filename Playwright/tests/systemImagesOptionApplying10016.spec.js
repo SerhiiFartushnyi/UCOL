@@ -70,14 +70,14 @@ test('System Images Options Applying', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     //Click on the create template button
     const startDesigning = page.locator('#create-template')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const imagesButton = page.getByRole('button', { name: 'System Images', exact: true })
 //    await imagesButton.click();
 
@@ -88,7 +88,7 @@ test('System Images Options Applying', async ({ page }) => {
     //await expect(page.locator('section').filter({ hasText: 'Library' })).toBeVisible();
     await expect(page.locator('#asset-library-content')).toBeVisible();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const imageButton = page.locator('#asset-library-content button')
     const numberOfImages = await imageButton.count();
     console.log(`Number of images: ${numberOfImages}`);

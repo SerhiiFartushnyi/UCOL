@@ -69,7 +69,7 @@ test('Change replace Status Button Functionallity ', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     // Go To Scene Tab
     await page.getByText('features', { exact: true }).click();
@@ -81,7 +81,7 @@ test('Change replace Status Button Functionallity ', async ({ page }) => {
     await page.locator('#layers').click();
     await expect(page.locator('.genre-assets-topbar--title')).toContainText('layers');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const layersComponent = page.locator('#scrollableDiv .genre-assets-content--content--assets-container--asset')
     const numberOfLayers = await layersComponent.count();
 

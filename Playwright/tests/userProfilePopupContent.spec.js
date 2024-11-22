@@ -74,10 +74,10 @@ test('Profile popup', async ({ page }) => {
 
     // Check if the user is logged in
     await expect(page.locator('#profile-toggler')).toBeVisible();
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler').click();
     
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
    
     // Check Profile information
     const profile = await page.locator('#profile-container');
@@ -93,7 +93,7 @@ test('Profile popup', async ({ page }) => {
 test('Profile Information', async ({ page }) => {
     //await page.waitForSelector('img', { name: 'Avatar profile' });
     await expect(page.locator('#profile-toggler')).toBeVisible();
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     //await page.getByRole('img', { name: 'Avatar profile' }).click();
     await page.locator('#profile-toggler').click();
 
@@ -129,7 +129,7 @@ test('Profile >> Go to Progects Page', async ({ page }) => {
     await page.waitForSelector('img', { name: 'Avatar profile' });
     await expect(page.getByRole('img', { name: 'Avatar profile' })).toBeVisible();
    
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.getByRole('img', { name: 'Avatar profile' }).click();
 
     // Check Profile information

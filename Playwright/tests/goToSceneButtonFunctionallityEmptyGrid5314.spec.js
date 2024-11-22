@@ -66,7 +66,7 @@ test('Go to Scene Button Functionallity', async ({ page }) => {
     // Navigate to site  
     await page.goto('/');
     // Check if the user is logged in
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const profileIcon = page.locator('#profile-toggler');
     await page.waitForSelector('#profile-toggler');
     await expect(profileIcon).toBeVisible();
@@ -83,7 +83,7 @@ test('Go to Scene Button Functionallity', async ({ page }) => {
     // Click on Scene Button
     await page.getByRole('link', { name: 'go to scene' }).click()
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await expect(page.locator('#editableTitle')).toContainText('New Design');
     await expect(page.getByRole('button', { name: 'Templates' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'help Feedback' })).toBeVisible();

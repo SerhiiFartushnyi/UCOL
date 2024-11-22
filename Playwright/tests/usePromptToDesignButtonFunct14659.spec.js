@@ -71,7 +71,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
     await expect(page.locator('#language-toggler path')).toBeVisible();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     await page.getByRole('link', { name: 'Prompt-to-Design', exact: true }).click();
 
@@ -215,7 +215,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     }
 
     // Wait for the page to load completely
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     // Check if the URL contains '/tool/scene/' 
     try {

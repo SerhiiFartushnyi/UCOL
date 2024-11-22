@@ -74,7 +74,7 @@ test('Start designing now button functionality (logged in User)', async ({ page 
         await page.locator('#create-template').click();
 
         // Check if User is on Scene Editor Page
-        await page.waitForLoadState('networkidle');
+        //await page.waitForLoadState('networkidle');
         await expect(page.getByRole('heading', { name: 'New Design' })).toBeVisible();
         const currentUrl = page.url();
         expect(currentUrl).toContain('/tool/scene/');

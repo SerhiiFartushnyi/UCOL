@@ -91,12 +91,12 @@ test('Use this template Logged in User', async ({ page }) => {
     
     // Click on first template
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.locator('.infinite-item > .relative > .w-full').first().click();
     
     await page.getByRole('link', { name: 'use this template' }).click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     
     // Check Create Scene page
     await expect(page.getByRole('button', { name: 'Randomize Template' })).toBeVisible();

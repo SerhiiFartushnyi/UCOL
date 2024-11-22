@@ -33,9 +33,8 @@ test ('Login OK', async ({ page }) => {
     //Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
     await expect(page.locator('#language-toggler path')).toBeVisible();
-    
-    //await page.getByRole('img', { name: 'Avatar profile' }).click(); //not working if no image selected 
-    await page.waitForLoadState('networkidle');
+
+    //await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
 
     await page.getByRole('link', { name: 'Sign Out' }).click();
@@ -96,7 +95,7 @@ test('Logout success', async ({ page }) => {
     //Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
 
     await page.getByRole('link', { name: 'Sign Out' }).click();

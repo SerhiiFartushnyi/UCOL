@@ -71,7 +71,7 @@ test ('Format Extender Tab Opening', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     // Go To Scene Tab >> Format Extender
     await page.getByText('features', { exact: true }).click();

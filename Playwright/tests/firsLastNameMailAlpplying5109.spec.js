@@ -34,7 +34,7 @@ test.beforeEach(async ({ page }) => {
 test('Profile popup', async ({ page }) => {
 
     // Check if the user is logged in
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     const profileIcon = page.locator('#profile-toggler-container');
     await page.waitForSelector('#profile-toggler-container');

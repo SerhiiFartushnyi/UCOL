@@ -164,7 +164,7 @@ test('Sign Up With Gmail', async ({ page }) => {
     await page.getByRole('button', { name: 'finish' }).click();
 
     // Check The Users Email
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler').click();
     await expect(page.locator('#profile-container')).toContainText(randomEmail);
     await expect(page.getByText('Design professional')).toBeVisible();

@@ -72,18 +72,17 @@ test.beforeEach(async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     // Go to Change Password Page
-    await page.waitForLoadState('networkidle');
-
+    //await page.waitForLoadState('networkidle');
     const profileIcon = page.locator('#profile-toggler-container');
     await page.waitForSelector('#profile-toggler-container');
     await expect(profileIcon).toBeVisible();
     await profileIcon.click();
 
     await page.getByRole('link', { name: 'Go to Account Settings' }).click();
-    await page.waitForLoadState('networkidle')
+    //await page.waitForLoadState('networkidle')
     await page.getByRole('link', { name: 'password' }).click();
     await expect(page.locator('#password-section')).toContainText('password');
-    await page.waitForLoadState('networkidle')
+    //await page.waitForLoadState('networkidle')
     await page.getByRole('link', { name: 'Change Password' }).click();
     await expect(page.locator('#change-password-modal')).toContainText('Change password');
 });

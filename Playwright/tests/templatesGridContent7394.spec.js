@@ -88,7 +88,7 @@ test('Template Grid Content', async ({ page }) => {
     const randomStyle = stylesTextArray[randomIndex];
     await page.getByRole('link', { name: randomStyle }).click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     await page.evaluate(() => {
         window.scrollTo(0, document.body.scrollHeight);
@@ -122,12 +122,12 @@ test('Template Grid Content', async ({ page }) => {
   }
 
     //Check More and Less button
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const moreButton = page.getByRole('button', { name: 'More' });
     await expect(moreButton).toBeVisible();
     await moreButton.click();
     
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const lessButton = page.getByRole('button', { name: 'Less' });
     await expect(lessButton).toBeVisible();
     await lessButton.click();
@@ -167,9 +167,6 @@ test('Template Grid Content', async ({ page }) => {
             const randomRecomendedIndex = Math.floor(Math.random() * recommendedCount);
             await recommended.nth(randomRecomendedIndex).click();
 
-                // await page.goBack();
-                // await page.waitForLoadState('networkidle');
-                // await templates.nth(randomTemplateIndex).click();
         }
 
     await page.getByRole('link', { name: 'use this template' }).click();

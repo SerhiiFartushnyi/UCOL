@@ -75,7 +75,7 @@ test.beforeEach(async ({ page }) => {
 
 // Go to Projects and click on Assets Upload
 test('succsessful Asset Upload With Valid Values', async ({ page }) => {
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
 
     await page.getByRole('link', { name: 'Go to Projects' }).click();

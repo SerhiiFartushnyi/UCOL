@@ -70,14 +70,14 @@ test('Upload Options Applying', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     //Click on the create template button
     const startDesigning = page.locator('#create-template')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.pause(1000);
     const uploadsButton = page.getByRole('button', { name: 'Uploads', exact: true })
 
@@ -88,7 +88,7 @@ test('Upload Options Applying', async ({ page }) => {
     await expect(page.locator('section').filter({ hasText: 'Uploads' })).toBeVisible();
     await expect(page.locator('#asset-library-content')).toBeVisible();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.pause(1000);
 
     if (await page.getByText('No Elements').isVisible()) {

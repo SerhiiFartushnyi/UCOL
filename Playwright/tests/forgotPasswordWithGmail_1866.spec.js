@@ -53,7 +53,7 @@ test ('Forgot Password flow with Gmail email verification', async ({ page }) => 
     await page.getByRole('button', { name: 'Reset password' }).click();
 
     // Verify the password reset was successful and user is logged in
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.locator('#profile-toggler-container').click();
     await expect(page.locator('#profile-container')).toContainText(email);
 });

@@ -72,14 +72,14 @@ test ('Templates Options Applying', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
      //Click on the create template button
      const startDesigning = page.locator('#create-template')
      await expect(startDesigning).toBeVisible();
      await startDesigning.click();
 
-     await page.waitForLoadState('networkidle');
+     //await page.waitForLoadState('networkidle');
      const templateButton = page.getByRole('button', { name: 'Templates' })
      await expect(templateButton).toBeVisible();
      await templateButton.click();

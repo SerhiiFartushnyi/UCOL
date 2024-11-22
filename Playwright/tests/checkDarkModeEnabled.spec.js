@@ -71,7 +71,7 @@ test('Enable Dark mode and Check', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
     await expect(page.locator('#language-toggler path')).toBeVisible();
 
-    await page.waitForLoadState('networkidle')
+    //await page.waitForLoadState('networkidle')
 
     // Check if the profile icon is visible
     const profileIcon = page.locator('#profile-toggler');

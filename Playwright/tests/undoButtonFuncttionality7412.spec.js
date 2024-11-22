@@ -77,7 +77,7 @@ test('Undo Button Functionality', async ({ page }) => {
     //await page.waitForSelector('#asset-library-content');
     await page.getByRole('button', { name: 'Templates' }).click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     // Locate all child buttons within the element with the ID 'asset-library-content'
 
     const buttons = page.locator('#asset-library-content button');

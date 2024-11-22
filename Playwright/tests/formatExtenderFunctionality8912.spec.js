@@ -137,7 +137,7 @@ test('Format Extender > Download and Save Button Functionallity', async ({ page 
     }
 
     // Wait for the page to load completely
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     //  Click on the save button
     await page.getByRole('button', { name: 'Save (1) formats' }).click();

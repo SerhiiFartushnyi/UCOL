@@ -73,21 +73,21 @@ test('AI Text Options Applying', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     //Click on the create template button
     const startDesigning = page.locator('#create-template')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const textButton = page.getByRole('button', { name: 'A.I. Text', exact: true })
 
     await expect(textButton).toBeVisible();
     await textButton.click({ timeout: 1000 });
 
     // Assertion of AI Page
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await expect(page.locator('section').filter({ hasText: 'Write your text with A.I.' })).toBeVisible();
     await expect(page.getByPlaceholder('What do you want to write')).toBeVisible();
     await expect(page.getByText('What are you writing for?')).toBeVisible();
@@ -120,7 +120,7 @@ test('AI Text Options Applying', async ({ page }) => {
     await expect(genButton).toBeEnabled();
     await genButton.click();
     
-    page.waitForLoadState('networkidle');
+    //page.waitForLoadState('networkidle');
 
     // Assertion if Page has changed to  Rephrase Panel
     await expect(page.locator('section').filter({ hasText: 'Rephrase' })).toBeVisible();

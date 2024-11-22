@@ -70,14 +70,14 @@ test('Photos Options Applying', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     //Click on the create template button
     const startDesigning = page.locator('#create-template')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const photosButton = page.getByRole('button', { name: 'Photos', exact: true })
 
     await expect(photosButton).toBeVisible();
@@ -87,7 +87,7 @@ test('Photos Options Applying', async ({ page }) => {
     await expect(page.locator('section').filter({ hasText: 'Photos' })).toBeVisible();
     await expect(page.locator('#asset-library-content')).toBeVisible();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const noOfPhotos = page.locator('#asset-library-content button')
     const numberOfPhotos = await noOfPhotos.count();
 

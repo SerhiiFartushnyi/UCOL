@@ -72,14 +72,14 @@ test('Prompt Options Applying', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     //Click on the create template button
     const startDesigning = page.locator('#create-template')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     const promptButton = page.getByRole('button', { name: 'help Prompt', exact: true })
 
     await expect(promptButton).toBeVisible();
@@ -153,7 +153,7 @@ test('Prompt Options Applying', async ({ page }) => {
     }
 
     // Wait for the page to load completely
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
 
     // Check if the URL contains '/tool/scene/' 
     try {
