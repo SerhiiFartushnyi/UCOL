@@ -15,5 +15,5 @@
     make sure Auth.json file in Playwright folder is created
 11. In C7424 file  change Paths to files on your PC you want to use while testing
 12. In C5654 file change path to file you want to upload
-11. Run tests in Playwright folder: npx playwright test
-12. Check tests results: npx playwright show-report
+13. Run tests in Playwright folder: npx playwright test
+14. Check tests results: npx playwright show-report
