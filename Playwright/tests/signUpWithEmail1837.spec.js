@@ -15,13 +15,19 @@ test('Sign Up Wrong Email', async ({ page }) => {
     await page.goto('/');
     await page.getByText('sign up').click();
 
-    await page.getByPlaceholder('enter your e-mail address').click();
-    await page.getByPlaceholder('enter your e-mail address').fill('far2shok');
-    await page.getByPlaceholder('8 char. +1 symbol, number,').click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').fill('Qwert1234!');
-    await page.getByPlaceholder('confirm your password').click();
-    await page.getByPlaceholder('confirm your password').fill('Qwert1234!');
+    const emailField = page.getByPlaceholder('enter your e-mail address');
+    await emailField.click();
+    await emailField.fill('far2shok');
+    
+    const passwordField = page.getByPlaceholder('8 char. +1 symbol, number,');
+    await passwordField.click();
+    await passwordField.fill('Qwert1234!');
+
+    const confirmPasswordField = page.getByPlaceholder('confirm your password');
+    await confirmPasswordField.click();
+    await confirmPasswordField.fill('Qwert1234!');
     await page.getByRole('button', { name: 'Next' }).click();
+    
 
     // Invalid email format error
     await expect(page.locator('#auth-form')).toContainText('Enter a valid email address.');
@@ -32,6 +38,7 @@ test('Sign Up Passwords Does not match ', async ({ page }) => {
     await page.goto('/');
     await page.getByText('sign up').click();
 
+    
     await page.getByPlaceholder('enter your e-mail address').click();
     await page.getByPlaceholder('enter your e-mail address').fill('far2shok@test.com');
     await page.getByPlaceholder('8 char. +1 symbol, number,').click();

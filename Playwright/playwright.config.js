@@ -39,7 +39,7 @@ module.exports = defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
 
-    // baseURL: 'https://coolab.ai/',
+    //baseURL: 'https://coolab.ai/',
 
     baseURL: 'https://ucl-coolab-dev.uk.r.appspot.com/',
 
@@ -55,10 +55,10 @@ module.exports = defineConfig({
       viewport: { width: 1440, height: 2000 },
     },
 },
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
 
     {
       name: 'webkit',

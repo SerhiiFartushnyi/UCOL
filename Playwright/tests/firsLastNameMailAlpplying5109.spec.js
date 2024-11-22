@@ -25,8 +25,9 @@ test.beforeEach(async ({ page }) => {
     // Used the saved email from the config file
     await page.getByPlaceholder('enter your e-mail address').fill(email);
     await page.getByRole('button', { name: 'Log in' }).click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').fill(password);
+    const passField = await page.getByPlaceholder('8 char. +1 symbol, number,') 
+    await passField.click();
+    await passField.fill(password);
     await page.getByRole('button', { name: 'Log in' }).click();
 });
 
@@ -41,10 +42,11 @@ test('Profile popup', async ({ page }) => {
     await profileIcon.click();
 
     // Check Profile information
-    await expect(page.locator('#profile-container')).toContainText(firstName +' ' +lastName);
-    await expect(page.locator('#profile-container')).toContainText(email);
+    const profile = await page.locator('#profile-container');
+    await expect(profile).toBeVisible();
+    await expect(profile).toContainText(firstName +' ' +lastName);
+    await expect(profile).toContainText(email);
 
     // Check text in Popup Window 
     await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();
-
 });

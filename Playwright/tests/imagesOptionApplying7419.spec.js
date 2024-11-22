@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 
@@ -67,6 +66,7 @@ test('Images Options Applying', async ({ page }) => {
 
     // Navigate to site  
     await page.goto('/');
+
     //Assertions to check if the user is logged in
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
@@ -101,10 +101,11 @@ test('Images Options Applying', async ({ page }) => {
     console.log(`Clicked on image at index: ${randomImageIndex}`);
 
     //Search for a template Not existing Search request
-    await page.getByPlaceholder('Search …').click();
-    await page.getByPlaceholder('Search …').fill('064dridjwl');
-    await page.getByPlaceholder('Search …').press('Enter');
-    await page.getByPlaceholder('Search …').clear();
+    const search = page.getByPlaceholder('Search …');
+    await search.click();
+    await search.fill('064dridjwl');
+    await search.press('Enter');
+    await search.clear();
 
     // //Click on X button to close the Formats panel
     await page.locator('button[aria-label="Close"]').first().click();

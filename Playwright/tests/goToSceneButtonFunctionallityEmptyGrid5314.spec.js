@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 const config = require('./config');
 
@@ -88,6 +87,4 @@ test('Go to Scene Button Functionallity', async ({ page }) => {
     await expect(page.locator('#editableTitle')).toContainText('New Design');
     await expect(page.getByRole('button', { name: 'Templates' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'help Feedback' })).toBeVisible();
-    //await expect(page.getByRole('button', { name: 'help Prompt' })).toBeVisible();
-    //await page.close();
 });

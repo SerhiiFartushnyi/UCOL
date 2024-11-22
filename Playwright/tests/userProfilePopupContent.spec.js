@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { profile } from 'console';
 const config = require('./config');
 
 /* 
@@ -11,7 +12,9 @@ const config = require('./config');
 test.use({ storageState: 'auth.json' });
 
 const email = config.mail1;
-let password = config.password1;
+const password = config.password1;
+const firstName = config.firstName;
+const lastName = config.lastName;
 
 test.beforeEach(async ({ page }) => {
     test.slow();
@@ -77,8 +80,10 @@ test('Profile popup', async ({ page }) => {
     await page.waitForLoadState('networkidle');
    
     // Check Profile information
-    await expect(page.locator('#profile-container')).toContainText('Daria Bochulya');
-    await expect(page.locator('#profile-container')).toContainText(email);
+    const profile = await page.locator('#profile-container');
+    await expect(profile).toContainText(`${firstName} ${lastName}`);
+    await expect(profile).toContainText(email);
+    
 
     // Check text in Popup Window 
     await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();
@@ -100,7 +105,7 @@ test('Profile Information', async ({ page }) => {
     await expect(page.locator('#account-section')).toContainText('Manage your account information');
 
     // Check User's Full Name 
-    await expect(page.locator('#full_name')).toContainText('Daria Bochulya');
+    await expect(page.locator('#full_name')).toContainText(`${firstName} ${lastName}`);
     await expect(page.getByRole('link', { name: 'dariya.bochulya@coaxsoft.com' })).toHaveText(email);
 
     // Recall Profile Popup 
@@ -109,8 +114,8 @@ test('Profile Information', async ({ page }) => {
     //Check Account Upadte Info Popup Fields
     await expect(page.locator('#update-profile-info-modal')).toContainText('update profile');
 
-    await expect(page.locator('input[name="first_name"]')).toHaveValue('Daria');
-    await expect(page.locator('input[name="last_name"]')).toHaveValue('Bochulya');
+    await expect(page.locator('input[name="first_name"]')).toHaveValue(`${firstName}`);
+    await expect(page.locator('input[name="last_name"]')).toHaveValue(`${lastName}`);
 
     //await expect(page.locator('input[name="username"]')).toHaveValue(mail);
 
@@ -128,7 +133,7 @@ test('Profile >> Go to Progects Page', async ({ page }) => {
     await page.getByRole('img', { name: 'Avatar profile' }).click();
 
     // Check Profile information
-    await expect(page.locator('#profile-container')).toContainText('Daria Bochulya');
+    await expect(page.locator('#profile-container')).toContainText(`${firstName} ${lastName}`);
     await expect(page.locator('#profile-container')).toContainText(email);
 
     // Check text in Popup Window
@@ -137,12 +142,9 @@ test('Profile >> Go to Progects Page', async ({ page }) => {
     await page.getByRole('link', { name: 'Go to Projects' }).click();
 
     // Check if the user is on the Projects Page
-    await expect(page.url()).toContain('https://ucl-coolab-dev.uk.r.appspot.com/projects/');
+    await expect(page.url()).toContain('/projects/');
     await expect(page.locator('#projects-tabs')).toContainText('DEVELOPER');
     await expect(page.getByRole('heading')).toContainText('Projects');
     await expect(page.locator('#add-new-project-btn')).toContainText('new design');
-
-    await page.close();
-
 });
  

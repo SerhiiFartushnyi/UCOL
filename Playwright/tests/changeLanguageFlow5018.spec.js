@@ -1,4 +1,3 @@
-// Updated:13Nov24
 import { test, expect } from '@playwright/test';
 const config = require('./config');
 /*
@@ -73,8 +72,9 @@ if (!loginResponse.ok()) {
     // Attempt to click on the #language-toggler element directly
 
     await page.waitForLoadState('networkidle'); //!!!WAIT FOR ALL RENDERED !!! WAIT FOR ALL NETWORK REQUESTS TO FINISHED 
-    await expect(page.locator('#language-toggler')).toBeVisible();
-    await page.locator('#language-toggler').click();
+    const languageToggler = page.locator('#language-toggler');
+    await expect(languageToggler).toBeVisible();
+    await languageToggler.click();
 
     await page.waitForLoadState('networkidle')
     await page.locator('#language-dropdown').getByText('Español').click();
@@ -103,8 +103,9 @@ test('Change Language Not logged in User', async ({ page }) => {
 
     // Attempt to click on the #language-toggler element directly
     await page.waitForLoadState('networkidle'); //!!!WAIT FOR ALL RENDERED !!! WAIT FOR ALL NETWORK REQUESTS TO FINISHED 
-    await expect(page.locator('#language-toggler')).toBeVisible();
-    await page.locator('#language-toggler').click();
+    const languageToggler = page.locator('#language-toggler');
+    await expect(languageToggler).toBeVisible();
+    await languageToggler.click();
 
     await page.waitForLoadState('networkidle')
     await page.locator('#language-dropdown').getByText('Português Brasileiro').click();

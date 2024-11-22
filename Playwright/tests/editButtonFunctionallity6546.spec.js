@@ -1,4 +1,3 @@
-// Updated:13Nov24
 import { test, expect } from '@playwright/test';
 const config = require('./config');
 
@@ -76,9 +75,10 @@ test('Edit Button Functionallity', async ({ page }) => {
     await profileIcon.click();
 
     // Click on Project Button
-    await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();
-    await page.getByRole('link', { name: 'Go to Projects' }).click();
-
+    const projectButton = await page.getByRole('link', { name: 'Go to Projects' });
+    await expect(projectButton).toBeVisible();
+    await projectButton.click();
+    
    // Go to Projects and click on first project
     await page.waitForLoadState('networkidle');
     await expect(page.locator('#projects-container')).toContainText('Edit');

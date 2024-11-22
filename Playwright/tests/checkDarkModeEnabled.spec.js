@@ -1,4 +1,3 @@
-// Updated:13Nov24
 import { test, expect } from '@playwright/test';
 const config = require('./config');
 
@@ -74,12 +73,12 @@ test('Enable Dark mode and Check', async ({ page }) => {
 
     await page.waitForLoadState('networkidle')
 
+    // Check if the profile icon is visible
     const profileIcon = page.locator('#profile-toggler');
     await page.waitForSelector('#profile-toggler');
     await expect(profileIcon).toBeVisible();
     await profileIcon.click();
-    
-    // await page.(locator('#profile-container span')).filter({ hasText: 'Dark Mode' })
+
     await page.locator('#profile-container label span').click();
 
     // Check if the Dark Mode is enabled
@@ -95,11 +94,5 @@ test('Enable Dark mode and Check', async ({ page }) => {
     expect(isDarkModeEnabled).toBe(true);
 
     await expect(page.getByRole('link', { name: 'start designing now' })).toBeVisible();
-
-    // Check if the link has the exact background color #fffb00
-    
-    // const element = await page.getByRole('link', { name: 'start designing now' });
-    // await expect(element).toHaveCSS('background', 'rgb(255, 251, 0)');
-    // await expect(element).toHaveCSS('color', 'rgb(0, 0, 0)');
 
 });

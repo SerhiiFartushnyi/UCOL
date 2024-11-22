@@ -1,4 +1,3 @@
-// Updated:14Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 
@@ -113,9 +112,10 @@ test('Formats Options Applying', async ({ page }) => {
     console.log('Unique Formats:', uniqueFormat);
 
     // Fill search with random format
-    await page.getByPlaceholder('Search ...').click();
-    await page.getByPlaceholder('Search ...').fill(uniqueFormat);
-    await page.getByPlaceholder('Search ...').press('Enter');
+    const search = page.getByPlaceholder('Search ...');
+    await search.click();
+    await search.fill(uniqueFormat);
+    await search.press('Enter');
 
     // Count the number of formats after the search
     const formats2 = page.locator('#formats-container button', { hasText: uniqueFormat });
@@ -172,11 +172,12 @@ test('Formats Options Applying', async ({ page }) => {
     await expect(heightElement).toHaveValue(height.toString());
 
     //Search for a template Not existing Search request
-    await page.getByPlaceholder('Search ...').click();
-    await page.getByPlaceholder('Search ...').fill('tik-tok');
-    await page.getByPlaceholder('Search ...').press('Enter');
+    
+    await search.click();
+    await search.fill('tik-tok');
+    await search.press('Enter');
     await expect(page.getByText('No Elements')).toBeVisible();
-    await page.getByPlaceholder('Search ...').clear();
+    await search.clear();
 
     // //Click on X button to close the Formats panel
     await page.locator('button[aria-label="Close"]').first().click();

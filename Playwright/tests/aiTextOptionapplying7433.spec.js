@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 
@@ -113,11 +112,14 @@ test('AI Text Options Applying', async ({ page }) => {
     await expect(page.getByRole('button', { name: 'HISTORY' })).toBeVisible();
 
     //Assertion of AI Page Functionality 
-    await page.getByPlaceholder('What do you want to write').click();
-    await page.getByPlaceholder('What do you want to write').fill(text);
-    await expect(page.locator('#generate-btn')).toBeEnabled();
-    await page.locator('#generate-btn').click();
+    const textArea = page.getByPlaceholder('What do you want to write');
+    await textArea.click();
+    await textArea.fill(text);
 
+    const genButton = page.locator('#generate-btn');
+    await expect(genButton).toBeEnabled();
+    await genButton.click();
+    
     page.waitForLoadState('networkidle');
 
     // Assertion if Page has changed to  Rephrase Panel

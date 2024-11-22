@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 
@@ -72,8 +71,9 @@ test('File Export Functionality', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //Click on the create template button
-    await expect(page.locator('#create-template')).toContainText('start designing');
-    page.locator('#create-template').click();
+    const createTemplateButton = page.locator('#create-template');
+    await expect(createTemplateButton).toContainText('start designing');
+    await createTemplateButton.click();
 
     //await page.waitForSelector('#asset-library-content');
     await page.getByRole('button', { name: 'Templates' }).click();
@@ -165,7 +165,5 @@ test('File Export Functionality', async ({ page }) => {
     } else {
         console.log(`Unexpected button name: ${randomButtonName}`);
     }
-
     console.log(`The downloaded file has a .${fileExtension} extension.`);
-
 });

@@ -1,4 +1,3 @@
-// Updated:13Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 
@@ -85,7 +84,8 @@ test('Change replace Status Button Functionallity ', async ({ page }) => {
     await page.waitForLoadState('networkidle');
     const layersComponent = page.locator('#scrollableDiv .genre-assets-content--content--assets-container--asset')
     const numberOfLayers = await layersComponent.count();
-    console.log('numberOfLayers counted: ', numberOfLayers);
+
+    //console.log('numberOfLayers counted: ', numberOfLayers);
     const randomLayerIndex = Math.floor(Math.random() * numberOfLayers);
     const randomLayer = layersComponent.nth(randomLayerIndex);
 
@@ -102,6 +102,5 @@ test('Change replace Status Button Functionallity ', async ({ page }) => {
     await page.getByText('change replaceable status').click();
     await expect(page.getByText(/New assets set as (irreplaceable|replaceable)/)).toBeVisible();
 
-    //Check multiple layers ???
 });
 

@@ -16,8 +16,9 @@ test ('Forgot Password flow with Gmail email verification', async ({ page }) => 
 
     //Click on Forgot password Button
     await page.getByText('I forgot my password').click();
-    await page.getByPlaceholder('name@workemail.com').click();
-    await page.getByPlaceholder('name@workemail.com').fill(email);
+    const emailField = await page.getByPlaceholder('name@workemail.com');
+    await emailField.click();
+    await emailField.fill(email);
     await page.getByRole('button', { name: 'Send e-mail' }).click();
 
     // Check if one of the two possible messages is present

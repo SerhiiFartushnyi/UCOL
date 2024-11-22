@@ -184,9 +184,11 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     console.log('Number of designs:', noOfDesigns);
 
     // Fill the placeholder with the selected format and subject
-    await page.locator('#promptToDesignPurposeInputTop').click();
-    await page.locator('#promptToDesignPurposeInputTop').fill(`Design a ${randomFormat} for a ${randomSubject}`);
-    await page.locator('#promptToDesignPurposeInputTop').press('Enter');
+    const promptInput = page.locator('#promptToDesignPurposeInputTop');
+    await promptInput.click();
+    await promptInput.fill(`Design a ${randomFormat} for a ${randomSubject}`);
+    await promptInput.press('Enter');
+
     //await page.locator('#promptToDesignFormTop').getByRole('button', { name: 'use prompt to design' }).click();
 
     // Soft Accertions >> Check some genetrating flow & if the URL contains '/tool/scene/'
@@ -198,7 +200,7 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
         softAssertions.push(`Assertion failed: understanding the prompt - ${error.message}`);
     }
-    
+
     try {
         await expect(page.getByText('generating visuals')).toBeVisible({timeout: 10000});
     } catch (error) {
@@ -228,7 +230,6 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     if (softAssertions.length > 0) {
         console.log('Soft assertion errors:', softAssertions.length);
         softAssertions.forEach(assertion => console.log(assertion));
-
     }
 
     // Assert the count Projects in the folder

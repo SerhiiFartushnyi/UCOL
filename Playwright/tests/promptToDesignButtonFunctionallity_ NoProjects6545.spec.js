@@ -81,8 +81,6 @@ test('Prompt To Design Button Functionallity', async ({ page }) => {
    await expect(page.locator('#projects-tab-content')).toContainText('start a new project');
 
     // Ensure the add new project button is visible and enabled
-    //const newDesignButton = page.getByRole('button', { name: ' new design ' })
-    //const desButton = page.getByRole('button', { name: 'new design Start a new' })
     const newDesignButton = page.locator('#add-new-project-btn')
     await expect(newDesignButton).toBeVisible();
     await expect(newDesignButton).toBeEnabled();

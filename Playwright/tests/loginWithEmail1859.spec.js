@@ -19,13 +19,15 @@ test ('Login OK', async ({ page }) => {
     await page.goto('/');
     await page.pause();
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
-    await page.getByPlaceholder('enter your e-mail address').click();
 
-    await page.getByPlaceholder('enter your e-mail address').fill(mail);
+    const emailField = page.getByPlaceholder('enter your e-mail address')
+    await emailField.click();
+    await emailField.fill(mail);
     await page.getByRole('button', { name: 'Log in' }).click();
 
-    await page.getByPlaceholder('8 char. +1 symbol, number,').click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').fill(password);
+    const passwordField = page.getByPlaceholder('8 char. +1 symbol, number,')
+    await passwordField.click();
+    await passwordField.fill(password);
     await page.getByRole('button', { name: 'Log in' }).click();
 
     //Assertions to check if the user is logged in
@@ -54,13 +56,17 @@ test ('Login OK', async ({ page }) => {
 test('Login with not exicting user', async ({ page }) => {
     await page.goto('/');
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
-    await page.getByPlaceholder('enter your e-mail address').click();
-    await page.getByPlaceholder('enter your e-mail address').fill('serhii@coax.soft');
+
+    const emailField = page.getByPlaceholder('enter your e-mail address')
+    await emailField.click();
+    await emailField.fill('serhii@coax.soft');
     await page.getByRole('button', { name: 'Log in' }).click();
 
     //Not existing user flow 
-    await expect(page.locator('#auth-modal-content')).toContainText('Sign up');
-    await expect(page.locator('#auth-modal-content')).toContainText('No account? Sign up');
+    const popup = page.locator('#auth-modal-content');
+    await expect(popup).toContainText('Sign up');
+    await expect(popup).toContainText('No account? Sign up');
+
 });
 
 test('Login with not Correct email format', async ({ page }) => {

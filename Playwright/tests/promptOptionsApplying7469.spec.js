@@ -1,4 +1,3 @@
-//Updated:24Nov21
 import { test, expect } from '@playwright/test';
 import config from './config';
 

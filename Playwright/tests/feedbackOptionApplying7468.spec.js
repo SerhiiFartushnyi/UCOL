@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 import { faker } from '@faker-js/faker';
@@ -71,6 +70,7 @@ test ('Feedback Options Applying', async ({ page }) => {
     await page.goto('/');
 
     //Assertions to check if the user is logged in
+
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
@@ -95,8 +95,9 @@ test ('Feedback Options Applying', async ({ page }) => {
     await expect(page.getByRole('button', { name: 'send' })).toBeVisible();
 
     // Fill feedback without option chosen
-    await page.getByPlaceholder('How can we improve our app?').click();
-    await page.getByPlaceholder('How can we improve our app?').fill(randomWords);
+    const feedback = await page.getByPlaceholder('How can we improve our app?');
+    await feedback.click();
+    await feedback.fill(randomWords);
     await page.getByRole('button', { name: 'send' }).click();
     await expect(page.getByText('Dropdown option is required')).toBeVisible();
     await page.getByPlaceholder('How can we improve our app?').clear();
@@ -109,8 +110,9 @@ test ('Feedback Options Applying', async ({ page }) => {
     await expect(page.getByText('Is required. Max length is')).toBeVisible();
 
     // Fill feedback with option chosen on previouse test and text
-    await page.getByPlaceholder('How can we improve our app?').click();
-    await page.getByPlaceholder('How can we improve our app?').fill(randomWords);
+    const feedback2 = await page.getByPlaceholder('How can we improve our app?');
+    await feedback2.click();
+    await feedback2.fill(randomWords);
     await page.getByRole('button', { name: 'send' }).click();
 
     await expect(page.getByRole('heading', { name: 'feedback has been sent!' })).toBeVisible();

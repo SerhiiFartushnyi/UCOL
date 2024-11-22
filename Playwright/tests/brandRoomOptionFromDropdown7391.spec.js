@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 const config = require('./config');
 
@@ -71,7 +70,7 @@ if (!loginResponse.ok()) {
 
     // Check if we are on the Brand Room Page
 
-    await expect(page.locator('#brand-room-tabs')).toContainText('Brand Room1');
+    await expect(page.locator('#brand-room-tabs')).toContainText('Brand Room');
     await expect(page.getByText('Brand Room', {exact: true})).toBeVisible();
     expect(page.url()).toContain('/projects/#brand-room');
 });

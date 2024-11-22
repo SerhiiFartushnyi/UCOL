@@ -1,4 +1,3 @@
-// Updated:13Nov24
 import { test, expect } from '@playwright/test';
 const config = require('./config');
 
@@ -16,57 +15,57 @@ let password = config.password;
 
 // Change password Flow 
 test.beforeEach(async ({ page }) => {
-    
+
     test.slow();
     await page.goto('/modal/log-in/');
 
-// Wait for CSRF token to be available
-const csrfToken = await page.getAttribute('input[name="csrfmiddlewaretoken"]', 'value');
-if (!csrfToken) {
-  throw new Error('CSRF token not found on the login page');
-}
+    // Wait for CSRF token to be available
+    const csrfToken = await page.getAttribute('input[name="csrfmiddlewaretoken"]', 'value');
+    if (!csrfToken) {
+        throw new Error('CSRF token not found on the login page');
+    }
 
-// Step 2: Send the pre-login request with extracted CSRF token
-const preLoginResponse = await page.request.post('/modal/log-in/', {
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Referer': `${config.baseUrl}/modal/log-in/`,
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
-  },
-  form: {
-    csrfmiddlewaretoken: csrfToken,
-    'log_in_view-current_step': 'pre_log_in_form',
-    'pre_log_in_form-email': email
-  }
-});
+    // Step 2: Send the pre-login request with extracted CSRF token
+    const preLoginResponse = await page.request.post('/modal/log-in/', {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Referer': `${config.baseUrl}/modal/log-in/`,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
+        },
+        form: {
+            csrfmiddlewaretoken: csrfToken,
+            'log_in_view-current_step': 'pre_log_in_form',
+            'pre_log_in_form-email': email
+        }
+    });
 
-// Log pre-login response details for debugging
-const preLoginBody = await preLoginResponse.text();
+    // Log pre-login response details for debugging
+    const preLoginBody = await preLoginResponse.text();
 
-if (!preLoginResponse.ok()) {
-  throw new Error('Pre-login request failed');
-}
+    if (!preLoginResponse.ok()) {
+        throw new Error('Pre-login request failed');
+    }
 
-// Step 3: Send the final login request
-const loginResponse = await page.request.post('/modal/log-in/', {
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-   'Referer': `${config.baseUrl}/modal/log-in/`,
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
-  },
-  form: {
-    csrfmiddlewaretoken: csrfToken,
-    'log_in_view-current_step': 'normal_log_in_form',
-    'normal_log_in_form-username': email,
-    'normal_log_in_form-password': password
-  }
-});
+    // Step 3: Send the final login request
+    const loginResponse = await page.request.post('/modal/log-in/', {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Referer': `${config.baseUrl}/modal/log-in/`,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
+        },
+        form: {
+            csrfmiddlewaretoken: csrfToken,
+            'log_in_view-current_step': 'normal_log_in_form',
+            'normal_log_in_form-username': email,
+            'normal_log_in_form-password': password
+        }
+    });
 
-if (!loginResponse.ok()) {
-  throw new Error('Login request failed');
-}
+    if (!loginResponse.ok()) {
+        throw new Error('Login request failed');
+    }
 
-// Navigate to site  
+    // Navigate to site  
     await page.goto('/');
 
     //Assertions to check if the user is logged in
@@ -119,7 +118,7 @@ test('Passwords do not match', async ({ page }) => {
     const newPassword = page.getByRole('textbox', { name: 'new password' });
     await newPassword.click();
     await newPassword.fill(password + 3);
-    
+
     const verifyPassword = page.getByPlaceholder('verify password');
     await verifyPassword.click();
     await verifyPassword.fill(password + 4);
@@ -141,7 +140,7 @@ test('Passwords Success', async ({ page }) => {
     const newPassword = page.getByRole('textbox', { name: 'new password' });
     await newPassword.click();
     await newPassword.fill('Qwert12345!');
-    
+
     const verifyPassword = page.getByPlaceholder('verify password');
     await verifyPassword.click();
     await verifyPassword.fill('Qwert12345!');
@@ -152,25 +151,4 @@ test('Passwords Success', async ({ page }) => {
     // Check Success Message
     const loggedInMessage = await page.getByText('Password updated successfully');
     await expect(loggedInMessage).toHaveText('Password updated successfully');
-
 });
-
-// !!! Need to play with skipBefore Each Functionallity 
-
-// skipBeforeEach = true;
-// test('Fail to login with old password', async ({ page }) => {
-//     //skipBeforeEach = true;
-
-//     await page.goto('/');
-//     // Enter the login credentials and Log in
-//     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
-//     await page.getByPlaceholder('enter your e-mail address').click();
-//     await page.getByPlaceholder('enter your e-mail address').fill(mail);
-//     await page.getByRole('button', { name: 'Log in' }).click();
-//     await page.getByPlaceholder('8 char. +1 symbol, number,').click();
-//     await page.getByPlaceholder('8 char. +1 symbol, number,').fill(password+1);
-//     await page.getByRole('button', { name: 'Log in' }).click();
-
-//     await expect(page.locator('#auth-form')).toContainText('Please enter a correct email and password. Note that both fields may be case-sensitive.');
-//     skipBeforeEach = false;
-// });

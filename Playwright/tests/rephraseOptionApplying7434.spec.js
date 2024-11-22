@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 
@@ -90,12 +89,14 @@ test ('Rephrase Options Applying', async ({ page }) => {
     await expect(page.getByRole('button', { name: 'HISTORY' })).toBeVisible();
 
     // Assertion of AI Page
-    await page.getByPlaceholder('What do you want to write').click();
-    await page.getByPlaceholder('What do you want to write').fill(text);
+    const textField = page.getByPlaceholder('What do you want to write');
+    await expect(textField).toBeVisible();
+    await textField.click();
+    await textField.fill(text);
     await page.locator('#generate-btn').click();
 
-    page.waitForLoadState('networkidle');
 
+    page.waitForLoadState('networkidle');
     const rewriteButton = page.getByRole('button', { name: 'REWRITE' });
 
     // Extend button click

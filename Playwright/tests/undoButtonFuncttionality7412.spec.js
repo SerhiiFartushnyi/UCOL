@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 
@@ -89,7 +88,7 @@ test('Undo Button Functionality', async ({ page }) => {
 
     if (buttonsCount > 0) {
         const randomIndex = Math.floor(Math.random() * buttonsCount);
-    // Click on a random Template button
+        // Click on a random Template button
         await buttons.nth(randomIndex).click();
         console.log(`Clicked on button at index: ${randomIndex}`);
     } else {

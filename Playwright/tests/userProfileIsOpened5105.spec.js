@@ -73,8 +73,8 @@ test('User Profile is opened ',async ({ page }) => {
     await profile.click();
 
     // Check Profile Popup 
-
-    await expect(page.locator('#profile-container')).toBeVisible();
-    await expect(page.locator('#profile-container')).toContainText('Sign Out');
-
+    const profilePopup = page.locator('#profile-container');
+    await expect(profilePopup).toBeVisible();
+    await expect(profilePopup).toContainText(email);
+    await expect(profilePopup).toContainText('Sign Out');
 });

@@ -3,6 +3,8 @@ module.exports = {
     // Normal User
     mail: 'serhii.fartushnyi+ucl@coaxsoft.com',
     password: 'Qwert12345!',
+    // mail: 'dariya.bochulya@coaxsoft.com',
+    // password: 'QWERTy123!',
 
     // mail1: Creds for check profile flow 
     mail1: 'dariya.bochulya@coaxsoft.com',
@@ -15,5 +17,6 @@ module.exports = {
 
     rephraseText: 'Слава Україні!',
     
-    baseUrl: 'https://ucl-coolab-dev.uk.r.appspot.com' //needed for requests headers
+    baseUrl: 'https://ucl-coolab-dev.uk.r.appspot.com'
+    //baseUrl: 'https://coolab.ai/' //needed for requests headers
   };

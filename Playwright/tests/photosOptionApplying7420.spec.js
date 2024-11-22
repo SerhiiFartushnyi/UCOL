@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 
@@ -104,25 +103,25 @@ test('Photos Options Applying', async ({ page }) => {
     await page.getByLabel('Undo').click();
 
     //Search for not existing photo
-    await page.getByPlaceholder('Search …').click();
-    await page.getByPlaceholder('Search …').fill('064dridjwl');
-    await page.getByPlaceholder('Search …').press('Enter');
-    await page.getByPlaceholder('Search …').clear();
+    const photosSearch = page.getByPlaceholder('Search …')
+    await photosSearch.click();
+    await photosSearch.fill('064dridjwl');
+    await photosSearch.press('Enter');
+    await photosSearch.clear();
 
     // Search for a existing format 
     const photosNames = ['man', 'flower', 'bookr', 'ocean', 'water', 'ball', 'moon', 'car', 'audi', 'horror', 'birthday'];
 
     const randomName = photosNames[Math.floor(Math.random() * photosNames.length)]
     
-//     // Chose a random picture based on provided requests 
-    await page.getByPlaceholder('Search …').click();
-    await page.getByPlaceholder('Search …').fill(randomName);
-    await page.getByPlaceholder('Search …').press('Enter');
-    console.log(`Searching for ${randomName} picture`);
+//     // Chose a random picture based on provided requests
 
+    await photosSearch.click();
+    await photosSearch.fill(randomName);
+    await photosSearch.press('Enter');
+    console.log(`Searching for ${randomName} picture`);
     
    // Get the count of photos  after the search
-
    const noOfPhotos2 = page.locator('#asset-library-content button')
 
     const numberOfPhotos2 = await noOfPhotos2.count();

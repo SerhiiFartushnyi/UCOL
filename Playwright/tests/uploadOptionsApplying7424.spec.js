@@ -1,4 +1,3 @@
-//Updated:13Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 
@@ -109,13 +108,14 @@ test('Upload Options Applying', async ({ page }) => {
     await expect(page.getByPlaceholder('Search …')).toBeVisible();
 
     // Close button
-    await expect(page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/assetLibrary"]')).toBeVisible();
+    await expect(page.locator('button[aria-label="Close"]').first()).toBeVisible();
+   
 
     // Add File button
     await expect(page.getByRole('button', { name: 'Add File' })).toBeVisible();
 
     // X button functionallity
-    await page.locator('button[name="panel\\.close\\.\\/\\/ly\\.img\\.panel\\/assetLibrary"]').click();
+    await page.locator('button[aria-label="Close"]').first().click();
     await expect(page.locator('section').filter({ hasText: 'Uploads' })).not.toBeVisible();
 
     // Click on Upload button again
@@ -133,7 +133,7 @@ test('Upload Options Applying', async ({ page }) => {
 
     const filePaths = [
         '/Users/serhiifartushnyi/Downloads/473c3f48-646d-40fd-828d-501e2a86daa5.jpeg',
-        '//Users/serhiifartushnyi/Downloads/MB-eCitaro_Paya.jpg',
+        '/Users/serhiifartushnyi/Downloads/MB-eCitaro_Paya.jpg',
         '/Users/serhiifartushnyi/Downloads/Art-PNG-Clipart.png'
     ];
 

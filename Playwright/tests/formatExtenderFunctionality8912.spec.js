@@ -1,4 +1,3 @@
-//Updated:19Nov24
 import { test, expect } from '@playwright/test';
 import config from './config';
 import { beforeEach } from 'node:test';

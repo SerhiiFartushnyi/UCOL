@@ -1,6 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { time } from 'console';
-import { timeout } from '../playwright.config';
 const config = require('./config');
 
 /* 
