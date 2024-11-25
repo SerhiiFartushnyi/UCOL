@@ -23,7 +23,7 @@ test('Start designing now button functionality (not logged in User', async ({ pa
     await page.getByText('start now').first().click();
 
     // Check Login Text
-    await expect(page.getByText('log in to start creating')).toBeVisible();
+    await expect(page.getByText('log in to start creating')).toBeVisible({ timeout: 10000 });
 
 });
 

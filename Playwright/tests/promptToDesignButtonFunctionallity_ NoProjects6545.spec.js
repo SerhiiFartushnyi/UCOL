@@ -69,6 +69,10 @@ test('Prompt To Design Button Functionallity', async ({ page }) => {
 
     // Check if the user is logged in
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    await page.waitForSelector('#profile-toggler-container');
     const profile = page.locator('#profile-toggler-container');
     await expect(profile).toBeVisible();
     await profile.click();
@@ -82,12 +86,12 @@ test('Prompt To Design Button Functionallity', async ({ page }) => {
 
     // Ensure the add new project button is visible and enabled
     const newDesignButton = page.locator('#add-new-project-btn')
-    await expect(newDesignButton).toBeVisible();
+    await expect(newDesignButton).toBeVisible({ timeout: 10000 });
     await expect(newDesignButton).toBeEnabled();
 
     //Hover over the button and click on the prompt to design button
     await newDesignButton.dispatchEvent('mouseover');
     await page.getByRole('link', { name: ' Prompt-to-Design ', exact: true}).click({force: true});
 
-    await expect(page.getByText('what would you like to')).toBeVisible();
+    await expect(page.getByText('what would you like to')).toBeVisible({ timeout: 10000 });
 });

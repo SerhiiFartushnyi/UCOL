@@ -70,9 +70,10 @@ test('Format Extender > Download and Save Button Functionallity', async ({ page 
 
     // Navigate to site  
     await page.goto('/tool/studio/');
-    await expect(page.getByText('my projects')).toBeVisible();
+    await expect(page.getByText('my projects')).toBeVisible({ timeout: 10000 });
 
     // Click on the format extender tab
+    await page.waitForSelector('#format-extender');
     await page.locator('#format-extender').getByText('format extender').click();
 
     // Wait for the projects to load
@@ -138,6 +139,9 @@ test('Format Extender > Download and Save Button Functionallity', async ({ page 
 
     // Wait for the page to load completely
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     //  Click on the save button
     await page.getByRole('button', { name: 'Save (1) formats' }).click();
@@ -155,7 +159,7 @@ test('Format Extender > Edit Button Functionallity', async ({ page }) => {
 
     // Navigate to site  
     await page.goto('/tool/studio/');
-    await expect(page.getByText('my projects')).toBeVisible();
+    await expect(page.getByText('my projects')).toBeVisible({ timeout: 10000 });
 
     await page.locator('#format-extender').getByText('format extender').click();
     await page.waitForSelector('.projects-content--projects-container .project');
@@ -208,9 +212,9 @@ test('Format Extender > Add More Formats Button Functionallity', async ({ page }
 
     // Navigate to site  
     await page.goto('/tool/studio/');
-    await expect(page.getByText('my projects')).toBeVisible();
+    await expect(page.getByText('my projects')).toBeVisible({ timeout: 10000 });
 
-
+    await page.waitForSelector('#format-extender');
     await page.locator('#format-extender').getByText('format extender').click();
 
     await page.waitForSelector('.projects-content--projects-container .project');

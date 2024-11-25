@@ -69,21 +69,23 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     //Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
-    await expect(page.locator('#language-toggler path')).toBeVisible();
+    await expect(page.locator('#language-toggler path')).toBeVisible({ timeout: 10000 });
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     await page.goto('/generative-ai/');
-
     // Assertions of Prompt Popup
-    await expect(page.locator('#promptToDesignContainer').getByText('What would you like to')).toBeVisible();
+    await expect(page.locator('#promptToDesignContainer').getByText('What would you like to')).toBeVisible({ timeout: 10000 });
 
     // Error message
     await page.locator('#promptToDesignContainer').getByText('What would you like to').click();
     //await page.getByPlaceholder('Design a {FORMAT} for a {SUBJECT}').fill('Some Test Message');  // can be automated
     await page.locator('#promptToDesignFormTop').getByRole('button', { name: 'use prompt to design' }).click();
 
-    await expect(page.getByText('This field may not be blank.')).toBeVisible();
+    await expect(page.getByText('This field may not be blank.')).toBeVisible({ timeout: 10000 });
 
     // Fill prompt with random format and subject
     const formatIdeas = [
@@ -192,13 +194,16 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     }
 
     try {
-        await expect(page.getByText('writing text')).toBeVisible({timeout: 10000});
+        await expect(page.getByText('writing text')).toBeVisible({timeout: 20000});
     } catch (error) {
         softAssertions.push(`Assertion failed: writing text - ${error.message}`);
     }
 
     // Wait for the page to load completely
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     // Check if the URL contains '/tool/scene/' 
     try {

@@ -24,7 +24,7 @@ test('Free to use button', async ({ page }) => {
     await page.getByText('try for free').click();
     
     // Check Login Text
-    await expect(page.getByText('log in to start creating')).toBeVisible();
+    await expect(page.getByText('log in to start creating')).toBeVisible({ timeout: 10000 });
 
 });
 
@@ -42,7 +42,7 @@ test('Get Pro button', async ({ page }) => {
     await page.getByText('get pro').click();
 
     // Check Login Text
-    await expect(page.getByText('log in to start creating')).toBeVisible();
+    await expect(page.getByText('log in to start creating')).toBeVisible({ timeout: 10000 });
 
 });
 

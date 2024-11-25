@@ -19,7 +19,7 @@ test('Start designing now button functionality (not logged in User', async ({ pa
         await page.locator('#create-template').click();
 
         // Check Login Text
-        await expect(page.getByText('log in to start creating')).toBeVisible();
+        await expect(page.getByText('log in to start creating')).toBeVisible({ timeout: 10000 });
        
 });
 
@@ -35,7 +35,7 @@ test(' Start designing now button functionality (not logged in User', async ({ p
 
         await page.getByText('start designing now').click();
         // Check Login Text
-        await expect(page.getByText('log in to start creating')).toBeVisible();
+        await expect(page.getByText('log in to start creating')).toBeVisible({ timeout: 10000 });
         // Check URL > should click lig in button to check the URL
         // expect(page.url()).toContain('/log-in/');
 });

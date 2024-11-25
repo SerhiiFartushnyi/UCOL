@@ -76,7 +76,7 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
 
     //Check format extender page and button 
     await expect(page.locator('body')).toContainText('create a whole set of designs in a few simple clicks');
-    await expect(page.getByRole('link', { name: 'start now' }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: 'start now' }).first()).toBeVisible({ timeout: 10000 });
     await page.getByRole('link', { name: 'start now' }).first().click();
 
     // Check if we are on the Studio Page
@@ -84,6 +84,9 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
 
     // wait for Loading Studio Page 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+ } 
 
     // Choose Format Extender and click
     await expect(page.locator('#format-extender')).toContainText('format extender');
@@ -91,6 +94,9 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
 
     // Choose random project 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+ } 
     const containers = await page.locator('.project--image-container--image');
      const containerCount = await containers.count();
      const randomIndex3 = Math.floor(Math.random() * containerCount);
@@ -118,11 +124,14 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
     await expect(page.locator('#root')).toContainText('creating formats...');
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+ } 
     // Wait Untill Format was generated 
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(10000);
 
     // Check titles of the generated formats page 
-   
+    await page.waitForSelector('.format-extender--topbar--subheading')
     await expect(page.getByText('Select the generated options')).toContainText('Select the generated options you’d like to save to your project folder, or download them directly.');
 
     await expect(page.locator('#root')).toContainText('add more formats');
@@ -138,7 +147,6 @@ test ('Features > Format Extender Page Functionallity', async ({ page }) => {
 });
 
 // Page will be Updated !!!!
-
 test.skip ('Project > Format Extender Page Functionality', async ({ page }) => {
 
     // Check if the user is logged in
@@ -161,7 +169,7 @@ test.skip ('Project > Format Extender Page Functionality', async ({ page }) => {
 
     //await page.waitForLoadState('networkidle');
     await page.waitForTimeout(7000); // Wait for 5000 milliseconds (5 seconds)
-    //await page.waitForSelector('#projects-container #project-item');
+    await page.waitForSelector('#projects-container #project-item');
     const containers = page.locator('#projects-container #project-item');
 
      console.log(containers, ' Format Extender item');

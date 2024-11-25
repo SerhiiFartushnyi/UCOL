@@ -73,6 +73,9 @@ test('Format Extender Button', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+ } 
     await page.locator('#profile-toggler-container').click();
     await page.getByRole('link', { name: 'Go to Projects' }).click();
     

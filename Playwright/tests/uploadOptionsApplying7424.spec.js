@@ -71,29 +71,40 @@ test('Upload Options Applying', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //await page.waitForLoadState('networkidle');
-
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    
     //Click on the create template button
+    await page.waitForSelector('#create-template');
     const startDesigning = page.locator('#create-template')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     await page.pause(1000);
     const uploadsButton = page.getByRole('button', { name: 'Uploads', exact: true })
 
-    await expect(uploadsButton).toBeVisible();
+    await expect(uploadsButton).toBeVisible({ timeout: 10000 });
     await uploadsButton.click({ timeout: 1000 });
 
     // Assertion of Uploads Page
-    await expect(page.locator('section').filter({ hasText: 'Uploads' })).toBeVisible();
-    await expect(page.locator('#asset-library-content')).toBeVisible();
+    await expect(page.locator('section').filter({ hasText: 'Uploads' })).toBeVisible({timeout:10000 });
+    await expect(page.locator('#asset-library-content')).toBeVisible({timeout:10000 });
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     await page.pause(1000);
 
     if (await page.getByText('No Elements').isVisible()) {
         console.log('No Uploads');
     } else {
+        await page.waitForSelector('#asset-library-content button');
         const noOfUploads = page.locator('#asset-library-content button');
         const numberOfUploads = await noOfUploads.count();
         console.log(`Number of Uploads: ${numberOfUploads}`);
@@ -105,14 +116,14 @@ test('Upload Options Applying', async ({ page }) => {
     }
 
     //Search button
-    await expect(page.getByPlaceholder('Search …')).toBeVisible();
+    await expect(page.getByPlaceholder('Search …')).toBeVisible({timeout:10000 });
 
     // Close button
-    await expect(page.locator('button[aria-label="Close"]').first()).toBeVisible();
+    await expect(page.locator('button[aria-label="Close"]').first()).toBeVisible({timeout:10000 });
    
 
     // Add File button
-    await expect(page.getByRole('button', { name: 'Add File' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Add File' })).toBeVisible({timeout:10000 });
 
     // X button functionallity
     await page.locator('button[aria-label="Close"]').first().click();
@@ -127,7 +138,7 @@ test('Upload Options Applying', async ({ page }) => {
     const randomUploadIndex = Math.floor(Math.random() * numberOfUploads);
     await noOfUploads.nth(randomUploadIndex).click();
 
-    await expect(page.getByText('Element', { exact: true })).toBeVisible();
+    await expect(page.getByText('Element', { exact: true })).toBeVisible({ timeout: 10000 });
 
     // Choose random file >> Array of file paths
 

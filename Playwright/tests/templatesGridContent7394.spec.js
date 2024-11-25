@@ -70,11 +70,11 @@ test('Template Grid Content', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     const template = page.getByRole('link', { name: 'templates', exact: true });
-    await expect(template).toBeVisible();
+    await expect(template).toBeVisible({ timeout: 10000 });
     await template.click();
 
     // Check page  
-    await expect(page.getByText('WELCOME TO SCENE')).toBeVisible();
+    await expect(page.getByText('WELCOME TO SCENE')).toBeVisible({ timeout: 10000 });
     expect(page.url()).toContain('/templates/');
 
     // Choose a random style
@@ -89,22 +89,28 @@ test('Template Grid Content', async ({ page }) => {
     await page.getByRole('link', { name: randomStyle }).click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     await page.evaluate(() => {
         window.scrollTo(0, document.body.scrollHeight);
     });
 
     const allTemplates = page.getByText('all templates loaded');
-    await expect(allTemplates).toBeVisible();
+    await expect(allTemplates).toBeVisible({ timeout: 10000 });
 
     const otherGenres = page.getByText(' / OTHER GENRES YOU MAY LIKE')
     await otherGenres.scrollIntoViewIfNeeded();
-    await expect(otherGenres).toBeVisible();
+    await expect(otherGenres).toBeVisible({ timeout: 10000 });
 
-    // Check if the recommended and alternative templates are visible
+    //Check if the recommended and alternative templates are visible
 
+    await page.waitForSelector('#recommended-arles');
     const locator1 = page.locator('#recommended-arles');
+    await page.waitForSelector('#recommended-bahaus');
     const locator2 = page.locator('#recommended-bahaus');
+
 
     const isLocator1Visible = await locator1.isVisible();
     const isLocator2Visible = await locator2.isVisible();
@@ -123,11 +129,18 @@ test('Template Grid Content', async ({ page }) => {
 
     //Check More and Less button
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+
     const moreButton = page.getByRole('button', { name: 'More' });
-    await expect(moreButton).toBeVisible();
+    await expect(moreButton).toBeVisible({ timeout: 10000 });
     await moreButton.click();
     
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     const lessButton = page.getByRole('button', { name: 'Less' });
     await expect(lessButton).toBeVisible();
     await lessButton.click();
@@ -139,7 +152,7 @@ test('Template Grid Content', async ({ page }) => {
     await templates.nth(randomTemplateIndex).click();
 
     // Check if the Name is visible
-    await page.locator('#modalName').isVisible();
+    await page.locator('#modalName').isVisible({ timeout: 10000 });
     // Check if the Image is visible
     await page.locator('#modalImage').isVisible();
     // Check if the "use this template" button is visible

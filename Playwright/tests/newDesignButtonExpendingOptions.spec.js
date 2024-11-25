@@ -67,18 +67,19 @@ test('New Design Button Expanding Options', async ({ page }) => {
     await page.goto('/');
 
     // Check if the user is logged in
-
+    await page.waitForSelector('#profile-toggler');
     const profileIcon = page.locator('#profile-toggler');
     await page.waitForSelector('#profile-toggler');
     await expect(profileIcon).toBeVisible();
     await profileIcon.click();
 
     // Click on Project Button
-    await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible({ timeout: 10000 });
     await page.getByRole('link', { name: 'Go to Projects' }).click();
     
     // New Design Button Expanding Options
-    await expect(page.locator('#add-new-project-btn')).toBeVisible();
+    await page.waitForSelector('#add-new-project-btn');
+    await expect(page.locator('#add-new-project-btn')).toBeVisible({ timeout: 10000 });
     await page.locator('#add-new-project-btn').hover();
 
     await expect(page.locator('#projects-context-menu')).toContainText('Start a new project');

@@ -73,13 +73,15 @@ test.beforeEach(async ({ page }) => {
 test('Profile popup', async ({ page }) => {
 
     // Check if the user is logged in
-    await expect(page.locator('#profile-toggler')).toBeVisible();
+    await expect(page.locator('#profile-toggler')).toBeVisible({timeout: 10000});
     //await page.waitForLoadState('networkidle');
+    await page.waitForSelector('#profile-toggler');
     await page.locator('#profile-toggler').click();
     
     //await page.waitForLoadState('networkidle');
    
     // Check Profile information
+    await page.waitForSelector('#profile-container');
     const profile = await page.locator('#profile-container');
     await expect(profile).toContainText(`${firstName} ${lastName}`);
     await expect(profile).toContainText(email);
@@ -92,13 +94,13 @@ test('Profile popup', async ({ page }) => {
 
 test('Profile Information', async ({ page }) => {
     //await page.waitForSelector('img', { name: 'Avatar profile' });
-    await expect(page.locator('#profile-toggler')).toBeVisible();
+    await expect(page.locator('#profile-toggler')).toBeVisible({timeout: 10000});
     //await page.waitForLoadState('networkidle');
     //await page.getByRole('img', { name: 'Avatar profile' }).click();
     await page.locator('#profile-toggler').click();
 
     // Check text in Popup Window 
-    await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible({timeout: 10000});
     await page.getByRole('link', { name: 'Go to Account Settings' }).click();
 
     // Check text in Account Settings
@@ -126,11 +128,11 @@ test('Profile Information', async ({ page }) => {
 test('Profile >> Go to Progects Page', async ({ page }) => {
 
     // Check if the user is logged in
-    await page.waitForSelector('img', { name: 'Avatar profile' });
-    await expect(page.getByRole('img', { name: 'Avatar profile' })).toBeVisible();
-   
+    //await page.waitForSelector('img', { name: 'Avatar profile' });
+    await expect(page.locator('#profile-toggler')).toBeVisible({timeout: 10000});
     //await page.waitForLoadState('networkidle');
-    await page.getByRole('img', { name: 'Avatar profile' }).click();
+    //await page.getByRole('img', { name: 'Avatar profile' }).click();
+    await page.locator('#profile-toggler').click();
 
     // Check Profile information
     await expect(page.locator('#profile-container')).toContainText(`${firstName} ${lastName}`);
@@ -138,7 +140,7 @@ test('Profile >> Go to Progects Page', async ({ page }) => {
 
     // Check text in Popup Window
 
-    await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible({timeout: 10000});
     await page.getByRole('link', { name: 'Go to Projects' }).click();
 
     // Check if the user is on the Projects Page

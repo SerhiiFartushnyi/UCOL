@@ -78,7 +78,7 @@ test('Sign Up >> No Verification code', async ({ page }) => {
     await page.getByRole('button', { name: 'Next' }).click();
 
     // Check Popup to be visible
-    await expect(page.getByText('Get verified')).toBeVisible();
+    await expect(page.getByText('Get verified')).toBeVisible({timeout: 10000});
 
     await page.getByRole('button', { name: 'Next' }).click();
     await expect(page.locator('#auth-form')).toContainText('Incorrect token used. Please try again.');
@@ -165,6 +165,10 @@ test('Sign Up With Gmail', async ({ page }) => {
 
     // Check The Users Email
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    await page.waitForSelector('#profile-toggler');
     await page.locator('#profile-toggler').click();
     await expect(page.locator('#profile-container')).toContainText(randomEmail);
     await expect(page.getByText('Design professional')).toBeVisible();

@@ -35,14 +35,19 @@ test('Profile popup', async ({ page }) => {
 
     // Check if the user is logged in
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+            await page.waitForLoadState('networkidle');
+     } 
 
+    await page.waitForSelector('#profile-toggler-container');
     const profileIcon = page.locator('#profile-toggler-container');
     await page.waitForSelector('#profile-toggler-container');
-    await expect(profileIcon).toBeVisible();
+    await expect(profileIcon).toBeVisible({ timeout: 10000 });
     await profileIcon.click();
 
     // Check Profile information
-    const profile = await page.locator('#profile-container');
+    await page.waitForSelector('#profile-container');
+    const profile =  page.locator('#profile-container');
     await expect(profile).toBeVisible();
     await expect(profile).toContainText(firstName +' ' +lastName);
     await expect(profile).toContainText(email);

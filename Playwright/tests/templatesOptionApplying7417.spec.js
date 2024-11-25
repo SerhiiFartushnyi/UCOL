@@ -73,28 +73,35 @@ test ('Templates Options Applying', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
      //Click on the create template button
+     await page.waitForSelector('#create-template');
      const startDesigning = page.locator('#create-template')
      await expect(startDesigning).toBeVisible();
      await startDesigning.click();
 
      //await page.waitForLoadState('networkidle');
+     if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
      const templateButton = page.getByRole('button', { name: 'Templates' })
-     await expect(templateButton).toBeVisible();
+     await expect(templateButton).toBeVisible({ timeout: 10000 });
      await templateButton.click();
 
      // Assertion of Templete Page 
-     await expect(page.locator('section').filter({ hasText: 'Library' })).toBeVisible();
-     await expect(page.getByPlaceholder('Search …')).toBeVisible();
-     await expect(page.locator('#asset-library-content')).toBeVisible();
+     await expect(page.locator('section').filter({ hasText: 'Library' })).toBeVisible({timeout:10000 });
+     await expect(page.getByPlaceholder('Search …')).toBeVisible({timeout:10000 });
+     await expect(page.locator('#asset-library-content')).toBeVisible({timeout:10000 });
 
      //Search for a template Not existing Search request
     const search = page.getByPlaceholder('Search …');
     await search.click();
     await search.fill('mountains');
     await search.press('Enter');
-    await expect(page.getByText('No Elements')).toBeVisible();
+    await expect(page.getByText('No Elements')).toBeVisible({timeout:10000});
     await search.clear();
 
     //Search for a template existing Search request

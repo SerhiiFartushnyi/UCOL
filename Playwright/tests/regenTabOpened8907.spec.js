@@ -72,6 +72,9 @@ test ('Re-gen Tab Opening', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     // Go To Scene Tab
     await page.getByText('features', { exact: true }).click();
@@ -81,7 +84,8 @@ test ('Re-gen Tab Opening', async ({ page }) => {
     
     //await page.goto('/tool/studio/');
 
+    await page.waitForSelector('#re-gen');
     await page.locator('#re-gen').click();
-    await expect(page.getByRole('heading', { name: 're-gen *beta' })).toBeVisible();
-    await expect(page.getByText('welcome to re-gen')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 're-gen *beta' })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText('welcome to re-gen')).toBeVisible({ timeout: 10000 });
 });

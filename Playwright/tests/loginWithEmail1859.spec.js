@@ -17,7 +17,6 @@ const password = config.password;
 test ('Login OK', async ({ page }) => {
 
     await page.goto('/');
-    await page.pause();
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
 
     const emailField = page.getByPlaceholder('enter your e-mail address')
@@ -35,6 +34,10 @@ test ('Login OK', async ({ page }) => {
     await expect(page.locator('#language-toggler path')).toBeVisible();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    await page.waitForSelector('#profile-toggler-container');
     await page.locator('#profile-toggler-container').click();
 
     await page.getByRole('link', { name: 'Sign Out' }).click();
@@ -77,7 +80,7 @@ test('Login with not Correct email format', async ({ page }) => {
     //error message 
     await expect(page.locator('#auth-form')).toContainText('Enter a valid email address.');
     // Popup Assertions
-    await expect(page.getByText('log in to start creating')).toBeVisible();
+    await expect(page.getByText('log in to start creating')).toBeVisible({ timeout: 10000 });
     await expect(page.locator('#auth-modal-content')).toContainText('No account? Sign up');
 
 });
@@ -96,6 +99,11 @@ test('Logout success', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    
+    await page.waitForSelector('#profile-toggler-container');
     await page.locator('#profile-toggler-container').click();
 
     await page.getByRole('link', { name: 'Sign Out' }).click();

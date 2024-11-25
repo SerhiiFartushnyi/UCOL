@@ -71,14 +71,18 @@ test('Save Button Functionality', async ({ page }) => {
    
     //Click on the create template button
     await expect(page.locator('#create-template')).toContainText('start designing');
+    await page.waitForSelector('#create-template');
     page.locator('#create-template').click();
 
     //await page.waitForSelector('#asset-library-content');
     await page.getByRole('button', { name: 'Templates' }).click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     // Locate all child buttons within the element with the ID 'asset-library-content'
-
+    await page.waitForSelector('#asset-library-content button');
     const buttons = page.locator('#asset-library-content button');
     const buttonsCount = await buttons.count();
 

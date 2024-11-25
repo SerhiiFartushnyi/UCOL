@@ -68,13 +68,15 @@ test('User Profile is opened ',async ({ page }) => {
 
     // Check if the user is logged in
     //await page.waitForLoadState('networkidle');
+    await page.waitForSelector('#profile-toggler-container');
     const profile = page.locator('#profile-toggler-container');
-    await expect(profile).toBeVisible();
+    await expect(profile).toBeVisible({timeout: 10000});
     await profile.click();
 
     // Check Profile Popup 
+    await page.waitForSelector('#profile-container');
     const profilePopup = page.locator('#profile-container');
-    await expect(profilePopup).toBeVisible();
+    await expect(profilePopup).toBeVisible({timeout: 10000});
     await expect(profilePopup).toContainText(email);
     await expect(profilePopup).toContainText('Sign Out');
 });

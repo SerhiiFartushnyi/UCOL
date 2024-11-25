@@ -68,14 +68,19 @@ test('Project Button Functionality', async ({ page }) => {
 
     //Assertions to check if the user is logged in
     await expect(page.locator('body')).toContainText('Design professional');
-    await expect(page.locator('#language-toggler path')).toBeVisible();
+    await expect(page.locator('#language-toggler path')).toBeVisible({ timeout: 10000 });
 
+    await page.waitForSelector('#create-template');
      await page.locator('#create-template').click();
 
     //Assertions to check if the user is on the correct page
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    await page.waitForSelector('#editableTitle');
     await expect(page.locator('#editableTitle')).toContainText('New Design');
-    await expect(page.getByLabel('Editor canvas')).toBeVisible();
+    await expect(page.getByLabel('Editor canvas')).toBeVisible({ timeout: 10000 });
 
     await page.getByRole('button', { name: 'Projects' }).click();
 

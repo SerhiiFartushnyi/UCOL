@@ -73,6 +73,9 @@ test ('Layers Tab Opening', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     // page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     // Go To Scene Tab
     await page.getByText('features', { exact: true }).click();

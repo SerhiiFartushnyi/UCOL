@@ -70,6 +70,9 @@ test('Formats Options Applying', async ({ page }) => {
     await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+        }   
 
     //Click on the create template button
     const startDesigning = page.locator('#create-template')
@@ -78,15 +81,23 @@ test('Formats Options Applying', async ({ page }) => {
     await startDesigning.click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+        }
+
     const formatButton = page.getByRole('button', { name: 'Formats' })
     //await page.waitForLoadState('networkidle');
-    await expect(formatButton).toBeVisible();
-    await formatButton.click({ timeout: 10000 });
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+        }
+    await expect(formatButton).toBeVisible({ timeout: 10000 });
+    await formatButton.click({ timeout: 1000 });
 
     //Click on the random Formats button
-    await expect(page.locator('section').filter({ hasText: 'Formats' })).toBeVisible();
+    await expect(page.locator('section').filter({ hasText: 'Formats' })).toBeVisible({timeout: 10000 });
     await page.getByRole('button', { name: 'Formats' }).click();
-
+    
+    await page.waitForSelector('#formats-container button');
     const formatButtons = page.locator('#formats-container button');
     const buttonsCounted2 = await formatButtons.count();
 
@@ -118,6 +129,7 @@ test('Formats Options Applying', async ({ page }) => {
     await search.press('Enter');
 
     // Count the number of formats after the search
+    await page.waitForSelector('#formats-container button');
     const formats2 = page.locator('#formats-container button', { hasText: uniqueFormat });
     const formatsCounted3 = await formats2.count();
 

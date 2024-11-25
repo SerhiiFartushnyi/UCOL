@@ -71,29 +71,34 @@ test('Text Options Applying', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     //Click on the create template button
+    await page.waitForSelector('#create-template');
     const startDesigning = page.locator('#create-template')
-    await expect(startDesigning).toBeVisible();
+    await expect(startDesigning).toBeVisible({ timeout: 10000 });
     await startDesigning.click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+
     const textButton = page.getByRole('button', { name: 'Text', exact: true })
-    await expect(textButton).toBeVisible();
+    await expect(textButton).toBeVisible({ timeout: 10000 });
 
     await textButton.click();
 
     // Assertion of Text Page
-    await expect(page.locator('section').filter({ hasText: 'Text' })).toBeVisible();
-    await expect(page.locator('#asset-library-content')).toBeVisible();
+    await expect(page.locator('section').filter({ hasText: 'Text' })).toBeVisible({timeout:10000 });
+    await expect(page.locator('#asset-library-content')).toBeVisible({timeout:10000 });
     
     const noOfTexts = page.locator('#asset-library-content div');
     const numberOfTexts = await noOfTexts.count();
 
-    // Temproary disable random text selection as not all next are working correctly 
-    //const randomTextIndex = Math.floor(Math.random() * numberOfTexts); 
-
-    const randomTextIndex = Math.floor(Math.random() * 2); 
+    const randomTextIndex = Math.floor(Math.random() * numberOfTexts); 
     await page.waitForTimeout(1000); // wait for text formats to load 
     await noOfTexts.nth(randomTextIndex).click();
     

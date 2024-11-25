@@ -73,20 +73,27 @@ test('Prompt Options Applying', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //await page.waitForLoadState('networkidle');
-
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     //Click on the create template button
+    await page.waitForSelector('#create-template');
     const startDesigning = page.locator('#create-template')
     await expect(startDesigning).toBeVisible();
     await startDesigning.click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+
     const promptButton = page.getByRole('button', { name: 'help Prompt', exact: true })
 
-    await expect(promptButton).toBeVisible();
+    await expect(promptButton).toBeVisible({ timeout: 10000 });
     await promptButton.click();
 
     // Assertions of Prompt Popup
-    await expect(page.getByText('what would you like to')).toBeVisible();
+    await expect(page.getByText('what would you like to')).toBeVisible({ timeout: 10000 });
     await page.getByRole('button', { name: 'back', exact: true }).click();
     await expect(page.getByText('what would you like to')).not.toBeVisible();
     await promptButton.click();
@@ -97,7 +104,7 @@ test('Prompt Options Applying', async ({ page }) => {
     await page.getByRole('button', { name: 'use prompt to design' }).click();
 
     // Popup Assertions
-    await expect(page.getByText('this will exit and create a')).toBeVisible();
+    await expect(page.getByText('this will exit and create a')).toBeVisible({ timeout: 10000 });
     await page.getByRole('button', { name: 'stay here' }).click();
     await expect(page.getByText('this will exit and create a')).not.toBeVisible();
     await promptButton.click();
@@ -133,31 +140,34 @@ test('Prompt Options Applying', async ({ page }) => {
     const softAssertions = [];
 
     try {
-        await expect(page.getByText('understanding the prompt')).toBeVisible({ timeout: 30000 });
+        await expect(page.getByText('understanding the prompt')).toBeVisible({ timeout: 20000 });
     } catch (error) {
 
         softAssertions.push(`Assertion failed: understanding the prompt - ${error.message}`);
     }
 
     try {
-        await expect(page.getByText('generating visuals')).toBeVisible({ timeout: 30000 });
+        await expect(page.getByText('generating visuals')).toBeVisible({ timeout: 20000 });
     } catch (error) {
 
         softAssertions.push(`Assertion failed: generating visuals - ${error.message}`);
     }
 
     try {
-        await expect(page.getByText('writing text')).toBeVisible({ timeout: 30000 });
+        await expect(page.getByText('writing text')).toBeVisible({ timeout: 20000 });
     } catch (error) {
         softAssertions.push(`Assertion failed: writing text - ${error.message}`);
     }
 
     // Wait for the page to load completely
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     // Check if the URL contains '/tool/scene/' 
     try {
-        await page.waitForURL('**/tool/scene/**', { timeout: 60000 });
+        await page.waitForURL('**/tool/scene/**', { timeout: 30000 });
         const currentUrl = page.url();
         expect(currentUrl).toContain('/tool/scene/');
     } catch (error) {

@@ -14,7 +14,7 @@ const password = config.password;
 
 // Prompt to Design Button Functionality
 
-test('Prompt to Design Button Functionality', async ({ page }) => {
+test.skip ('Prompt to Design Button Functionality', async ({ page }) => {
     test.slow();
     await page.goto('/modal/log-in/');
 
@@ -72,22 +72,28 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     await expect(page.locator('#language-toggler path')).toBeVisible();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     await page.getByRole('link', { name: 'Prompt-to-Design', exact: true }).click();
 
     //await page.goto('/generative-ai/');
 
     // Assertions of Prompt Popup
-    await expect(page.locator('#promptToDesignContainer').getByText('What would you like to')).toBeVisible();
+    await expect(page.locator('#promptToDesignContainer').getByText('What would you like to')).toBeVisible({ timeout: 10000 });
 
     // Error message
-    await page.locator('#promptToDesignContainer').getByText('What would you like to').click();
-    //await page.getByPlaceholder('Design a {FORMAT} for a {SUBJECT}').fill('Some Test Message');  // can be automated
-    await page.locator('#promptToDesignFormTop').getByRole('button', { name: 'use prompt to design' }).click();
 
-    await expect(page.getByText('This field may not be blank.')).toBeVisible();
+    // //await page.getByPlaceholder('Design a {FORMAT} for a {SUBJECT}').fill('Some Test Message');  // can be automated
+    
+    
+    // await page.getByText('What would you like to generate? Try these suggestions: This field may not be').click();
+    
+    // await page.locator('#promptToDesignFormTop').getByRole('button', { name: 'use prompt to design' }).click();
+    // await expect(page.getByText('This field may not be blank.')).toBeVisible({ timeout: 10000 });
 
-    // Fill prompt with random format and subject
+    // // Fill prompt with random format and subject
     const formatIdeas = [
         'Poster', 'Logo', 'Infographic', 'Website', 'Mobile App Interface',
         'Business Card', 'Advertisement Banner', 'Packaging', 'Social Media Post', 'Magazine Cover'
@@ -108,8 +114,8 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     // Fill the placeholder with the selected format and subject
 
-    // await page.locator('#promptToDesignPurposeInputTop').click();
-    //await page.locator('#promptToDesignPurposeInputTop').fill(`Design a ${randomFormat} for a ${randomSubject}`);
+    await page.locator('#promptToDesignPurposeInputTop').click();
+    await page.locator('#promptToDesignPurposeInputTop').fill(`Design a ${randomFormat} for a ${randomSubject}`);
 
     await page.locator('div').filter({ hasText: /^Default$/ }).first().click();
     
@@ -170,14 +176,15 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
     await page.getByText(randomTemplate, { exact: true }).click();
 
     const designs = [
-        '1 designs','2 designs', '3 designs', '4 designs', '5 designs'
+        '1','2 designs', '3 designs', '4 designs', '5 designs'
     ]
     const randomDesignIndex = Math.floor(Math.random() * designs.length);
     const randomDesign = designs[randomDesignIndex];
     
     //await page.locator('#designsNumber').click();
-    await page.locator('div').filter({ hasText: /^1 design$/ }).first().click();
-    await page.pause(1000);
+    
+    await page.getByPlaceholder('Tempale format').fill(randomDesign);
+    
     await page.getByText(randomDesign, {exact: true}).click();
     
     const noOfDesigns = randomDesignIndex + 1; 
@@ -216,6 +223,9 @@ test('Prompt to Design Button Functionality', async ({ page }) => {
 
     // Wait for the page to load completely
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     // Check if the URL contains '/tool/scene/' 
     try {

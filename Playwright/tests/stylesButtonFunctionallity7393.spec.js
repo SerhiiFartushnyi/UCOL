@@ -68,6 +68,7 @@ test('Styles Button Func', async ({ page }) => {
     await page.goto('/');
 
     //Assertions to check if the user is logged in
+    await page.waitForSelector('body');
     await expect(page.locator('body')).toContainText('Design professional');
 
     await page.getByRole('link', { name: 'templates', exact: true }).click();
@@ -88,6 +89,6 @@ test('Styles Button Func', async ({ page }) => {
 
     console.log('RandomStyle:', randomStyle);
     // Check if the random style Heding is visible
-    await expect(page.getByRole('heading', { name: randomStyle })).toBeVisible();
+    await expect(page.getByRole('heading', { name: randomStyle })).toBeVisible({ timeout: 10000 });
 
 });

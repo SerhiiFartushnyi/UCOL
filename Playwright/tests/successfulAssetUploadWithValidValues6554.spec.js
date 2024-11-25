@@ -76,6 +76,10 @@ test.beforeEach(async ({ page }) => {
 // Go to Projects and click on Assets Upload
 test('succsessful Asset Upload With Valid Values', async ({ page }) => {
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    await page.waitForSelector('#profile-toggler-container');
     await page.locator('#profile-toggler-container').click();
 
     await page.getByRole('link', { name: 'Go to Projects' }).click();
@@ -99,8 +103,9 @@ test('succsessful Asset Upload With Valid Values', async ({ page }) => {
     await page.getByText(randomItem, { exact: true }).click();
 
     // Select a random category
+    await page.waitForSelector('[placeholder="select category"]')
     await page.locator('[placeholder="select category"]').click();
-    await page.waitForSelector('[placeholder="select category"]');
+    //await page.waitForSelector('[placeholder="select category"]');
 
     // Choose a random item from the dropdown
     const category = ['test assets', 'basic', 'shapes', 'abstract'];
@@ -110,7 +115,6 @@ test('succsessful Asset Upload With Valid Values', async ({ page }) => {
     await page.getByText(randomCategory, { exact: true }).click();
 
     //await page.locator('[placeholder="select tags"]').click();
-
     // await page.locator('#assetUploadForm div').filter({ hasText: 'Tags ×' }).locator('div').nth(1).click();
     await page.getByPlaceholder('Select tags', { exact: true }).fill('image');
     page.getByPlaceholder('Select tags', { exact: true }).press('Enter');
@@ -119,6 +123,7 @@ test('succsessful Asset Upload With Valid Values', async ({ page }) => {
     await page.getByRole('button', { name: 'Save' }).click();
 
     // Assert that the success message is displayed
+    await page.waitForSelector('#successMessage');
     await expect(page.locator('#successMessage')).toContainText('Shape has been successfully uploaded');
 
 });

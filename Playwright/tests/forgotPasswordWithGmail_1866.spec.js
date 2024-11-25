@@ -54,6 +54,10 @@ test ('Forgot Password flow with Gmail email verification', async ({ page }) => 
 
     // Verify the password reset was successful and user is logged in
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+ } 
+    await page.waitForSelector('#profile-toggler-container');
     await page.locator('#profile-toggler-container').click();
     await expect(page.locator('#profile-container')).toContainText(email);
 });

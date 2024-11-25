@@ -69,10 +69,10 @@ test('Template tab Opening', async ({ page }) => {
     //Assertions to check if the user is logged in
 
     await expect(page.locator('body')).toContainText('Design professional');
-    await expect(page.locator('#language-toggler path')).toBeVisible();
+    await expect(page.locator('#language-toggler path')).toBeVisible({ timeout: 10000 });
 
     const template = page.getByRole('link', { name: 'templates', exact: true });
-    await expect(template).toBeVisible();
+    await expect(template).toBeVisible({ timeout: 10000 });
     await template.click();
 
     // Check page  
@@ -90,7 +90,7 @@ test('Template tab Opening NOT LOgged in User', async ({ page }) => {
     await template.click();
 
     // Check page  
-    await expect(page.getByText('WELCOME TO SCENE')).toBeVisible();
+    await expect(page.getByText('WELCOME TO SCENE')).toBeVisible({ timeout: 10000 });
     expect(page.url()).toContain('/templates/');
 
 });

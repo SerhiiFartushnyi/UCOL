@@ -74,6 +74,9 @@ test.skip ('p2d Tab Opened', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     // Go To Scene Tab
     await page.getByText('features', { exact: true }).click();
@@ -85,10 +88,10 @@ test.skip ('p2d Tab Opened', async ({ page }) => {
     await page.getByText('p2d').click();
 
     // Page assertions 
-    await expect(page.getByText('What kind of social post are')).toBeVisible();
-    await expect(page.getByPlaceholder('Write a prompt to create your')).toBeVisible();
-    await expect(page.getByRole('img', { name: 'randomize' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Start' })).toBeVisible();
+    await expect(page.getByText('What kind of social post are')).toBeVisible({ timeout: 10000 });
+    await expect(page.getByPlaceholder('Write a prompt to create your')).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('img', { name: 'randomize' })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('button', { name: 'Start' })).toBeVisible({ timeout: 10000 });
  
 
     // Click on the randomize button
@@ -128,26 +131,29 @@ test.skip ('p2d Tab Opened', async ({ page }) => {
     console.log(`Filled with: ${randomTitle}`);
 
     const imageReplacementType = [
-        'Default', 'Use generated image', 'Use internal image', 'Use external image', 'By subject relevance'
+        'Default', 'Use generated images', 'Use internal images', 'Use external images', 'By subject relevance'
     ]
     // Generate a random index
 const imageReplacementTypeCount = imageReplacementType.length;
 const randomImageReplacementType = imageReplacementType[Math.floor(Math.random() * imageReplacementTypeCount)];
 
-await page.locator('#react-select-3-placeholder').click();
+await page.getByText('Image replacement type').click();
+//await page.getByText(randomImageReplacementType,  {exact: true} ).click();
 
 // Select the image replacement type
 
-await page.pause(1000);
+await page.waitForSelector('#react-select-3-placeholder');
 await page.getByText(randomImageReplacementType, {exact: true}).click();
 
 const genres = [
-    "ARLES", "BANKSY", "BAUHAUS", "ART SOUP", "BASS", "CHATGPT", "DALLY", "CHIBI", "DREAMS", "GOOG"
+    "ARLES", "BANKSY", "ART SOUP", "BASS", "CHATGPT", "DALLY", "CHIBI", "DREAMS", "GOOG"
 ];
 
 const randomIndex2 = Math.floor(Math.random() * genres.length);
 const randomGenre = genres[randomIndex2];
-await page.locator('#react-select-8-placeholder').click();
+console.log('Random Genre:', randomGenre);
+
+await page.getByText('Template Genre').click();
 await page.pause(1000);
 await page.getByText(randomGenre, {exact: true}).click();
 
@@ -158,7 +164,7 @@ const formats = [
 
 const randomIndex3 = Math.floor(Math.random() * formats.length);
 const randomFormat = formats[randomIndex3];
-await page.locator('#react-select-5-placeholder').click();
+await page.getByText('Template Format').click();
 await page.pause(1000);
 await page.getByText(randomFormat, {exact: true}).click();
 
@@ -173,10 +179,11 @@ await page.getByText(`${randomAmount}`, { exact: true }).click();
 
  await page.getByRole('button', { name: 'start' }).click();
 
-    await expect(page.getByText('select your favorite style')).toBeVisible();
+    await expect(page.getByText('select your favorite style')).toBeVisible({ timeout: 10000 });
     page.url().includes('/tool/studio/');
 
     // Count the child <div> elements
+    await page.waitForSelector('.p2d-container--content--generation-container');
     const parentElement = page.locator('.p2d-container--content--generation-container').locator('button');
     const childButtonCount = await parentElement.count();
 
@@ -184,8 +191,8 @@ await page.getByText(`${randomAmount}`, { exact: true }).click();
     expect(childButtonCount).toBe(randomAmount);
 
     // Check if the elements are visible
-    await expect(page.getByRole('button', { name: 'star select' }).first()).toBeVisible();
-    await expect(page.getByRole('button', { name: 'reload restart' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'star select' }).first()).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('button', { name: 'reload restart' })).toBeVisible({ timeout: 10000 });
 
     // Restart the process
     await page.getByRole('button', { name: 'reload restart' }).click();
@@ -218,7 +225,7 @@ await page.getByText(`${randomAmount}`, { exact: true }).click();
     // await page.waitForFunction(() => location.href.includes('/tool/scene/'), { timeout: 100000 });
     // expect(page.url()).toContain('/tool/scene/');
 
-    await expect(page.getByText('What kind of social post are you making?')).toBeVisible();
+    await expect(page.getByText('What kind of social post are you making?')).toBeVisible({ timeout: 10000 });
     page.url().includes('/tool/studio/');
 
 });

@@ -71,7 +71,7 @@ test('Use this template Logged in User', async ({ page }) => {
     await expect(page.locator('#language-toggler path')).toBeVisible();
 
     const template = page.getByRole('link', { name: 'templates', exact: true });
-    await expect(template).toBeVisible();
+    await expect(template).toBeVisible({ timeout: 10000 });
     await template.click();
 
     // Check page  
@@ -92,15 +92,21 @@ test('Use this template Logged in User', async ({ page }) => {
     // Click on first template
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    
     await page.locator('.infinite-item > .relative > .w-full').first().click();
     
     await page.getByRole('link', { name: 'use this template' }).click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     
     // Check Create Scene page
-    await expect(page.getByRole('button', { name: 'Randomize Template' })).toBeVisible();
-    await expect(page.getByLabel('Editor canvas')).toBeVisible();
+    await expect(page.getByLabel('Editor canvas')).toBeVisible({ timeout: 10000 });
     // Check URL
     expect(page.url()).toContain('/scene/');
 

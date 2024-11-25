@@ -78,8 +78,12 @@ test('Undo Button Functionality', async ({ page }) => {
     await page.getByRole('button', { name: 'Templates' }).click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    
     // Locate all child buttons within the element with the ID 'asset-library-content'
-
+    await page.waitForSelector('#asset-library-content button ');
     const buttons = page.locator('#asset-library-content button');
     const buttonsCount = await buttons.count();
 
@@ -125,6 +129,6 @@ test('Undo Button Functionality', async ({ page }) => {
     // Click on the undo button
     await undoButton.click();
 
-    await expect(page.getByText('Document')).toBeVisible();
+    await expect(page.getByText('Document')).toBeVisible({ timeout: 10000 });
 
 });

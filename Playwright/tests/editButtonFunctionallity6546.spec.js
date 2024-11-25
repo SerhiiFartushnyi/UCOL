@@ -69,19 +69,25 @@ test('Edit Button Functionallity', async ({ page }) => {
 
     // Check if the user is logged in
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     const profileIcon = page.locator('#profile-toggler-container');
     await page.waitForSelector('#profile-toggler-container');
-    await expect(profileIcon).toBeVisible();
+    await expect(profileIcon).toBeVisible({ timeout: 10000 });
     await profileIcon.click();
 
     // Click on Project Button
     const projectButton = await page.getByRole('link', { name: 'Go to Projects' });
-    await expect(projectButton).toBeVisible();
+    await expect(projectButton).toBeVisible({ timeout: 10000 });
     await projectButton.click();
     
    // Go to Projects and click on first project
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     await expect(page.locator('#projects-container')).toContainText('Edit');
     
     // Check if the dark theme button exists
@@ -96,10 +102,17 @@ if (await darkThemeButton.count() > 0) {
     await normalThemeButton.click();
 }
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     // Check if the user Pedirected to The Scene Page and Project is opened
     expect(page.url()).toContain('/tool/scene');
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    await page.waitForSelector('[id="projectBtn\\""]');
     await expect(page.locator('[id="projectBtn\\""]')).toContainText('Projects');
     await expect(page.locator('button[name="librarydock-my-templates-entry"]')).toContainText('Templates');
     await expect(page.locator('#root')).toContainText('Feedback');

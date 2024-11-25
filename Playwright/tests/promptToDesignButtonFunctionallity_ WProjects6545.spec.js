@@ -69,22 +69,27 @@ test('Prompt To Design Button Functionallity', async ({ page }) => {
 
     // Check if the user is logged in
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+    
+    await page.waitForSelector('#profile-toggler-container');
     const profile = page.locator('#profile-toggler-container');
-    await expect(profile).toBeVisible();
+    await expect(profile).toBeVisible({ timeout: 10000 });
     await profile.click();
 
     // Click on Project Button
-    await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Go to Projects' })).toBeVisible({ timeout: 10000 });
     await page.getByRole('link', { name: 'Go to Projects' }).click();
 
     // User with projects should see the message
-    await expect(page.getByRole('heading', { name: 'Projects' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Projects' })).toBeVisible({ timeout: 10000 });
 
     //await expect(page.locator('#projects-tab-content')).toContainText('start a new project');
 
     await page.locator('#projects-container div #project-item').first().click({ button: 'right' });
     await page.locator('#selectionMainRightClickMenu').getByRole('link', { name: 'Prompt-to-design' }).click();
-    await expect(page.getByText('what would you like to')).toBeVisible();
+    await expect(page.getByText('what would you like to')).toBeVisible({ timeout: 10000 });
 
 
     // Fill prompt with random format and subject
@@ -139,6 +144,9 @@ test('Prompt To Design Button Functionallity', async ({ page }) => {
 
     // Wait for the page to load completely
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
 
     // Check if the URL contains '/tool/scene/' 
     try {

@@ -19,10 +19,10 @@ test('Login button', async ({ page }) => {
     await page.goto('/');
 
     // Visual Test Main Page
-    await expect(page.getByText('Design professional')).toBeVisible();
+    await expect(page.getByText('Design professional')).toBeVisible({ timeout: 10000 });
     const loginButton = page.locator('#profile').getByRole('paragraph').getByText('log in');
-    await expect(loginButton).toBeVisible();
-    await expect(page.getByText('sign up')).toBeVisible();
+    await expect(loginButton).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText('sign up')).toBeVisible({ timeout: 10000 });
     await loginButton.click();
 
     // Visual Test Login Modal
@@ -30,6 +30,6 @@ test('Login button', async ({ page }) => {
     expect(loginPopup).toBeVisible();
     await expect(loginPopup).toContainText('log in to start creating');
     await expect(loginPopup).toContainText('No account? Sign up');
-    await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible({});
 
 });

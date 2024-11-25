@@ -79,8 +79,11 @@ test('File Export Functionality', async ({ page }) => {
     await page.getByRole('button', { name: 'Templates' }).click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+             await page.waitForLoadState('networkidle');
+         }
     // Locate all child buttons within the element with the ID 'asset-library-content'
-
+    await page.waitForSelector('#asset-library-content button');
     const buttons = page.locator('#asset-library-content button');
     const buttonsCount = await buttons.count();
 
@@ -125,7 +128,7 @@ test('File Export Functionality', async ({ page }) => {
     await page.getByLabel('Align bottom').click();
     await page.getByLabel('Selected blend mode: Normal').click();
     await page.getByRole('option', { name: 'Color Burn' }).click();
-    await page.getByRole('button', { name: 'Position & Size' }).click();
+    
 
     // Show more Options 
     await page.getByLabel('Show more options').click();

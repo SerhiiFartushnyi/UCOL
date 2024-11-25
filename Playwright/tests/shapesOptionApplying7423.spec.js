@@ -73,26 +73,34 @@ test('Shapes Options Applying', async ({ page }) => {
     await expect(page.locator('body')).toContainText('Design professional');
 
     //await page.waitForLoadState('networkidle');
-
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     //Click on the create template button
+    await page.waitForSelector('#create-template');
     const startDesigning = page.locator('#create-template')
-    await expect(startDesigning).toBeVisible();
+    await expect(startDesigning).toBeVisible({ timeout: 10000 });
     await startDesigning.click();
 
     //await page.waitForLoadState('networkidle');
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
     await page.pause(1000);
     const photosButton = page.getByRole('button', { name: 'Shapes', exact: true })
 
-    await expect(photosButton).toBeVisible();
+    await expect(photosButton).toBeVisible({ timeout: 10000 });
     await photosButton.click({ timeout: 1000 });
 
     // Assertion of Shape Page
-    await expect(page.locator('section').filter({ hasText: 'Shapes' })).toBeVisible();
-    await expect(page.locator('#asset-library-content')).toBeVisible();
+    await expect(page.locator('section').filter({ hasText: 'Shapes' })).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#asset-library-content')).toBeVisible({ timeout: 10000 });
 
     // await page.waitForLoadState('networkidle');
-    // await page.pause(1000);
-
+    if (page.url().includes('https://ucl-coolab-dev.uk.r.appspot.com/')) {
+        await page.waitForLoadState('networkidle');
+    }
+   
     await page.waitForSelector('#asset-library-content button');
     const noOfShapes= page.locator('#asset-library-content button')
     const numberOfShapes = await noOfShapes.count();
