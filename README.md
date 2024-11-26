@@ -1,9 +1,9 @@
-
 # Playwright Project Setup and Usage Guide
 
 ## Prerequisites
 
 1. Install Node.js:
+
    - Follow the Node.js Installation Guide
 
 ## Installation Steps
@@ -47,8 +47,9 @@ npm i dotenv --save-dev --force
 
 ### 6. Set Up Environment Variables
 
-	•	Create a .env file in the Playwright folder.
-	•	Refer to the .env.example file and set your credentials accordingly.
+•	Create a .env file in the Playwright folder.
+
+•	Refer to the .env.example file and set your credentials accordingly.
 
 ### 7. Setting Up VS Code
 
