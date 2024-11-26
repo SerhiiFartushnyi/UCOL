@@ -3,8 +3,6 @@ import { login } from '../login';
 require('dotenv').config();
 import { faker } from '@faker-js/faker';
 
-const config = require('./config');
-
 /*
 BEGOERE RUNING THE TESTS
 RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json

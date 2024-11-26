@@ -58,6 +58,8 @@ test('Reset Password >> Direct click wo entering email', async ({ page }) => {
 
     // Navigate to the password reset link
     await page.goto(resetLink);
+
+    await page.waitForSelector('#reset-password-modal');
     
     // Complete the password reset process
     await page.getByPlaceholder('New password').fill(password);
