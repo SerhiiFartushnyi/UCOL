@@ -1,115 +1,110 @@
-Playwright Project Setup and Usage Guide
 
-Prerequisites
+# Playwright Project Setup and Usage Guide
 
-Ensure the following tools are installed before proceeding:
-	•	Node.js
+## Prerequisites
 
-Installation
+1. Install Node.js:
+   - Follow the Node.js Installation Guide
 
-	1.	Clone the Repository
-Clone the project into your preferred folder:
+## Installation Steps
 
+### 1. Clone the Project
+
+Clone the repository to your preferred folder:
+
+```bash
 git clone <repository-url>
 cd <repository-folder>
+```
 
+### 2   Navigate to the Playwright Folder
 
-	2.	Navigate to the Playwright Folder
-
+```bash
 cd Playwright
+```
 
+### 3.  Install Playwright
 
-	3.	Install Playwright
 Run the following command to set up Playwright:
 
+```bash
 npm init playwright@latest
+```
+⚠️ Note: This step may overwrite the playwright.config.js file. Skip overwriting the file when prompted.
 
-	⚠️ Note: This step may overwrite the playwright.config.js file. When prompted, skip overwriting the config file.
 
-	4.	Install Dependencies
-Install the required dependencies using the following commands:
+### 4.  Install Faker.js
 
+```bash
 npm i @faker-js/faker
+```
+
+### 5.	Install dotenv
+
+```bash
 npm i dotenv --save-dev --force
+```
 
+### 6. Set Up Environment Variables
 
-	5.	Set Up Environment Variables
 	•	Create a .env file in the Playwright folder.
-	•	Refer to the .env.example file and configure your credentials accordingly.
-	6.	Install VS Code and Plugins
-	•	Download and install VS Code.
-	•	Install the Playwright plugin for VS Code for enhanced development support.
+	•	Refer to the .env.example file and set your credentials accordingly.
 
-Configuration
+### 7. Setting Up VS Code
 
-	1.	Verify Configuration Files
-	•	Ensure you are using the appropriate configuration files. Use the files provided in pull requests or specific branches if necessary.
-	•	Review all files, and update paths as required.
-	2.	Adjust Test Files
-	•	Update the paths or data in the following test files as needed:
-	•	C7424: Modify file paths for testing specific files on your local machine.
-	•	C5654: Update the path for the file you want to upload.
-	•	C7394: Replace the random email with an existing email address for the signup process.
-	3.	Verify Base URL
-Ensure the base URL is correctly set in playwright.config.js:
+	1.	Install Visual Studio Code.
+	2.	Install the Playwright plugin for VS Code:
+
+Playwright Plugin for VS Code
+
+### 8. Configuration
+
+	1.	Review Configuration Files
+Ensure the correct configuration files are being used. Use files from pull requests if applicable.
+	2.	Mock Google Authentication
+
+	•	Run the following script to set up Google Authentication:
+
+```bash
+node saveAuthState.js
+```
+	•	Perform manual Google authentication in the browser.
+	•	Ensure the auth.json file is created in the Playwright folder.
+
+	3.	Adjust Test Files
+	•	In the C7424 file, update file paths for testing specific files on your local machine.
+	•	In the C5654 file, update the path to the file you want to upload.
+	•	In the C7394 file, replace the random email with your existing email address for the signup process.
+
+	4.	Set Base URL
+Ensure the baseURL is correctly set in playwright.config.js as follows:
 
 baseURL: process.env.BASE_URL
 
+### 4. Running Tests
 
-	4.	Mock Google Authentication
-	•	Run the following script to initialize Google Authentication:
-
-node tests/saveAuthState.js
-
-
-	•	Complete the manual authentication process in the browser.
-	•	Ensure the auth.json file is created in the Playwright folder.
-
-Running Tests
-
-	1.	Run Tests
-Use the following commands to execute the tests:
+	1.	Run tests in the Playwright folder using the following commands:
 	•	Run all tests in headless mode:
-
+```bash
 npx playwright test
-
+```
 
 	•	Run tests in headed mode:
-
+```bash
 npx playwright test --headed
+```
+	•	Check the Playwright Documentation for additional options.
 
-
-	•	Check Playwright Documentation for additional options.
-
-	2.	View Test Results
-To view the test report:
-
+	2.	View the test report:
+```bash
 npx playwright show-report
+```
 
 Additional Notes
 
-	•	Ensure that any custom paths in the code or test files are updated to match your local system setup.
-	•	Regularly sync with the repository to stay updated with the latest changes.
+	•	Update paths in the test files 
+    Case C7424 file - change Paths to files on your PC you want to use while testing 
+    Case C5654 file -  change path to file you want to upload
+    Case C7394 file  change random email to your existing email to be able to use it in Sign Up process 
 
-Example File Edits
-
-Here are some example changes you may need to make:
-	•	File Paths
-Update file paths in C7424 and C5654 to reflect the location of files on your machine.
-	•	Random Email
-Replace random emails in C7394 with a valid email address to use during the signup process.
-
-Helpful Links
-
-	•	Playwright Documentation
-	•	Node.js Installation Guide
-
-License
-
-This project is licensed under the MIT License.
-
-Contributing
-
-We welcome contributions! Feel free to submit a pull request or open an issue to suggest improvements.
-
-This README adheres to common GitHub practices, ensuring clarity and ease of use for developers collaborating on your project.
+	•	Ensure all dependencies are installed and up to date.
