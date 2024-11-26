@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 import { login } from '../login';
 require('dotenv').config();
 
-
 /*
 BEFORE RUNNING THE TESTS
 RUN node saveAuthState.js   to save the authentication state to a file named auth.json
@@ -17,7 +16,6 @@ const password = process.env.PASSWORD;
 const text = process.env.REPHRASE_TEXT;
 
 //AI Text Options Applying
-
 test('AI Text Options Applying', async ({ page }) => {
     test.slow();
     
