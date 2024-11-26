@@ -52,59 +52,72 @@ npm i dotenv --save-dev --force
 
 ### 7. Setting Up VS Code
 
-	1.	Install Visual Studio Code.
-	2.	Install the Playwright plugin for VS Code:
+1.	Install Visual Studio Code.
+2.	Install the Playwright plugin for VS Code:
 
 Playwright Plugin for VS Code
 
 ### 8. Configuration
 
-	1.	Review Configuration Files
+1.	Review Configuration Files
 Ensure the correct configuration files are being used. Use files from pull requests if applicable.
-	2.	Mock Google Authentication
+
+2.	Mock Google Authentication
 
 	•	Run the following script to set up Google Authentication:
 
 ```bash
 node saveAuthState.js
 ```
-	•	Perform manual Google authentication in the browser.
-	•	Ensure the auth.json file is created in the Playwright folder.
+•	Perform manual Google authentication in the browser.
 
-	3.	Adjust Test Files
+•	Ensure the auth.json file is created in the Playwright folder.
+
+
+3.	Adjust Test Files
+
 	•	In the C7424 file, update file paths for testing specific files on your local machine.
+	
 	•	In the C5654 file, update the path to the file you want to upload.
+	
 	•	In the C7394 file, replace the random email with your existing email address for the signup process.
+	
 
-	4.	Set Base URL
+4.	Set Base URL
+
 Ensure the baseURL is correctly set in playwright.config.js as follows:
 
 baseURL: process.env.BASE_URL
 
-### 4. Running Tests
+### 9. Running Tests
 
-	1.	Run tests in the Playwright folder using the following commands:
-	•	Run all tests in headless mode:
+1.	Run tests in the Playwright folder using the following commands:
+
+•	Run all tests in headless mode:
 ```bash
 npx playwright test
 ```
 
-	•	Run tests in headed mode:
+•	Run tests in headed mode:
 ```bash
 npx playwright test --headed
 ```
-	•	Check the Playwright Documentation for additional options.
+•	Check the Playwright Documentation for additional options.
 
-	2.	View the test report:
+
+2.	View the test report:
 ```bash
 npx playwright show-report
 ```
 
 Additional Notes
 
-	•	Update paths in the test files 
-    Case C7424 file - change Paths to files on your PC you want to use while testing 
-    Case C5654 file -  change path to file you want to upload
-    Case C7394 file  change random email to your existing email to be able to use it in Sign Up process 
+•	Update paths in the test files 
+	
+Case C7424 file - change Paths to files on your PC you want to use while testing
 
-	•	Ensure all dependencies are installed and up to date.
+Case C5654 file -  change path to file you want to upload
+
+Case C7394 file  change random email to your existing email to be able to use it in Sign Up process 
+
+•	Ensure all dependencies are installed and up to date.
