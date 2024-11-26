@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
-const config = require('./config');
+import { login } from '../login';
+require('dotenv').config();
 
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-const email = config.mail;
-const password = config.password;
-// let password = config.password1;
+const email = process.env.EMAIL;
+const password = process.env.PASSWORD;
 
 test ('Forgot Password flow with Gmail email verification', async ({ page }) => {
 

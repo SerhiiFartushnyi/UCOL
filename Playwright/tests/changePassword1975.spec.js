@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-const config = require('./config');
+import { login } from '../login';
+require('dotenv').config();
 
 /* 
 //BEGOERE RUNING THE TESTS
@@ -10,8 +11,8 @@ const config = require('./config');
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-const email = config.mail;
-let password = config.password;
+const email = process.env.EMAIL1;
+const password = process.env.PASSWORD1;
 
 // Change password Flow 
 test.beforeEach(async ({ page }) => {

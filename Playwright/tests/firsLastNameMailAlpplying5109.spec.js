@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-const config = require('./config');
+import { login } from '../login';
+require('dotenv').config();
 
 /*
 BEFOERE RUNING THE TESTS
@@ -10,10 +11,10 @@ RUN npx playwright test tests/loginUcol.spec.js
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-const email = config.mail1;
-const password = config.password1;
-const firstName = config.firstName;
-const lastName = config.lastName;
+const email = process.env.EMAIL1;
+const password = process.env.PASSWORD1;
+const firstName = process.env.FIRST_NAME1;
+const lastName = process.env.LAST_NAME1;
 
 test.beforeEach(async ({ page }) => {
     
