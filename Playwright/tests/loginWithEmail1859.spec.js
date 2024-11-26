@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-const config = require('./config');
+import { login } from '../login';
+require('dotenv').config();
 
 /*
 BEFOERE RUNING THE TESTS
@@ -10,8 +11,8 @@ RUN npx playwright test tests/loginUcol.spec.js
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-const mail = config.mail;
-const password = config.password;
+const email = process.env.EMAIL;
+const password = process.env.PASSWORD;
 
 // Login OK
 test ('Login OK', async ({ page }) => {
@@ -21,7 +22,7 @@ test ('Login OK', async ({ page }) => {
 
     const emailField = page.getByPlaceholder('enter your e-mail address')
     await emailField.click();
-    await emailField.fill(mail);
+    await emailField.fill(email);
     await page.getByRole('button', { name: 'Log in' }).click();
 
     const passwordField = page.getByPlaceholder('8 char. +1 symbol, number,')
@@ -90,7 +91,7 @@ test('Logout success', async ({ page }) => {
     //  await page.pause();
     await page.locator('#profile').getByRole('paragraph').getByText('log in').click();
 
-    await page.getByPlaceholder('enter your e-mail address').fill(mail);
+    await page.getByPlaceholder('enter your e-mail address').fill(email);
     await page.getByRole('button', { name: 'Log in' }).click();
     await page.getByPlaceholder('8 char. +1 symbol, number,').fill(password);
     await page.getByRole('button', { name: 'Log in' }).click();

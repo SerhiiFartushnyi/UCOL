@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-const config = require('./config');
-const randomEmail = faker.internet.email();
+
 
 /*
 BEFOERE RUNING THE TESTS
@@ -68,7 +67,7 @@ test('Sign Up >> No Verification code', async ({ page }) => {
     await page.getByRole('button', { name: 'Next' }).click();
 
     // Check Popup to be visible
-    await expect(page.getByText('Enter your name')).toBeVisible();
+    await expect(page.getByText('Enter your name')).toBeVisible({timeout: 10000});
 
     // Fill the User Full Name
     await page.getByPlaceholder('enter your first name').click();

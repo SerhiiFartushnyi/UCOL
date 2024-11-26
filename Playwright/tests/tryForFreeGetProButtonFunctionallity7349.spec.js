@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-const config = require('./config');
+import { login } from '../login';
+require('dotenv').config();
 
 /*
 BEFOERE RUNING THE TESTS
@@ -38,7 +39,6 @@ test('Get Pro button', async ({ page }) => {
     await textLocator.scrollIntoViewIfNeeded();
 
     //Click on the 'Get Pro' button
-   
     await page.getByText('get pro').click();
 
     // Check Login Text

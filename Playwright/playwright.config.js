@@ -1,5 +1,6 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
+require('dotenv').config();
 
 /**
  * Read environment variables from file.
@@ -39,7 +40,8 @@ module.exports = defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
 
-    baseURL: 'https://coolab.ai/',
+    //baseURL: 'https://coolab.ai/',
+    baseURL: process.env.BASE_URL,
 
     //baseURL: 'https://ucl-coolab-dev.uk.r.appspot.com/',
 

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-const config = require('./config');
+require('dotenv').config();
 
 /*
 BEFOERE RUNING THE TESTS
@@ -10,8 +10,8 @@ RUN npx playwright test tests/loginUcol.spec.js
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-const email = config.mail;
-const password = config.password;
+const email = process.env.EMAIL;
+const password = process.env.PASSWORD;
 
 //Reset Password >> Direct click wo entering email
 test('Reset Password >> Direct click wo entering email', async ({ page }) => {
@@ -58,6 +58,8 @@ test('Reset Password >> Direct click wo entering email', async ({ page }) => {
 
     // Navigate to the password reset link
     await page.goto(resetLink);
+
+    await page.waitForSelector('#reset-password-modal');
     
     // Complete the password reset process
     await page.getByPlaceholder('New password').fill(password);

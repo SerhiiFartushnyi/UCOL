@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-const config = require('./config');
+
 
 /*
 BEFOERE RUNING THE TESTS
@@ -10,8 +10,7 @@ RUN npx playwright test tests/loginUcol.spec.js
 // Use the saved authentication state
 test.use({ storageState: 'auth.json' });
 
-const mail = config.mail;
-const password = config.password;
+
 
 // Login Button Functionality
 test('Login button', async ({ page }) => {

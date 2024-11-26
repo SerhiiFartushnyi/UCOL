@@ -1,8 +1,12 @@
-import config from './config';
+import { request } from '@playwright/test';
+require('dotenv').config();
+
+// Login to the site 
 
 export async function login(page, email, password) {
-  await page.goto(`${config.baseUrl}/modal/log-in/`);
-
+  // Step 1: Load the login page and extract CSRF token
+  await page.goto(`${process.env.BASE_URL}/modal/log-in/`);
+  
   // Wait for CSRF token to be available
   const csrfToken = await page.getAttribute('input[name="csrfmiddlewaretoken"]', 'value');
   if (!csrfToken) {
@@ -10,11 +14,11 @@ export async function login(page, email, password) {
   }
 
   // Step 2: Send the pre-login request with extracted CSRF token
-  const preLoginResponse = await page.request.post(`${config.baseUrl}/modal/log-in/`, {
+  const preLoginResponse = await page.request.post(`${process.env.BASE_URL}/modal/log-in/`, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Referer': `${config.baseUrl}/modal/log-in/`,
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36`
+      'Referer': `${process.env.BASE_URL}/modal/log-in/`,
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
     },
     form: {
       csrfmiddlewaretoken: csrfToken,
@@ -23,19 +27,16 @@ export async function login(page, email, password) {
     }
   });
 
-  // Log pre-login response details for debugging
-  const preLoginBody = await preLoginResponse.text();
-
   if (!preLoginResponse.ok()) {
     throw new Error('Pre-login request failed');
   }
 
   // Step 3: Send the final login request
-  const loginResponse = await page.request.post(`${config.baseUrl}/modal/log-in/`, {
+  const loginResponse = await page.request.post(`${process.env.BASE_URL}/modal/log-in/`, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Referer': `${config.baseUrl}/modal/log-in/`,
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36`
+      'Referer': `${process.env.BASE_URL}/modal/log-in/`,
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
     },
     form: {
       csrfmiddlewaretoken: csrfToken,
@@ -48,6 +49,4 @@ export async function login(page, email, password) {
   if (!loginResponse.ok()) {
     throw new Error('Login request failed');
   }
-
-  return loginResponse;
 }
