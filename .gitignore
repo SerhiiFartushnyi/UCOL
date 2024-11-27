@@ -5,7 +5,6 @@ Playwright/test-results/
 Playwright/tests-examples/**/*
 Playwright/downloads/
 Playwright/.env
-Playwright/.env
 .DS_Store
 .gitconfig
 .gitignore
