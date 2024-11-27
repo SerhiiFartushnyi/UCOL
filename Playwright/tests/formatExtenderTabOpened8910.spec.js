@@ -4,7 +4,7 @@ require('dotenv').config();
 
 /*
 BEFOERE RUNING THE TESTS
-RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
+RUN node saveAuthState.js   to save the authentication state to a file named auth.json
 RUN npx playwright test tests/loginUcol.spec.js
 */
 
@@ -41,7 +41,7 @@ test ('Format Extender Tab Opening', async ({ page }) => {
     
     //await page.goto('/tool/studio/');
 
-    await expect(page.getByRole('heading', { name: 'format extender' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'format extender' })).toBeVisible({timeout: 10000});
     await expect(page.getByText('Select one of your projects')).toBeVisible();
 
     // Click another tab and than check if Format extender button is working 

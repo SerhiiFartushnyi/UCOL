@@ -5,7 +5,7 @@ require('dotenv').config();
 
 /*
 BEFOERE RUNING THE TESTS
-RUN node tests/saveAuthState.js   to save the authentication state to a file named auth.json
+RUN node saveAuthState.js   to save the authentication state to a file named auth.json
 RUN npx playwright test tests/loginUcol.spec.js
 */
 

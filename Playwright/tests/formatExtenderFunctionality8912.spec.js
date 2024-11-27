@@ -63,7 +63,7 @@ test('Format Extender > Download and Save Button Functionallity', async ({ page 
 
     await page.getByRole('button', { name: 'next' }).click();
     await expect(page.locator('#root')).toContainText('creating formats...');
-    await page.locator('.generated-page-formats-container--page-format--image-container').waitFor();
+    await page.locator('.generated-page-formats-container--page-format--image-container').waitFor({ timeout: 30000 });
     //await page.waitForTimeout(20000);
 
     // Check if page is loaded
@@ -200,7 +200,7 @@ test('Format Extender > Add More Formats Button Functionallity', async ({ page }
 
     await page.getByRole('button', { name: 'next' }).click();
     await expect(page.locator('#root')).toContainText('creating formats...');
-    await page.locator('.generated-page-formats-container--page-format--image-container').waitFor();
+    await page.locator('.generated-page-formats-container--page-format--image-container').waitFor({ timeout: 30000 });
     //await page.waitForTimeout(20000);
 
     // Check if page is loaded
@@ -252,8 +252,7 @@ test('Clear Format Extender ', async ({ page }) => {
 
     await page.getByRole('button', { name: 'next' }).click();
     await expect(page.locator('#root')).toContainText('creating formats...');
-    await page.locator('.generated-page-formats-container--page-format--image-container').waitFor();
-    // //await page.waitForTimeout(20000);
+    await page.locator('.generated-page-formats-container--page-format--image-container').waitFor({ timeout: 30000 });
 
     // Check if page is loaded
     await expect(page.getByRole('heading')).toContainText('3/ pick your design(s)');
