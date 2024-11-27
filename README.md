@@ -1,6 +1,6 @@
-# Playwright Project Setup and Usage Guide
+#   Playwright Project Setup and Usage Guide
 
-## Prerequisites
+##  Prerequisites
 
 1. Install Node.js:
 
@@ -8,7 +8,7 @@
 
 ## Installation Steps
 
-### 1. Clone the Project
+### 1.  Clone the Project
 
 Clone the repository to your preferred folder:
 
@@ -17,7 +17,7 @@ git clone <repository-url>
 cd <repository-folder>
 ```
 
-### 2   Navigate to the Playwright Folder
+### 2.   Navigate to the Playwright Folder
 
 ```bash
 cd Playwright
