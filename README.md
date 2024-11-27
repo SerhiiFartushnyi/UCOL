@@ -6,6 +6,10 @@
 
    - Follow the Node.js Installation Guide
 
+2. Install VSCode (or other )
+
+  - Visit https://code.visualstudio.com/download 
+
 ## Installation Steps
 
 ### 1.  Clone the Project
@@ -53,10 +57,9 @@ npm i dotenv --save-dev --force
 
 ### 7. Setting Up VS Code
 
-1.	Install Visual Studio Code.
-2.	Install the Playwright plugin for VS Code:
+1.	Install Visual Studio Code. ( Optional )
+2.	Install the Playwright plugin for VS Code: ( Optional )
 
-Playwright Plugin for VS Code
 
 ### 8. Configuration
 
