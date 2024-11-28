@@ -84,7 +84,7 @@ node saveAuthState.js
 	
 	•	In the C5654 file, update the path to the file you want to upload.
 	
-	•	In the C7394 file, replace the random email with your existing email address for the signup process.
+	•	In the C1837 file, replace the random email with your existing email address for the signup process.
 	
 
 4.	Set Base URL
