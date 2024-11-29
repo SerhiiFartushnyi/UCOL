@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-
+require('dotenv').config();
 
 /*
 BEFOERE RUNING THE TESTS
@@ -9,6 +9,7 @@ RUN npx playwright test tests/loginUcol.spec.js
 */
 
 test.use({ storageState: 'auth.json' });
+const password = process.env.PASSWORD;
 
 test('Sign Up Wrong Email', async ({ page }) => {
     await page.goto('/');
@@ -41,9 +42,9 @@ test('Sign Up Passwords Does not match ', async ({ page }) => {
     await page.getByPlaceholder('enter your e-mail address').click();
     await page.getByPlaceholder('enter your e-mail address').fill('far2shok@test.com');
     await page.getByPlaceholder('8 char. +1 symbol, number,').click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').fill('Qwert1234!');
+    await page.getByPlaceholder('8 char. +1 symbol, number,').fill('P@ss1234!');
     await page.getByPlaceholder('confirm your password').click();
-    await page.getByPlaceholder('confirm your password').fill('Qwert12345!');
+    await page.getByPlaceholder('confirm your password').fill('P@ss12345!');
     await page.getByRole('button', { name: 'Next' }).click();
 
     // Passwords do not match error
@@ -93,7 +94,8 @@ test.skip('Sign Up With Gmail', async ({ page }) => {
 
     const randomName = faker.person.firstName();
     const randomSurname = faker.person.lastName();
-    const randomEmail = `serhii.fartushnyi+${Math.floor(Math.random() * 10000)}@coaxsoft.com`;
+    // Fill Fields below with your own data
+    const randomEmail = `firstName.LastName+${Math.floor(Math.random() * 10000)}@yourmail.com`;
 
     await page.goto('/');
 
@@ -102,9 +104,9 @@ test.skip('Sign Up With Gmail', async ({ page }) => {
     await page.getByPlaceholder('enter your e-mail address').fill(randomEmail);
 
     await page.getByPlaceholder('8 char. +1 symbol, number,').click();
-    await page.getByPlaceholder('8 char. +1 symbol, number,').fill('Qwert1234!');
+    await page.getByPlaceholder('8 char. +1 symbol, number,').fill(password);
     await page.getByPlaceholder('confirm your password').click();
-    await page.getByPlaceholder('confirm your password').fill('Qwert1234!');
+    await page.getByPlaceholder('confirm your password').fill(password);
     await page.getByRole('button', { name: 'Next' }).click();
 
     // Check Popup to be visible
